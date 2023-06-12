@@ -7,6 +7,10 @@ android {
     namespace 'com.agmobiletech.drivetogether'
     compileSdk 33
 
+    buildFeatures {
+        viewBinding = true
+    }
+
     defaultConfig {
         applicationId "com.agmobiletech.drivetogether"
         minSdk 28
