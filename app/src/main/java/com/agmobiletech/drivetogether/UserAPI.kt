@@ -1,0 +1,29 @@
+package com.agmobiletech.drivetogether
+
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Response
+import retrofit2.http.*
+import com.google.gson.JsonObject
+
+interface UserAPI{
+
+    @POST("postSelect/")
+    @FormUrlEncoded
+    fun select(@Field("query") query: String): Call<JsonObject>
+
+    @POST("postUpdate/")
+    @FormUrlEncoded
+    fun update(@Field("query") query: String): Call <JsonUser>
+
+    @POST("postRemove/")
+    @FormUrlEncoded
+    fun remove(@Field("query") query: String): Call <JsonUser>
+
+    @POST("postInsert/")
+    @FormUrlEncoded
+    fun insert(@Field("query") query: String): Call<JsonUser>
+
+    @GET
+    fun image(@Url url: String) : Call <ResponseBody>
+}
