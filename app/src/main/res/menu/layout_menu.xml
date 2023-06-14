@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homepageMenuItem"
+        android:icon="@drawable/homemenu"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/profiloMenuItem"
+        android:icon="@drawable/profilomenu"
+        android:title="Profilo" />
+
+    <item
+        android:id="@+id/inserimentoMenuItem"
+        android:icon="@drawable/inseriscimenu"
+        android:title="Inserisci" />
+
+    <item
+        android:id="@+id/autoMenuItem"
+        android:icon="@drawable/automenu"
+        android:title="Auto" />
+</menu>

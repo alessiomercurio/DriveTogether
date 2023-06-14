@@ -2,7 +2,6 @@ package com.agmobiletech.drivetogether
 
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.Window
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -43,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.nuovoUtenteLoginText.setOnClickListener(){
-            //portare alla pagina
+            //portare alla homepage
 
         }
     }
