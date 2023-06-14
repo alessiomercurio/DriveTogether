@@ -43,6 +43,7 @@ class LoginActivity : AppCompatActivity() {
 
         binding.nuovoUtenteLoginText.setOnClickListener(){
             //portare alla homepage
+            //nella homepage richiedere autorizzazione per la posizione
 
         }
     }
