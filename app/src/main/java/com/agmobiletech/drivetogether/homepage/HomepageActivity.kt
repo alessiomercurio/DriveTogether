@@ -1,4 +1,4 @@
-package com.agmobiletech.drivetogether
+package com.agmobiletech.drivetogether.homepage
 
 import androidx.appcompat.app.AppCompatActivity
 
