@@ -58,10 +58,4 @@ dependencies {
     implementation group: 'com.squareup.retrofit2', name: 'converter-protobuf', version: '2.3.0'
     implementation group: 'com.squareup.retrofit2', name: 'converter-wire', version: '2.3.0'
     implementation group: 'com.squareup.retrofit2', name: 'converter-simplexml', version: '2.3.0'
-    //mappe open street map
-    implementation 'org.osmdroid:osmdroid-android:<1.0.0>'
-}
-
-repositories {
-    mavenCentral()
 }
