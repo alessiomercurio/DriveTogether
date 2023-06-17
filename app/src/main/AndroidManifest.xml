@@ -29,19 +29,19 @@
         <activity
             android:name=".registrazione.RegistrazionePrimaActivity"
             android:screenOrientation="portrait"
-            android:exported="true">
+            android:exported="false">
         </activity>
 
         <activity
             android:name=".registrazione.RegistrazioneSecondaActivity"
             android:screenOrientation="portrait"
-            android:exported="true">
+            android:exported="false">
         </activity>
 
         <activity
             android:name=".registrazione.RegistrazioneCompletataActivity"
             android:screenOrientation="portrait"
-            android:exported="true">
+            android:exported="false">
         </activity>
 
         <meta-data

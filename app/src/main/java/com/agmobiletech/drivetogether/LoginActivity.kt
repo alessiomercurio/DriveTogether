@@ -1,5 +1,6 @@
 package com.agmobiletech.drivetogether
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.Window
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.agmobiletech.drivetogether.databinding.ActivityLoginBinding
+import com.agmobiletech.drivetogether.registrazione.RegistrazionePrimaActivity
 import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -44,7 +46,8 @@ class LoginActivity : AppCompatActivity() {
         binding.nuovoUtenteLoginText.setOnClickListener(){
             //portare alla homepage
             //nella homepage richiedere autorizzazione per la posizione
-
+            val intent = Intent(this, RegistrazionePrimaActivity::class.java)
+            startActivity(intent)
         }
     }
 

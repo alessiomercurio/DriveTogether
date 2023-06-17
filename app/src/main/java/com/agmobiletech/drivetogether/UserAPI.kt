@@ -22,7 +22,7 @@ interface UserAPI{
 
     @POST("postInsert/")
     @FormUrlEncoded
-    fun insert(@Field("query") query: String): Call<JsonUser>
+    fun insert(@Field("query") query: String): Call<JsonObject>
 
     @GET
     fun image(@Url url: String) : Call <ResponseBody>

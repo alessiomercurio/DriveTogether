@@ -121,7 +121,7 @@
                     app:srcCompat="@drawable/t" />
 
                 <EditText
-                    android:id="@+id/cognomeTextTextPersonName"
+                    android:id="@+id/cognomeRegistrazionePlainText"
                     android:layout_width="220dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="10dp"
@@ -155,7 +155,7 @@
                     android:layout_marginLeft="10dp"
                     android:background="@null"
                     android:ems="10"
-                    android:hint="Data di nascita"
+                    android:hint="Data di nascita yyyy/mm/dd"
                     android:inputType="date" />
             </LinearLayout>
 
