@@ -14,7 +14,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
-class HomepageActivity : AppCompatActivity(), OnMapReadyCallback {
+class HomepageActivity : AppCompatActivity() {
     lateinit var binding: ActivityHomepageBinding
 
     private lateinit var mapView: MapView
@@ -26,7 +26,7 @@ class HomepageActivity : AppCompatActivity(), OnMapReadyCallback {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(binding.root)
 
-        // Imposta il bordo personalizzato sulla MapView
+        /* // Imposta il bordo personalizzato sulla MapView
         val customBorderDrawable = ContextCompat.getDrawable(this, R.drawable.border_map)
         binding.mapView.background = customBorderDrawable
 
@@ -66,6 +66,6 @@ class HomepageActivity : AppCompatActivity(), OnMapReadyCallback {
         googleMap.addMarker(MarkerOptions().position(location).title("Marker"))
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 12f))
     }
-
-
+*/
+    }
 }

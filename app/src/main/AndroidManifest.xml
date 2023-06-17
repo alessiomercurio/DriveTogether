@@ -33,6 +33,12 @@
         </activity>
 
         <activity
+            android:name=".homepage.HomepageActivity"
+            android:screenOrientation="portrait"
+            android:exported="false">
+        </activity>
+
+        <activity
             android:name=".registrazione.RegistrazioneSecondaActivity"
             android:screenOrientation="portrait"
             android:exported="false">
