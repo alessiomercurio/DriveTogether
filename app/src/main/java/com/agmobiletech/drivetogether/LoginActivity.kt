@@ -18,7 +18,7 @@ import java.io.File
 class LoginActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityLoginBinding
-    private var nomeFileCredenziali = "credenziali.txt"
+    var nomeFileCredenziali = "credenziali.txt"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,7 +69,7 @@ class LoginActivity : AppCompatActivity() {
                                 Toast.makeText(this@LoginActivity, "Credenziali giuste", Toast.LENGTH_LONG).show()
                                 val email = binding.mailTextLogin.text.toString()
                                 val password = binding.passwLoginText.text.toString()
-                                val fileContents = "$email\n$password"
+                                val fileContents = "email: $email, password: $password"
                                 this@LoginActivity.openFileOutput(nomeFileCredenziali, Context.MODE_PRIVATE).use { output ->
                                     output.write(fileContents.toByteArray())
                                 }
