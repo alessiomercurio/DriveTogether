@@ -1,31 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/RegistrazioneLinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:background="@drawable/registrazione_1"
     android:gravity="center"
     android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/linearLayout"
+        app:cornerRadius="50dp"
         android:layout_width="350dp"
-        android:layout_height="450dp"
-        android:layout_marginTop="340dp"
+        android:layout_height="600dp"
         android:background="@drawable/custom_border"
         android:backgroundTint="#FFFFFF"
         android:gravity="center"
-        android:orientation="vertical"
-        app:cornerRadius="50dp">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="left"
             android:orientation="vertical">
 
             <LinearLayout
@@ -38,24 +31,24 @@
 
                 <ImageView
                     android:id="@+id/imageView4"
+                    app:srcCompat="@drawable/email"
                     android:layout_width="30dp"
                     android:layout_height="20dp"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/email" />
+                    android:layout_weight="1" />
 
                 <EditText
                     android:id="@+id/targaMacchinaPlainText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="199dp"
                     android:layout_width="220dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="10dp"
                     android:background="@null"
                     android:ems="10"
-                    android:hint="Email"
-                    android:inputType="textEmailAddress"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    tools:layout_editor_absoluteY="199dp" />
+                    android:hint="Targa"
+                    android:inputType="text" />
             </LinearLayout>
 
             <LinearLayout
@@ -69,23 +62,23 @@
 
                 <ImageView
                     android:id="@+id/imageView"
+                    app:srcCompat="@drawable/t"
                     android:layout_width="30dp"
                     android:layout_height="20dp"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/t" />
+                    android:layout_weight="1" />
 
                 <EditText
                     android:id="@+id/marcaMacchinaPlainText"
+                    tools:layout_editor_absoluteX="123dp"
+                    tools:layout_editor_absoluteY="266dp"
                     android:layout_width="220dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="10dp"
                     android:background="@null"
                     android:ems="10"
-                    android:hint="Nome"
-                    android:inputType="textPersonName"
-                    tools:layout_editor_absoluteX="123dp"
-                    tools:layout_editor_absoluteY="266dp" />
+                    android:hint="Marca"
+                    android:inputType="text" />
             </LinearLayout>
 
             <LinearLayout
@@ -99,11 +92,11 @@
 
                 <ImageView
                     android:id="@+id/imageView5"
+                    app:srcCompat="@drawable/t"
                     android:layout_width="30dp"
                     android:layout_height="20dp"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/t" />
+                    android:layout_weight="1" />
 
                 <EditText
                     android:id="@+id/modelloMacchinaPlainText"
@@ -112,8 +105,8 @@
                     android:layout_marginLeft="10dp"
                     android:background="@null"
                     android:ems="10"
-                    android:hint="Cognome"
-                    android:inputType="textPersonName" />
+                    android:hint="Modello"
+                    android:inputType="text" />
 
             </LinearLayout>
 
@@ -127,11 +120,11 @@
 
                 <ImageView
                     android:id="@+id/imageView7"
+                    app:srcCompat="@drawable/calendar"
                     android:layout_width="30dp"
                     android:layout_height="20dp"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/calendar" />
+                    android:layout_weight="1" />
 
                 <EditText
                     android:id="@+id/numeroPostiMacchinaPlainText"
@@ -140,21 +133,73 @@
                     android:layout_marginLeft="10dp"
                     android:background="@null"
                     android:ems="10"
-                    android:hint="Data di nascita yyyy/mm/dd"
-                    android:inputType="date" />
+                    android:hint="Numero posti"
+                    android:inputType="number" />
             </LinearLayout>
 
-            <Button
-                android:id="@+id/registrazioneButton"
-                android:layout_width="270dp"
-                android:layout_height="70dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
-                android:backgroundTint="#064F51"
-                android:text="Avanti"
-                app:cornerRadius="50dp" />
+                android:background="@drawable/custom_border"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView8"
+                    app:srcCompat="@drawable/calendar"
+                    android:layout_width="30dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1" />
+
+                <EditText
+                    android:id="@+id/prezzoMacchinaPlainText"
+                    android:layout_width="220dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null"
+                    android:ems="10"
+                    android:hint="Prezzo"
+                    android:inputType="number" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/custom_border"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView9"
+                    app:srcCompat="@drawable/calendar"
+                    android:layout_width="30dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1" />
+
+                <EditText
+                    android:id="@+id/posizioneMacchina"
+                    android:layout_width="220dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null"
+                    android:ems="10"
+                    android:hint="Posizione della macchina"
+                    android:inputType="number" />
+            </LinearLayout>
 
         </LinearLayout>
-    </LinearLayout>
 
-</LinearLayout>
+        <Button
+            android:id="@+id/registrazioneButton"
+            app:cornerRadius="50dp"
+            android:layout_width="270dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="#064F51"
+            android:text="Avanti" />
+    </LinearLayout>
