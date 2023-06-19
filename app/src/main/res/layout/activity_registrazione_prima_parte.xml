@@ -45,7 +45,7 @@
                     app:srcCompat="@drawable/email" />
 
                 <EditText
-                    android:id="@+id/targaMacchinaPlainText"
+                    android:id="@+id/emailRegistrazionePlainText"
                     android:layout_width="220dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="10dp"
@@ -76,7 +76,7 @@
                     app:srcCompat="@drawable/t" />
 
                 <EditText
-                    android:id="@+id/marcaMacchinaPlainText"
+                    android:id="@+id/nomeRegistrazionePlainText"
                     android:layout_width="220dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="10dp"
@@ -106,7 +106,7 @@
                     app:srcCompat="@drawable/t" />
 
                 <EditText
-                    android:id="@+id/modelloMacchinaPlainText"
+                    android:id="@+id/cognomeRegistrazionePlainText"
                     android:layout_width="220dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="10dp"
@@ -134,7 +134,7 @@
                     app:srcCompat="@drawable/calendar" />
 
                 <EditText
-                    android:id="@+id/numeroPostiMacchinaPlainText"
+                    android:id="@+id/dataEditText"
                     android:layout_width="220dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="10dp"

@@ -38,7 +38,7 @@
                     android:layout_weight="1" />
 
                 <EditText
-                    android:id="@+id/targaMacchinaPlainText"
+                    android:id="@+id/emailRegistrazionePlainText"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     tools:layout_editor_absoluteY="199dp"
@@ -69,7 +69,7 @@
                     android:layout_weight="1" />
 
                 <EditText
-                    android:id="@+id/marcaMacchinaPlainText"
+                    android:id="@+id/nomeRegistrazionePlainText"
                     tools:layout_editor_absoluteX="123dp"
                     tools:layout_editor_absoluteY="266dp"
                     android:layout_width="220dp"
@@ -99,7 +99,7 @@
                     android:layout_weight="1" />
 
                 <EditText
-                    android:id="@+id/modelloMacchinaPlainText"
+                    android:id="@+id/cognomeRegistrazionePlainText"
                     android:layout_width="220dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="10dp"
@@ -127,7 +127,7 @@
                     android:layout_weight="1" />
 
                 <EditText
-                    android:id="@+id/numeroPostiMacchinaPlainText"
+                    android:id="@+id/dataEditText"
                     android:layout_width="220dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="10dp"
