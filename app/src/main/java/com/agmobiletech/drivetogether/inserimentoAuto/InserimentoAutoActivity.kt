@@ -26,11 +26,15 @@ class InserimentoAutoActivity : AppCompatActivity(){
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(binding.root)
 
+        //seleziono la navbar prendendo l'id
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationBar)
+        //rendo "selezionato" l'elemento che clicco, in questo caso l'item di inserimento di una macchina
         bottomNavigationView.selectedItemId = R.id.inserimentoMenuItem
+        //cambio activity
         navigationManager = BottomNavigationManager(this, bottomNavigationView)
 
         binding.confermaInserimentoAutoButton.setOnClickListener{
+            //se i campi sono vuoti verrò notificato all'utente, tramite un toast, l'errore
             if(binding.targaPlainText.text.trim().isEmpty() || binding.marcaPlainText.text.trim().isEmpty() ||
                 binding.modelloPlainText.text.trim().isEmpty() || binding.numeroPostiPlainText.text.trim().isEmpty() ||
                 binding.prezzoPlainText.text.trim().isEmpty() || binding.posizionePlainText.text.trim().isEmpty())
