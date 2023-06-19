@@ -67,8 +67,8 @@ class LoginActivity : AppCompatActivity() {
                             if(obj?.size() != 0 && obj?.get(0)?.asJsonObject?.get("email")?.equals("null") == false){
                                 // cambiamo activity e salviamo le credenziali
                                 Toast.makeText(this@LoginActivity, "Credenziali giuste", Toast.LENGTH_LONG).show()
-                                val email = binding.mailTextLogin.text.toString()
-                                val password = binding.passwLoginText.text.toString()
+                                val email = binding.mailTextLogin.text.toString().trim()
+                                val password = binding.passwLoginText.text.toString().trim()
                                 val fileContents = "email: $email, password: $password"
                                 this@LoginActivity.openFileOutput(nomeFileCredenziali, Context.MODE_PRIVATE).use { output ->
                                     output.write(fileContents.toByteArray())
