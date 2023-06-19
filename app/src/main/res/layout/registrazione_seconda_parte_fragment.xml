@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="left"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/custom_border"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView"
+                app:srcCompat="@drawable/telefono"
+                android:layout_width="30dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_weight="1" />
+
+            <EditText
+                android:id="@+id/telefonoRegistrazioneText"
+                tools:layout_editor_absoluteX="123dp"
+                tools:layout_editor_absoluteY="266dp"
+                android:layout_width="220dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:background="@null"
+                android:ems="10"
+                android:hint="Telefono"
+                android:inputType="number" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/custom_border"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView5"
+                app:srcCompat="@drawable/t"
+                android:layout_width="30dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_weight="1" />
+
+            <EditText
+                android:id="@+id/creditoRegistrazioneText"
+                android:layout_width="220dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:background="@null"
+                android:ems="10"
+                android:hint="Carta di credito"
+                android:inputType="number" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/custom_border"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView7"
+                app:srcCompat="@drawable/key"
+                android:layout_width="30dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_weight="1" />
+
+            <EditText
+                android:id="@+id/passwordRegistrazioneText"
+                android:layout_width="220dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:background="@null"
+                android:ems="10"
+                android:hint="Password"
+                android:inputType="text" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/confermaRegistrazioneButton"
+            app:cornerRadius="50dp"
+            android:layout_width="270dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="#064F51"
+            android:text="conferma" />
+
+    </LinearLayout>
+</FrameLayout>

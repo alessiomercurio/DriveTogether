@@ -21,19 +21,19 @@
             android:text="Registrazione"
             android:textAllCaps="true"
             android:textColor="#FFFFFF"
-            android:textSize="34sp" />
+            android:textSize="36sp" />
 
         <TextView
             android:id="@+id/registrazioneCompletataTitle2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
             android:fontFamily="@font/roboto_bold"
             android:gravity="right"
             android:text="completata"
             android:textAllCaps="true"
-            android:textSize="34sp" />
+            android:textSize="36sp" />
     </LinearLayout>
 
     <LinearLayout
