@@ -18,7 +18,7 @@ class RegistrazioneCompletataActivity : AppCompatActivity() {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(binding.root)
 
-        var fileContents = "login confermato"
+        var fileContents = "email: ${intent.extras?.getString("email")}, password: ${intent.extras?.getString("passw")}"
 
         /*
         * Visto che andiamo poi alla homepage a fine registrazione,

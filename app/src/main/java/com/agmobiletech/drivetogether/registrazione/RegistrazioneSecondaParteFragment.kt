@@ -20,8 +20,9 @@ import retrofit2.Response
 
 class RegistrazioneSecondaParteFragment : Fragment(R.layout.registrazione_seconda_parte_fragment) {
 
-  lateinit var binding: RegistrazioneSecondaParteFragmentBinding
-  private val TAG = "Fragment 2"
+    lateinit var binding: RegistrazioneSecondaParteFragmentBinding
+    private val TAG = "Fragment 2"
+    var email : String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,7 +32,7 @@ class RegistrazioneSecondaParteFragment : Fragment(R.layout.registrazione_second
         binding = RegistrazioneSecondaParteFragmentBinding.inflate(inflater)
 
         // recuperiamo i campi da inserire nella query
-        val email = arguments?.getString("email")
+        email = arguments?.getString("email")
         val nome = arguments?.getString("nome")
         val cognome = arguments?.getString("cognome")
         val data = arguments?.getString("data")
@@ -81,6 +82,8 @@ class RegistrazioneSecondaParteFragment : Fragment(R.layout.registrazione_second
                     System.out.println(query)
                     if(response.isSuccessful){
                         val i = Intent(this@RegistrazioneSecondaParteFragment.requireContext(), RegistrazioneCompletataActivity::class.java)
+                        i.putExtra("email", email)
+                        i.putExtra("passw", binding.passwordRegistrazioneText.text.toString().trim())
                         startActivity(i)
                     }else{
                         Toast.makeText(
