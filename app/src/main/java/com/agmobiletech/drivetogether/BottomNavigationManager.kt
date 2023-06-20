@@ -6,6 +6,7 @@ import android.view.MenuItem
 import com.agmobiletech.drivetogether.homepage.HomepageActivity
 import com.agmobiletech.drivetogether.inserimentoAuto.InserimentoAutoActivity
 import com.agmobiletech.drivetogether.registrazione.RegistrazioneCompletataActivity
+import com.agmobiletech.drivetogether.visualizzazioneAuto.VisualizzazioneAutoActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class BottomNavigationManager(private val context: Context, private val bottomNavigationView: BottomNavigationView) {
@@ -31,7 +32,7 @@ class BottomNavigationManager(private val context: Context, private val bottomNa
                 true
             }
             R.id.autoMenuItem -> {
-                startActivity(RegistrazioneCompletataActivity::class.java)
+                startActivity(VisualizzazioneAutoActivity::class.java)
                 true
             }
             else -> false
