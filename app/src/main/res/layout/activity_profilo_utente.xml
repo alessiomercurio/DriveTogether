@@ -5,12 +5,23 @@
     android:id="@+id/profiloUtenteLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#064F51"
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/custom_border"
+        android:backgroundTint="#FFFFFF"
+        android:orientation="horizontal"
+        app:cornerRadius="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/imageView3"
@@ -19,25 +30,54 @@
             android:layout_weight="1"
             tools:srcCompat="@tools:sample/avatars" />
 
-        <TextView
-            android:id="@+id/textView3"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="TextView" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Nome" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Cognome" />
+        </LinearLayout>
+
     </LinearLayout>
 
-    <Button
-        android:id="@+id/logOutButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="240dp"
-        android:gravity="center"
-        android:text="Log out"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/custom_border"
+        android:backgroundTint="#FFFFFF"
+        android:orientation="vertical"
+        app:cornerRadius="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationBar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/logOutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="240dp"
+            android:gravity="center"
+            android:text="Log out" />
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationBar"
