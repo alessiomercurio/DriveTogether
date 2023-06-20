@@ -50,7 +50,6 @@
 
         <activity
             android:name=".visualizzazioneAuto.VisualizzazioneAutoActivity"
-            android:screenOrientation="portrait"
             android:exported="false">
         </activity>
 
