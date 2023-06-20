@@ -131,7 +131,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="left"
-                                android:text="[marca]"
+                                android:text="marca"
                                 android:textColor="#ffffff" />
                         </TableRow>
 
@@ -145,7 +145,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="[modello]"
+                                android:text="modello"
                                 android:textColor="#ffffff" />
                         </TableRow>
 
@@ -159,7 +159,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="left"
-                                android:text="[targa]"
+                                android:text="targa"
                                 android:textColor="#ffffff" />
                         </TableRow>
 

@@ -54,6 +54,7 @@ class InserimentoAutoActivity : AppCompatActivity(){
                 val localizzazione = binding.posizionePlainText.text.trim().toString()
                 val flagNoleggio = 0
                 val imgMarcaAuto = scegliImmagine(marca)
+                //bisogna inserire anche nella tabella possesso la Targa e l'email (presa dal file di testo "credenziali.txt")
                 val query =
                 "INSERT INTO Macchina(targa, marca, modello, numeroPosti, prezzo, localizzazione, flagNoleggio, imgMarcaAuto)\n" +
                         "values ('${targa}', '${marca}', '${modello}', '${numeroPosti}', '${prezzo}', '${localizzazione}', '${flagNoleggio}', '${imgMarcaAuto}')"
