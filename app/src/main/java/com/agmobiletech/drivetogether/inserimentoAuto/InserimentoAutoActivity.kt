@@ -35,12 +35,17 @@ class InserimentoAutoActivity : AppCompatActivity(){
 
         binding.confermaInserimentoAutoButton.setOnClickListener{
             //se i campi sono vuoti verrò notificato all'utente, tramite un toast, l'errore
-            if(binding.targaPlainText.text.trim().isEmpty() || binding.marcaPlainText.text.trim().isEmpty() ||
+            if (binding.targaPlainText.text.trim().isEmpty() || binding.marcaPlainText.text.trim().isEmpty() ||
                 binding.modelloPlainText.text.trim().isEmpty() || binding.numeroPostiPlainText.text.trim().isEmpty() ||
                 binding.prezzoPlainText.text.trim().isEmpty() || binding.posizionePlainText.text.trim().isEmpty())
             {
                     Toast.makeText(this@InserimentoAutoActivity, "Campi vuoti", Toast.LENGTH_LONG).show()
-            }else {
+            }else if (binding.numeroPostiPlainText.text.trim().toString().toInt() <= 1){
+                Toast.makeText(this@InserimentoAutoActivity, "Errore nell'inserimento del numero di posti", Toast.LENGTH_LONG).show()
+            }else if (binding.prezzoPlainText.text.trim().toString().toDouble() <= 0){
+                Toast.makeText(this@InserimentoAutoActivity, "Errore nell'inserimento del prezzo", Toast.LENGTH_LONG).show()
+            }
+            else {
                 val targa = binding.targaPlainText.text.trim().toString()
                 val marca = binding.marcaPlainText.text.trim().toString()
                 val modello = binding.modelloPlainText.text.trim().toString()
@@ -48,9 +53,10 @@ class InserimentoAutoActivity : AppCompatActivity(){
                 val prezzo = binding.prezzoPlainText.text.trim().toString().toDouble()
                 val localizzazione = binding.posizionePlainText.text.trim().toString()
                 val flagNoleggio = 0
+                val imgMarcaAuto = scegliImmagine(marca)
                 val query =
-                    "INSERT INTO Macchina(targa, marca, modello, numeroPosti, prezzo, localizzazione, flagNoleggio)\n" +
-                    "values ('${targa}', '${marca}', '${modello}', '${numeroPosti}', '${prezzo}', '${localizzazione}', '${flagNoleggio}')"
+                "INSERT INTO Macchina(targa, marca, modello, numeroPosti, prezzo, localizzazione, flagNoleggio, imgMarcaAuto)\n" +
+                        "values ('${targa}', '${marca}', '${modello}', '${numeroPosti}', '${prezzo}', '${localizzazione}', '${flagNoleggio}', '${imgMarcaAuto}')"
                 effettuaQuery(query)
             }
         }
@@ -84,5 +90,12 @@ class InserimentoAutoActivity : AppCompatActivity(){
                 }
             }
         )
+    }
+
+    fun scegliImmagine(marca : String) : String {
+        //data una marca, restuisce una stringa contentente il path, e quindi il campo immagine nel db,  relativo alla marca
+        val path = marca.lowercase()
+        
+        return "media/images/loghi/${path}.svg"
     }
 }
