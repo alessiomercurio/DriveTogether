@@ -39,7 +39,7 @@
         </activity>
 
         <activity
-            android:name=".ProfiloUtenteActivity"
+            android:name=".profiloUtente.ProfiloUtenteActivity"
             android:exported="false">
         </activity>
 

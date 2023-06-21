@@ -1,0 +1,121 @@
+package com.agmobiletech.drivetogether.profiloUtente
+
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import android.view.Window
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.agmobiletech.drivetogether.BottomNavigationManager
+import com.agmobiletech.drivetogether.ClientNetwork
+import com.agmobiletech.drivetogether.LoginActivity
+import com.agmobiletech.drivetogether.R
+import com.agmobiletech.drivetogether.databinding.ActivityProfiloUtenteBinding
+import com.agmobiletech.drivetogether.homepage.HomepageActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.gson.JsonObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.File
+
+
+class ProfiloUtenteActivity : AppCompatActivity() {
+    lateinit var binding: ActivityProfiloUtenteBinding
+    lateinit var navigationManager: BottomNavigationManager
+    var nomeFileCredenziali = "credenziali.txt"
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityProfiloUtenteBinding.inflate(layoutInflater)
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
+        setContentView(binding.root)
+
+        // Creiamo la navigation bar
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationBar)
+        bottomNavigationView.selectedItemId = R.id.profiloMenuItem
+        navigationManager = BottomNavigationManager(this, bottomNavigationView)
+
+        val credenziali = recuperaCredenziali()
+
+        val query =
+            "SELECT email, nome, cognome, dataNascita, telefono, cartaCredito, password, immagineProfilo from webmobile.Utente WHERE email = '${credenziali[0].trim()}' AND password = '${credenziali[1].trim()}'"
+        System.out.println(query)
+        recuperaProfilo(query)
+
+        // Listener sul button per effettuare il logout, eliminiamo il file che veniva utilizzato per
+        // ricordare l'utente. Ci riporta alla activity di login
+        binding.logOutButton.setOnClickListener{
+            val file = File(this.filesDir, nomeFileCredenziali)
+            file.delete()
+            Toast.makeText(this@ProfiloUtenteActivity,"Disconnessione avvenuta con succeso",Toast.LENGTH_LONG).show()
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
+
+    }
+
+    fun recuperaCredenziali() : Array<String>{
+        val text = File(this.filesDir, nomeFileCredenziali).readText()
+
+        val text_split = text.split(',')
+        val email = text_split[0].split(':')[1]
+        val password = text_split[1].split(':')[1]
+
+        return arrayOf(email, password)
+    }
+
+    fun recuperaProfilo(query : String){
+        var email = ""
+        var nome = ""
+        var cognome = ""
+        var dataNascita = ""
+        var telefono = ""
+        var cartaCredito = ""
+        var password = ""
+        var immagineProfilo = ""
+        ClientNetwork.retrofit.select(query).enqueue(
+            object : Callback<JsonObject> {
+                //
+                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                    if (response.isSuccessful) {
+                        System.out.println(response.body())
+                        if (response.body() != null) {
+                            val obj = response.body()?.getAsJsonArray("queryset")
+                            if(obj?.size() != 0 && obj?.get(0)?.asJsonObject?.get("email")?.equals("null") == false){
+                                email = obj.get(0).asJsonObject.get("email").toString()
+                                nome = obj.get(0).asJsonObject.get("nome").toString()
+                                cognome = obj.get(0).asJsonObject.get("cognome").toString()
+                                dataNascita = obj.get(0).asJsonObject.get("dataNascita").toString()
+                                telefono = obj.get(0).asJsonObject.get("telefono").toString()
+                                cartaCredito = obj.get(0).asJsonObject.get("cartaCredito").toString()
+                                password = obj.get(0).asJsonObject.get("password").toString()
+                                immagineProfilo = obj.get(0).asJsonObject.get("immagineProfilo").toString()
+
+                                binding.emailProfilo.text = email
+                                binding.nomeProfilo.text = nome
+                                binding.cognomeProfilo.text = cognome
+                                binding.dataNascitaProfilo.text = dataNascita
+                                binding.telefonoProfilo.text = telefono
+                                binding.cartaCreditoProfilo.text = cartaCredito
+                                binding.passwordProfilo.text = password
+
+                            }else{
+                                Toast.makeText(this@ProfiloUtenteActivity, "Credenziali errate", Toast.LENGTH_LONG).show()
+                            }
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    Toast.makeText(
+                        this@ProfiloUtenteActivity,
+                        "Errore del Database",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        )
+    }
+
+}
