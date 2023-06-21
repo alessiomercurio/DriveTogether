@@ -35,30 +35,31 @@ class VisualizzazioneAutoActivity : AppCompatActivity(){
 
         //bisogna selezionare tutte le entità della tabella Possesso
         //dove l'email dell'utente equivale a quella contenuta nel file "registrazione.txt"
-        val query = "SELECT * FROM Possesso"
+        val query = "SELECT * FROM Macchina"
         resituisciMacchine(query)
-
-        val data = ArrayList<ItemsViewModel>()
-        for (i in 1..20){
-            data.add(ItemsViewModel("{marca}", "{modello}", "{targa}", R.drawable.euro))
-        }
-        val adapter = CustomAdapter(data)
-        binding.recyclerView.adapter = adapter
-
     }
 
-    fun resituisciMacchine(query : String){
+    private fun resituisciMacchine(query : String){
         ClientNetwork.retrofit.select(query).enqueue(
             object : Callback<JsonObject> {
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                     if(response.isSuccessful){
                         if(response.body() != null){
                             val obj = response.body()?.getAsJsonArray("queryset")
-
-                            val marca = obj?.get(0)?.asJsonObject?.get("marca")
-                            val modello = obj?.get(0)?.asJsonObject?.get("modello")
-                            val targa = obj?.get(0)?.asJsonObject?.get("targa")
-                            val imgMarcaAuto = obj?.get(0)?.asJsonObject?.get("imgMarcaAuto")
+                            if(obj != null) {
+                                val data = ArrayList<ItemsViewModel>()
+                                for (i in 0 until obj.size()) {
+                                    val marca = obj[i].asJsonObject?.get("marca").toString()
+                                    val modello = obj[i].asJsonObject?.get("modello").toString()
+                                    val targa = obj[i].asJsonObject?.get("targa").toString()
+                                    val imgMarcaAuto = R.drawable.email
+                                    //obj?.get(0)?.asJsonObject?.get("imgMarcaAuto").toString() oppure Bitmap
+                                    data.add(ItemsViewModel(marca, modello, targa, imgMarcaAuto))
+                                }
+                                //sistemare l'errore E/RecyclerView: No adapter attached; skipping layout
+                                val adapter = CustomAdapter(data)
+                                binding.recyclerView.adapter = adapter
+                            }
                         }
                     }else{
                         Toast.makeText(this@VisualizzazioneAutoActivity, "Non hai inserito nessuna macchina", Toast.LENGTH_LONG).show()

@@ -8,10 +8,10 @@ import com.agmobiletech.drivetogether.databinding.CardViewLayoutBinding
 class CustomAdapter(private val mList: List<ItemsViewModel>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>(){
 
     class ViewHolder(binding : CardViewLayoutBinding) : RecyclerView.ViewHolder(binding.root){
-        val immagine = binding.immagineMarcaImageView
         val marca = binding.marcaDaInserire
         val modello = binding.modelloDaInserire
         val targa = binding.targaDaInserire
+        val immagine = binding.immagineMarcaImageView
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,10 +28,10 @@ class CustomAdapter(private val mList: List<ItemsViewModel>) : RecyclerView.Adap
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val ItemsViewModel = mList[position]
 
-        holder.immagine.setImageResource(ItemsViewModel.immagineMarca)
         holder.marca.setText(ItemsViewModel.marca)
         holder.modello.setText(ItemsViewModel.modello)
         holder.targa.setText(ItemsViewModel.targa)
+        holder.immagine.setImageResource(ItemsViewModel.immagineMarca)
     }
 
 }
