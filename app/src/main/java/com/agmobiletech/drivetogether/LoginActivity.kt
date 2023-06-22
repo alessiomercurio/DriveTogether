@@ -2,6 +2,7 @@ package com.agmobiletech.drivetogether
 
 import android.content.Intent
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Window
 import android.widget.Toast
@@ -18,13 +19,15 @@ import java.io.File
 class LoginActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityLoginBinding
-    var nomeFileCredenziali = "credenziali.txt"
+    lateinit var filePre : SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
-        val file = File(this.filesDir, nomeFileCredenziali)
-        if (file.exists() && file.readText().isNotEmpty()) {
+
+        filePre = this.getSharedPreferences("Credenziali", MODE_PRIVATE)
+
+        if (!filePre.getString("Email", "").equals("")) {
          //alla fase di logout, verranno eliminati email e password
             val intent = Intent(this, HomepageActivity::class.java)
             startActivity(intent)
@@ -69,10 +72,13 @@ class LoginActivity : AppCompatActivity() {
                                 Toast.makeText(this@LoginActivity, "Credenziali giuste", Toast.LENGTH_LONG).show()
                                 val email = binding.mailTextLogin.text.toString().trim()
                                 val password = binding.passwLoginText.text.toString().trim()
-                                val fileContents = "email: $email, password: $password"
-                                this@LoginActivity.openFileOutput(nomeFileCredenziali, Context.MODE_PRIVATE).use { output ->
-                                    output.write(fileContents.toByteArray())
-                                }
+
+                                filePre = this@LoginActivity.getSharedPreferences("Credenziali", Context.MODE_PRIVATE)
+                                val editor = filePre.edit()
+                                editor.putString("Email", email)
+                                editor.putString("Passw", password)
+                                editor.apply()
+
                                 val intent = Intent(this@LoginActivity, HomepageActivity::class.java)
                                 startActivity(intent)
                             }else{

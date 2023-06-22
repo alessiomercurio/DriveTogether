@@ -2,6 +2,7 @@ package com.agmobiletech.drivetogether.profiloUtente
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Window
 import android.widget.Toast
@@ -23,7 +24,7 @@ import java.io.File
 class ProfiloUtenteActivity : AppCompatActivity() {
     lateinit var binding: ActivityProfiloUtenteBinding
     lateinit var navigationManager: BottomNavigationManager
-    var nomeFileCredenziali = "credenziali.txt"
+    lateinit var filePre : SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,33 +37,24 @@ class ProfiloUtenteActivity : AppCompatActivity() {
         bottomNavigationView.selectedItemId = R.id.profiloMenuItem
         navigationManager = BottomNavigationManager(this, bottomNavigationView)
 
-        val credenziali = recuperaCredenziali()
+        filePre = this.getSharedPreferences("Credenziali", MODE_PRIVATE)
 
         val query =
-            "SELECT email, nome, cognome, dataNascita, telefono, cartaCredito, password, immagineProfilo from webmobile.Utente WHERE email = '${credenziali[0].trim()}' AND password = '${credenziali[1].trim()}'"
+            "SELECT email, nome, cognome, dataNascita, telefono, cartaCredito, password, immagineProfilo from webmobile.Utente WHERE email = '${filePre.getString("Email", "")}' AND password = '${filePre.getString("Passw", "")}'"
         System.out.println(query)
         recuperaProfilo(query)
 
         // Listener sul button per effettuare il logout, eliminiamo il file che veniva utilizzato per
         // ricordare l'utente. Ci riporta alla activity di login
         binding.logOutButton.setOnClickListener{
-            val file = File(this.filesDir, nomeFileCredenziali)
-            file.delete()
+            val editor = filePre.edit()
+            editor.clear()
+            editor.apply()
             Toast.makeText(this@ProfiloUtenteActivity,"Disconnessione avvenuta con succeso",Toast.LENGTH_LONG).show()
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
 
-    }
-
-    fun recuperaCredenziali() : Array<String>{
-        val text = File(this.filesDir, nomeFileCredenziali).readText()
-
-        val text_split = text.split(',')
-        val email = text_split[0].split(':')[1]
-        val password = text_split[1].split(':')[1]
-
-        return arrayOf(email, password)
     }
 
     fun recuperaProfilo(query : String){
