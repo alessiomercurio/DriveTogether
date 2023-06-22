@@ -49,6 +49,11 @@
         </activity>
 
         <activity
+            android:name=".profiloUtente.ModificaUtenteActivity"
+            android:exported="false">
+        </activity>
+
+        <activity
             android:name=".visualizzazioneAuto.VisualizzazioneAutoActivity"
             android:exported="false">
         </activity>

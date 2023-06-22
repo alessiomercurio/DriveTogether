@@ -41,7 +41,6 @@ class ProfiloUtenteActivity : AppCompatActivity() {
 
         val query =
             "SELECT email, nome, cognome, dataNascita, telefono, cartaCredito, password, immagineProfilo from webmobile.Utente WHERE email = '${filePre.getString("Email", "")}' AND password = '${filePre.getString("Passw", "")}'"
-        System.out.println(query)
         recuperaProfilo(query)
 
         // Listener sul button per effettuare il logout, eliminiamo il file che veniva utilizzato per
@@ -53,6 +52,19 @@ class ProfiloUtenteActivity : AppCompatActivity() {
             Toast.makeText(this@ProfiloUtenteActivity,"Disconnessione avvenuta con succeso",Toast.LENGTH_LONG).show()
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+        }
+
+        // On click per il bottone di modifica profilo
+        binding.modificaProfiloButton.setOnClickListener{
+            val i = Intent(this, ModificaUtenteActivity::class.java)
+            i.putExtra("Email", binding.emailProfilo.text.toString().trim())
+            i.putExtra("Nome", binding.nomeProfilo.text.toString().trim())
+            i.putExtra("Cognome", binding.cognomeProfilo.text.toString().trim())
+            i.putExtra("DataNascita", binding.dataNascitaProfilo.text.toString().trim())
+            i.putExtra("Telefono", binding.telefonoProfilo.text.toString().trim())
+            i.putExtra("cartaCredito", binding.cartaCreditoProfilo.text.toString().trim())
+            i.putExtra("Password", binding.passwordProfilo.text.toString().trim())
+            startActivity(i)
         }
 
     }
