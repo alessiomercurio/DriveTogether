@@ -2,6 +2,7 @@ package com.agmobiletech.drivetogether.registrazione
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
@@ -10,7 +11,7 @@ import com.agmobiletech.drivetogether.homepage.HomepageActivity
 
 class RegistrazioneCompletataActivity : AppCompatActivity() {
     lateinit var binding: ActivityRegistrazioneCompletataBinding
-    var nomeFileCredenziali = "credenziali.txt"
+    lateinit var filePre : SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,7 +19,7 @@ class RegistrazioneCompletataActivity : AppCompatActivity() {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(binding.root)
 
-        var fileContents = "email: ${intent.extras?.getString("email")}, password: ${intent.extras?.getString("passw")}"
+        filePre = this.getSharedPreferences("Credenziali", MODE_PRIVATE)
 
         /*
         * Visto che andiamo poi alla homepage a fine registrazione,
@@ -27,9 +28,10 @@ class RegistrazioneCompletataActivity : AppCompatActivity() {
         * di nuovo dalla pagina di login
         *
         * */
-        this@RegistrazioneCompletataActivity.openFileOutput(nomeFileCredenziali, Context.MODE_PRIVATE).use { output ->
-            output.write(fileContents.toByteArray())
-        }
+        val editor = filePre.edit()
+        editor.putString("Email", intent.extras?.getString("email"))
+        editor.putString("Passw", intent.extras?.getString("passw"))
+        editor.apply()
 
         // andiamo alla homepage
         binding.confermaRegistrazioneButton.setOnClickListener{
