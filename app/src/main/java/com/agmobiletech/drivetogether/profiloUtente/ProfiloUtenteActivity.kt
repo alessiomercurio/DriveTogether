@@ -83,14 +83,14 @@ class ProfiloUtenteActivity : AppCompatActivity() {
                         if (response.body() != null) {
                             val obj = response.body()?.getAsJsonArray("queryset")
                             if(obj?.size() != 0 && obj?.get(0)?.asJsonObject?.get("email")?.equals("null") == false){
-                                email = obj.get(0).asJsonObject.get("email").toString()
-                                nome = obj.get(0).asJsonObject.get("nome").toString()
-                                cognome = obj.get(0).asJsonObject.get("cognome").toString()
-                                dataNascita = obj.get(0).asJsonObject.get("dataNascita").toString()
-                                telefono = obj.get(0).asJsonObject.get("telefono").toString()
-                                cartaCredito = obj.get(0).asJsonObject.get("cartaCredito").toString()
-                                password = obj.get(0).asJsonObject.get("password").toString()
-                                immagineProfilo = obj.get(0).asJsonObject.get("immagineProfilo").toString()
+                                email = obj.get(0).asJsonObject.get("email").toString().replace("\"", "")
+                                nome = obj.get(0).asJsonObject.get("nome").toString().replace("\"", "")
+                                cognome = obj.get(0).asJsonObject.get("cognome").toString().replace("\"", "")
+                                dataNascita = obj.get(0).asJsonObject.get("dataNascita").toString().replace("\"", "")
+                                telefono = obj.get(0).asJsonObject.get("telefono").toString().replace("\"", "")
+                                cartaCredito = obj.get(0).asJsonObject.get("cartaCredito").toString().replace("\"", "")
+                                password = obj.get(0).asJsonObject.get("password").toString().replace("\"", "")
+                                immagineProfilo = obj.get(0).asJsonObject.get("immagineProfilo").toString().replace("\"", "")
 
                                 binding.emailProfilo.text = email
                                 binding.nomeProfilo.text = nome

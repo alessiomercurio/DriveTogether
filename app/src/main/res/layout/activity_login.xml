@@ -127,14 +127,14 @@
 
     </LinearLayout>
 
-    <TextView
+    <Button
         android:id="@+id/nuovoUtenteLoginText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="270dp"
+        android:layout_height="70dp"
         android:layout_gravity="center"
-        android:clickable="true"
-        android:fontFamily="@font/roboto_medium"
-        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="#064F51"
+        android:backgroundTintMode="add"
         android:text="Nuovo utente?"
-        android:textColor="#064F51" />
+        app:cornerRadius="50dp" />
 </LinearLayout>
