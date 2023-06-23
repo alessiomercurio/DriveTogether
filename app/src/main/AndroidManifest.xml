@@ -20,7 +20,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DriveTogether"
         tools:targetApi="31">
-        <activity
+
+        <service
+            android:name=".homepage.HomepageActivity"
+            android:foregroundServiceType="location">
+        <!-- Any inner elements would go here. -->
+        </service>
+
+
+    <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
@@ -36,7 +44,7 @@
 
         <activity
             android:name=".homepage.HomepageActivity"
-            android:exported="false">
+            android:exported="true">
         </activity>
 
         <activity

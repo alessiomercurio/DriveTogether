@@ -98,34 +98,5 @@ class LoginActivity : AppCompatActivity() {
             }
         )
     }
-    /* permessi app
-    private val requestPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()){
-        isGranted : Boolean ->
-        if(isGranted){
-            Toast.makeText(this@LoginActivity, "Permesso accordato", Toast.LENGTH_LONG).show()
-        }
-    }
 
-
-    private fun setupPermission(){
-        val permission = ContextCompat.checkSelfPermission(this@LoginActivity, android.Manifest.permission.INTERNET)
-
-        if(permission == PackageManager.PERMISSION_GRANTED){
-            Toast.makeText(this@LoginActivity, "Permesso accordato", Toast.LENGTH_LONG).show()
-
-        }else if(shouldShowRequestPermissionRationale(android.Manifest.permission.INTERNET)){
-            val builder = AlertDialog.Builder(this@LoginActivity)
-            builder.setMessage("Il permesso è un requisito per poter usufruire dell'app")
-            builder.setTitle("Permission required")
-            builder.setPositiveButton("Ok"){
-                diag, id ->
-                requestPermission.launch(android.Manifest.permission.INTERNET)
-            }
-            val dialog = builder.create()
-            dialog.show()
-        }else{
-            requestPermission.launch(android.Manifest.permission.INTERNET)
-        }
-    }
-*/
 }

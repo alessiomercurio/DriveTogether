@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
         <FrameLayout
-            android:id="@+id/frameLayout"
+            android:id="@+id/searchFrame"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
@@ -33,29 +33,35 @@
 
         </FrameLayout>
 
-
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragmentContainerView2"
-            android:name="com.agmobiletech.drivetogether.homepage.MapFragment"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="550dp"
+            android:layout_height="500dp"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="40dp"
+            app:layout_constraintBottom_toTopOf="@id/bottomNavigationBar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/bottomNavigationBar"
-            app:layout_constraintTop_toBottomOf="@+id/frameLayout"
-            tools:layout="@layout/map_fragment" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchFrame">
+
+            <com.mapbox.maps.MapView xmlns:mapbox="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/mapView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                mapbox:mapbox_cameraTargetLat="40.7128"
+                mapbox:mapbox_cameraTargetLng="-74.0060"
+                mapbox:mapbox_cameraZoom="9.0" />
+        </FrameLayout>
+
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             app:itemIconTint="#064F51"
             app:itemTextColor="#00987D"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView2"
             app:menu="@menu/layout_menu">
 
         </com.google.android.material.bottomnavigation.BottomNavigationView>
