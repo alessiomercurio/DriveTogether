@@ -4,6 +4,7 @@ import android.R.style
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.view.Window
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -53,32 +54,37 @@ class HomepageActivity : AppCompatActivity() {
         setupPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION)
         setupPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
 
-        mapView = binding.mapView
-
         val bottomNavigationView = binding.bottomNavigationBar
         bottomNavigationView.selectedItemId = R.id.homepageMenuItem
         navigationManager = BottomNavigationManager(this, bottomNavigationView)
 
-        val permissionCoarseLoc = ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
-        //val permissionFineLoc = ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+        val permissionPos = ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
 
-        if(permissionCoarseLoc == PackageManager.PERMISSION_GRANTED) {
-            mapView.getMapboxMap().loadStyleUri(
-                Style.MAPBOX_STREETS,
-                // After the style is loaded, initialize the Location component.
-                object : Style.OnStyleLoaded {
-                    override fun onStyleLoaded(style: Style) {
-                        mapView.location.updateSettings {
-                            enabled = true
-                            pulsingEnabled = false
+        if(permissionPos == PackageManager.PERMISSION_GRANTED) {
+            val permissionFine = ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+            if(permissionFine == PackageManager.PERMISSION_GRANTED) {
+                    mapView = binding.mapView
+                    mapView.visibility = View.VISIBLE
+                    mapView.getMapboxMap().loadStyleUri(
+                        com.mapbox.maps.Style.MAPBOX_STREETS,
+                        object : com.mapbox.maps.Style.OnStyleLoaded {
+                            override fun onStyleLoaded(style: com.mapbox.maps.Style) {
+                                mapView.location.updateSettings {
+                                    enabled = true
+                                    pulsingEnabled = false
+                                }
+                            }
                         }
-                    }
-                }
-            )
+                    )
 
-            val locationComponentPlugin = mapView.location
-            locationComponentPlugin.addOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
-            locationComponentPlugin.addOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener)
+                    val locationComponentPlugin = mapView.location
+                    locationComponentPlugin.addOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
+                    locationComponentPlugin.addOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener)
+            }else{
+                binding.mapView.visibility = View.GONE
+            }
+        }else{
+            binding.mapView.visibility = View.GONE
         }
     }
 
