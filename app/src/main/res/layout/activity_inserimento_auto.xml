@@ -1,223 +1,231 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:background="#00987D"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="350dp"
-        android:layout_height="600dp"
-        android:background="@drawable/custom_border"
-        android:backgroundTint="@color/white"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#064F51"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="40dp"
-            android:gravity="left"
-            android:orientation="vertical">
+            android:layout_height="600dp"
+            android:layout_margin="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="11dp"
+            android:background="@drawable/custom_border"
+            android:backgroundTint="@color/white"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/custom_border"
-                android:orientation="horizontal">
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/imageView9"
-                    android:layout_width="30dp"
-                    android:layout_height="20dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/t" />
-
-                <EditText
-                    android:id="@+id/targaPlainText"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:ems="10"
-                    android:hint="Targa"
-                    android:inputType="text"
-                    android:paddingLeft="20dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/custom_border"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/imageView10"
-                    android:layout_width="30dp"
-                    android:layout_height="20dp"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/t" />
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/custom_border"
+                    android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/marcaPlainText"
+                    <ImageView
+                        android:id="@+id/imageView9"
+                        android:layout_width="30dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/t" />
+
+                    <EditText
+                        android:id="@+id/targaPlainText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:ems="10"
+                        android:hint="Targa"
+                        android:inputType="text"
+                        android:paddingLeft="20dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:ems="10"
-                    android:hint="Marca"
-                    android:inputType="text"
-                    android:paddingLeft="20dp" />
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/custom_border"
+                    android:orientation="horizontal">
 
-            </LinearLayout>
+                    <ImageView
+                        android:id="@+id/imageView10"
+                        android:layout_width="30dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/t" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/custom_border"
-                android:gravity="left"
-                android:orientation="horizontal">
+                    <EditText
+                        android:id="@+id/marcaPlainText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:ems="10"
+                        android:hint="Marca"
+                        android:inputType="text"
+                        android:paddingLeft="20dp" />
 
-                <ImageView
-                    android:id="@+id/imageView11"
-                    android:layout_width="30dp"
-                    android:layout_height="20dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/macchina" />
+                </LinearLayout>
 
-                <EditText
-                    android:id="@+id/modelloPlainText"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:ems="10"
-                    android:hint="Modello"
-                    android:inputType="text"
-                    android:paddingLeft="20dp" />
-            </LinearLayout>
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/custom_border"
+                    android:gravity="left"
+                    android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/custom_border"
-                android:gravity="left"
-                android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/imageView11"
+                        android:layout_width="30dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/macchina" />
 
-                <ImageView
-                    android:id="@+id/imageView12"
-                    android:layout_width="30dp"
-                    android:layout_height="25dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/listanumero" />
+                    <EditText
+                        android:id="@+id/modelloPlainText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:ems="10"
+                        android:hint="Modello"
+                        android:inputType="text"
+                        android:paddingLeft="20dp" />
+                </LinearLayout>
 
-                <EditText
-                    android:id="@+id/numeroPostiPlainText"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:ems="10"
-                    android:hint="Numero posti auto"
-                    android:inputType="number"
-                    android:paddingLeft="20dp" />
-            </LinearLayout>
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/custom_border"
+                    android:gravity="left"
+                    android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/custom_border"
-                android:gravity="left"
-                android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/imageView12"
+                        android:layout_width="30dp"
+                        android:layout_height="25dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/listanumero" />
 
-                <ImageView
-                    android:id="@+id/imageView13"
-                    android:layout_width="30dp"
-                    android:layout_height="20dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/euro" />
+                    <EditText
+                        android:id="@+id/numeroPostiPlainText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:ems="10"
+                        android:hint="Numero posti auto"
+                        android:inputType="number"
+                        android:paddingLeft="20dp" />
+                </LinearLayout>
 
-                <EditText
-                    android:id="@+id/prezzoPlainText"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:ems="10"
-                    android:hint="Prezzo"
-                    android:inputType="number"
-                    android:paddingLeft="20dp" />
-            </LinearLayout>
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/custom_border"
+                    android:gravity="left"
+                    android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/custom_border"
-                android:gravity="left"
-                android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/imageView13"
+                        android:layout_width="30dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/euro" />
 
-                <ImageView
-                    android:id="@+id/imageView14"
-                    android:layout_width="30dp"
-                    android:layout_height="20dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/posizione" />
+                    <EditText
+                        android:id="@+id/prezzoPlainText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:ems="10"
+                        android:hint="Prezzo"
+                        android:inputType="number"
+                        android:paddingLeft="20dp" />
+                </LinearLayout>
 
-                <EditText
-                    android:id="@+id/posizionePlainText"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:ems="10"
-                    android:hint="Posizione"
-                    android:inputType="text"
-                    android:paddingLeft="20dp" />
-            </LinearLayout>
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/custom_border"
+                    android:gravity="left"
+                    android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/confermaInserimentoAutoButton"
-                android:layout_width="200dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:backgroundTint="#064F51"
-                android:text="Conferma"
-                app:cornerRadius="50dp" />
+                    <ImageView
+                        android:id="@+id/imageView14"
+                        android:layout_width="30dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/posizione" />
+
+                    <EditText
+                        android:id="@+id/posizionePlainText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:ems="10"
+                        android:hint="Posizione"
+                        android:inputType="text"
+                        android:paddingLeft="20dp" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/confermaInserimentoAutoButton"
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:backgroundTint="#064F51"
+                    android:text="Conferma"
+                    app:cornerRadius="50dp" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:itemIconTint="#064F51"
-        app:itemTextColor="#00987D"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/layout_menu">
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:itemIconTint="#064F51"
+            app:itemTextColor="#00987D"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/layout_menu">
 
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
