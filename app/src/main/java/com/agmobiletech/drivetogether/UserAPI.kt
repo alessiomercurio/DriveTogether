@@ -25,5 +25,5 @@ interface UserAPI{
     fun insert(@Field("query") query: String): Call<JsonObject>
 
     @GET
-    fun image(@Url url: String) : Call <ResponseBody>
+    fun getImage(@Url url: String) : Call <ResponseBody>
 }

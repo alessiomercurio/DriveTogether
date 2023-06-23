@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.agmobiletech.drivetogether.databinding.CardViewLayoutBinding
-import com.squareup.picasso.Picasso
 
 class CustomAdapter(private val mList: List<ItemsViewModel>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>(){
     private var onClickListener: OnClickListener? = null

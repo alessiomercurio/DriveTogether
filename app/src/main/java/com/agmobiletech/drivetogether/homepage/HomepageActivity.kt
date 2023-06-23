@@ -63,8 +63,6 @@ class HomepageActivity : AppCompatActivity() {
         //val permissionFineLoc = ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
 
         if(permissionCoarseLoc == PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(this, "prova", Toast.LENGTH_LONG)
-
             mapView.getMapboxMap().loadStyleUri(
                 Style.MAPBOX_STREETS,
                 // After the style is loaded, initialize the Location component.
