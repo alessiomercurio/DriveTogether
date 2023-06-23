@@ -205,8 +205,8 @@
 
                 <Button
                     android:id="@+id/confermaInserimentoAutoButton"
-                    android:layout_width="200dp"
-                    android:layout_height="50dp"
+                    android:layout_width="250dp"
+                    android:layout_height="60dp"
                     android:layout_gravity="center"
                     android:backgroundTint="#064F51"
                     android:text="Conferma"
