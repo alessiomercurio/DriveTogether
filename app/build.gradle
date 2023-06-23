@@ -17,6 +17,7 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
+        minSdkVersion 21
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -58,6 +59,8 @@ dependencies {
     implementation group: 'com.squareup.retrofit2', name: 'converter-protobuf', version: '2.3.0'
     implementation group: 'com.squareup.retrofit2', name: 'converter-wire', version: '2.3.0'
     implementation group: 'com.squareup.retrofit2', name: 'converter-simplexml', version: '2.3.0'
+
+    implementation 'com.mapbox.maps:android:10.14.1'
     //open street map
     //implementation 'org.osmdroid:osmdroid-android:6.1.16'
     //implementation 'org.osmdroid:osmdroid-wms:6.1.16'

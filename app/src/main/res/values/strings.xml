@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Drive Together</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoiYWxleG1lcmN1MjUiLCJhIjoiY2xqMzJ0aXp3MWFtZjN0cWE4cXkzeGI5bCJ9.PYZLYFj2xDw7jIWEuVPXkA</string>
 </resources>
