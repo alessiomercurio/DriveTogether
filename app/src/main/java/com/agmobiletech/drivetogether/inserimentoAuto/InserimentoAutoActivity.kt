@@ -1,5 +1,6 @@
 package com.agmobiletech.drivetogether.inserimentoAuto
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.Window
@@ -15,11 +16,14 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
+import java.io.File
 import java.util.Objects
 
 class InserimentoAutoActivity : AppCompatActivity(){
+    //inserimento spinner
     lateinit var binding : ActivityInserimentoAutoBinding
     lateinit var navigationManager: BottomNavigationManager
+    lateinit var filePre : SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityInserimentoAutoBinding.inflate(layoutInflater)
@@ -32,6 +36,7 @@ class InserimentoAutoActivity : AppCompatActivity(){
         bottomNavigationView.selectedItemId = R.id.inserimentoMenuItem
         //cambio activity
         navigationManager = BottomNavigationManager(this, bottomNavigationView)
+        filePre = this.getSharedPreferences("Credenziali", MODE_PRIVATE)
 
         binding.confermaInserimentoAutoButton.setOnClickListener{
             //se i campi sono vuoti verrò notificato all'utente, tramite un toast, l'errore
@@ -55,10 +60,14 @@ class InserimentoAutoActivity : AppCompatActivity(){
                 val flagNoleggio = 0
                 val imgMarcaAuto = scegliImmagine(marca)
                 //bisogna inserire anche nella tabella possesso la Targa e l'email (presa dal file di testo "credenziali.txt")
-                val query =
-                "INSERT INTO Macchina(targa, marca, modello, numeroPosti, prezzo, localizzazione, flagNoleggio, imgMarcaAuto)\n" +
-                        "values ('${targa}', '${marca}', '${modello}', '${numeroPosti}', '${prezzo}', '${localizzazione}', '${flagNoleggio}', '${imgMarcaAuto}')"
-                effettuaQuery(query)
+                val queryAutomobile =
+                "INSERT INTO Automobile (targa, marca, modello, numeroPosti, prezzo, localizzazione, flagNoleggio, imgMarcaAuto) " +
+                        "values ('${targa}', '${marca}', '${modello}', '${numeroPosti}', '${prezzo}', '${localizzazione}', '${flagNoleggio}', '${imgMarcaAuto}');"
+                val queryPossesso =
+                "INSERT INTO Possesso (emailProprietario, targaAutomobile) " +
+                        "values ('${filePre.getString("Email", "")}', '${targa}')"
+                effettuaQuery(queryAutomobile)
+                effettuaQuery(queryPossesso)
             }
         }
     }
