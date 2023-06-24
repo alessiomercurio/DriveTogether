@@ -125,8 +125,8 @@ class HomepageActivity : AppCompatActivity() {
                 this@HomepageActivity,
                 R.drawable.red_marker
             )?.let {
-                val annotationApi = mapView?.annotations
-                val pointAnnotationManager = annotationApi?.createPointAnnotationManager(mapView!!)
+                val annotationApi = mapView.annotations
+                val pointAnnotationManager = annotationApi.createPointAnnotationManager()
     // Set options for the resulting symbol layer.
                 val pointAnnotationOptions: PointAnnotationOptions = PointAnnotationOptions()
     // Define a geographic coordinate.
