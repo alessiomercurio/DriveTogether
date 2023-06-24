@@ -54,6 +54,12 @@ class InserimentoAutoActivity : AppCompatActivity(){
 
     private lateinit var searchResultsView: SearchResultsView
     private lateinit var searchEngineUiAdapter: SearchEngineUiAdapter
+
+    //variabili che servono per inserire le informazioni riguardo la macchina nel database
+    private var posizioneNominale : String? = null
+    private var latidutine : Double? = null
+    private var longitudine : Double? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityInserimentoAutoBinding.inflate(layoutInflater)
@@ -128,13 +134,18 @@ class InserimentoAutoActivity : AppCompatActivity(){
                 System.out.println("Funziona4")
             }
 
+            //metodo che viene richiamato quando si clicca un risultato
             override fun onSearchResultSelected(
                 searchResult: SearchResult,
                 responseInfo: ResponseInfo
             ) {
                 binding.posizionePlainText.setText(searchResult.name.toString())
                 searchResultsView.visibility = View.GONE
-                System.out.println(searchResult.coordinate.latitude())
+                //assegnazione dei valori da inserire nel database
+
+                posizioneNominale = searchResult.name
+                latidutine = searchResult.coordinate.latitude()
+                longitudine = searchResult.coordinate.longitude()
             }
 
             override fun onSearchResultsShown(
@@ -180,6 +191,7 @@ class InserimentoAutoActivity : AppCompatActivity(){
         binding.confermaInserimentoAutoButton.setOnClickListener{
             //se i campi sono vuoti verrò notificato all'utente, tramite un toast, l'errore
            if(checkCampi() == 1){
+               System.out.println("Posizione :" + posizioneNominale + ", longitudine: " + longitudine + ", latitudine: " + latidutine)
                Toast.makeText(this@InserimentoAutoActivity, "Campi vuoti", Toast.LENGTH_LONG).show()
            }else if(checkCampi() == 2){
                Toast.makeText(this@InserimentoAutoActivity, "Errore nell'inserimento del numero di posti", Toast.LENGTH_LONG).show()
@@ -195,8 +207,8 @@ class InserimentoAutoActivity : AppCompatActivity(){
                val flagNoleggio = 0
                val imgMarcaAuto = scegliImmagine(marca)
                //bisogna inserire anche nella tabella possesso la Targa e l'email (presa dal file di testo "credenziali.txt")
-               val queryAutomobile = "INSERT INTO Automobile (targa, marca, modello, numeroPosti, prezzo, localizzazione, flagNoleggio, imgMarcaAuto) " +
-                       "values ('${targa}', '${marca}', '${modello}', '${numeroPosti}', '${prezzo}', '${localizzazione}', '${flagNoleggio}', '${imgMarcaAuto}');"
+               val queryAutomobile = "INSERT INTO Automobile (targa, marca, modello, numeroPosti, prezzo, localizzazioneNominale, localizzazioneLongitudinale, localizzazioneLatitudinale, flagNoleggio, imgMarcaAuto) " +
+                       "values ('${targa}', '${marca}', '${modello}', '${numeroPosti}', '${prezzo}', '${localizzazione}', '${longitudine}', '${latidutine}', '${flagNoleggio}', '${imgMarcaAuto}');"
                val queryPossesso = "INSERT INTO Possesso (emailProprietario, targaAutomobile) " +
                        "values ('${filePre.getString("Email", "")}', '${targa}')"
                effettuaQuery(queryAutomobile)

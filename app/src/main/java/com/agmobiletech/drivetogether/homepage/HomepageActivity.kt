@@ -2,6 +2,7 @@ package com.agmobiletech.drivetogether.homepage
 
 import android.R.style
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -20,10 +21,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import com.agmobiletech.drivetogether.BottomNavigationManager
+import com.agmobiletech.drivetogether.ClientNetwork
 import com.agmobiletech.drivetogether.R
 import com.agmobiletech.drivetogether.databinding.ActivityHomepageBinding
+import com.agmobiletech.drivetogether.visualizzazioneAuto.CustomAdapter
+import com.agmobiletech.drivetogether.visualizzazioneAuto.ItemsViewModel
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.gson.JsonObject
 import com.mapbox.geojson.Point
 import com.mapbox.maps.CameraOptions
 import com.mapbox.maps.MapView
@@ -36,12 +41,19 @@ import com.mapbox.maps.plugin.gestures.gestures
 import com.mapbox.maps.plugin.locationcomponent.OnIndicatorBearingChangedListener
 import com.mapbox.maps.plugin.locationcomponent.OnIndicatorPositionChangedListener
 import com.mapbox.maps.plugin.locationcomponent.location
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class HomepageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomepageBinding
     private lateinit var navigationManager: BottomNavigationManager
     lateinit var mapView: MapView
+    lateinit var filePre: SharedPreferences
+
+    private var longitudine : Double? = null
+    private var latitudine : Double? = null
 
     private val onIndicatorBearingChangedListener = OnIndicatorBearingChangedListener {
         mapView.getMapboxMap().setCamera(CameraOptions.Builder().bearing(it).build())
@@ -72,6 +84,8 @@ class HomepageActivity : AppCompatActivity() {
         bottomNavigationView.selectedItemId = R.id.homepageMenuItem
         navigationManager = BottomNavigationManager(this, bottomNavigationView)
 
+        filePre = this.getSharedPreferences("Credenziali", MODE_PRIVATE)
+
         val permissionPos = ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
 
         if(permissionPos == PackageManager.PERMISSION_GRANTED) {
@@ -86,7 +100,7 @@ class HomepageActivity : AppCompatActivity() {
                                 mapView.location.updateSettings {
                                     enabled = true
                                     pulsingEnabled = false
-                                    addAnnotationToMap(13.3447344, 38.1223044)
+                                    restituisciLongitudine()
                                 }
                             }
                         }
@@ -160,5 +174,46 @@ class HomepageActivity : AppCompatActivity() {
             drawable.draw(canvas)
             bitmap
         }
+    }
+
+    private fun restituisciLongitudine(){
+        /**
+         * mi seleziono la longitudine e la latitudine di tutte le macchine che non sono possedute dall'utente loggato.
+         * (n altre parole, seleziono la longitudine e la latitudine degli altri utenti)
+         * infine aggiungo un marker in base alla loro longitudine e latitudine
+         */
+
+        val query = "SELECT A.localizzazioneLongitudinale, A.localizzazioneLatitudinale " +
+                "FROM Automobile A, Utente U1, Possesso P " +
+                "WHERE A.targa = P.targaAutomobile " +
+                "AND U1.email = P.emailProprietario " +
+                "AND U1.email NOT IN (  SELECT U2.email " +
+                                        "FROM Utente U2 " +
+                                        "WHERE U2.email = '${filePre.getString("Email", "")}')"
+
+        ClientNetwork.retrofit.select(query).enqueue(
+            object : Callback<JsonObject> {
+                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                    if(response.isSuccessful){
+                        if(response.body() != null){
+                            val obj = response.body()?.getAsJsonArray("queryset")
+                            if(obj != null) {
+                                for (i in 0 until obj.size()) {
+                                    longitudine = obj[i].asJsonObject?.get("localizzazioneLongitudinale").toString().trim('"').toDouble()
+                                    latitudine = obj[i].asJsonObject?.get("localizzazioneLatitudinale").toString().trim('"').toDouble()
+                                    addAnnotationToMap(longitudine!!, latitudine!!)
+                                }
+                            }
+                        }
+                    }else{
+                        Toast.makeText(this@HomepageActivity, "Nessuna macchina disponibile", Toast.LENGTH_LONG).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    Toast.makeText(this@HomepageActivity, "Errore nel database", Toast.LENGTH_LONG).show()
+                }
+            }
+        )
     }
 }
