@@ -32,8 +32,10 @@ import com.google.gson.JsonObject
 import com.mapbox.geojson.Point
 import com.mapbox.maps.CameraOptions
 import com.mapbox.maps.MapView
+import com.mapbox.maps.MapboxMap
 import com.mapbox.maps.Style
 import com.mapbox.maps.plugin.annotation.annotations
+import com.mapbox.maps.plugin.annotation.generated.OnPointAnnotationClickListener
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotation
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions
 import com.mapbox.maps.plugin.annotation.generated.createPointAnnotationManager
@@ -100,7 +102,7 @@ class HomepageActivity : AppCompatActivity() {
                                 mapView.location.updateSettings {
                                     enabled = true
                                     pulsingEnabled = false
-                                    restituisciLongitudine()
+                                    caricaAutomobili()
                                 }
                             }
                         }
@@ -150,6 +152,11 @@ class HomepageActivity : AppCompatActivity() {
                     .withIconImage(it)
     // Add the resulting pointAnnotation to the map.
                 pointAnnotationManager?.create(pointAnnotationOptions)
+
+                pointAnnotationManager?.addClickListener(OnPointAnnotationClickListener {
+                    Toast.makeText(this@HomepageActivity, "prova", Toast.LENGTH_LONG).show()
+                    true
+                })
         }
     }
     private fun bitmapFromDrawableRes(context: Context, @DrawableRes resourceId: Int) =
@@ -176,7 +183,7 @@ class HomepageActivity : AppCompatActivity() {
         }
     }
 
-    private fun restituisciLongitudine(){
+    private fun caricaAutomobili(){
         /**
          * mi seleziono la longitudine e la latitudine di tutte le macchine che non sono possedute dall'utente loggato.
          * (n altre parole, seleziono la longitudine e la latitudine degli altri utenti)
@@ -216,4 +223,5 @@ class HomepageActivity : AppCompatActivity() {
             }
         )
     }
+
 }
