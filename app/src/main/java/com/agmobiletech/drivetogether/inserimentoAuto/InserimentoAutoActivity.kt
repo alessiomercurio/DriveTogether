@@ -34,40 +34,34 @@ class InserimentoAutoActivity : AppCompatActivity(){
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationBar)
         //rendo "selezionato" l'elemento che clicco, in questo caso l'item di inserimento di una macchina
         bottomNavigationView.selectedItemId = R.id.inserimentoMenuItem
-        //cambio activity
         navigationManager = BottomNavigationManager(this, bottomNavigationView)
+        // Recupero credenziali
         filePre = this.getSharedPreferences("Credenziali", MODE_PRIVATE)
 
         binding.confermaInserimentoAutoButton.setOnClickListener{
             //se i campi sono vuoti verrò notificato all'utente, tramite un toast, l'errore
-            if (binding.targaPlainText.text.trim().isEmpty() || binding.marcaPlainText.text.trim().isEmpty() ||
-                binding.modelloPlainText.text.trim().isEmpty() || binding.numeroPostiPlainText.text.trim().isEmpty() ||
-                binding.prezzoPlainText.text.trim().isEmpty() || binding.posizionePlainText.text.trim().isEmpty())
-            {
-                    Toast.makeText(this@InserimentoAutoActivity, "Campi vuoti", Toast.LENGTH_LONG).show()
-            }else if (binding.numeroPostiPlainText.text.trim().toString().toInt() <= 1){
-                Toast.makeText(this@InserimentoAutoActivity, "Errore nell'inserimento del numero di posti", Toast.LENGTH_LONG).show()
-            }else if (binding.prezzoPlainText.text.trim().toString().toDouble() <= 0){
-                Toast.makeText(this@InserimentoAutoActivity, "Errore nell'inserimento del prezzo", Toast.LENGTH_LONG).show()
-            }
-            else {
-                val targa = binding.targaPlainText.text.trim().toString()
-                val marca = binding.marcaPlainText.text.trim().toString()
-                val modello = binding.modelloPlainText.text.trim().toString()
-                val numeroPosti = binding.numeroPostiPlainText.text.trim().toString()
-                val prezzo = binding.prezzoPlainText.text.trim().toString().toDouble()
-                val localizzazione = binding.posizionePlainText.text.trim().toString()
-                val flagNoleggio = 0
-                val imgMarcaAuto = scegliImmagine(marca)
-                //bisogna inserire anche nella tabella possesso la Targa e l'email (presa dal file di testo "credenziali.txt")
-                val queryAutomobile =
-                "INSERT INTO Automobile (targa, marca, modello, numeroPosti, prezzo, localizzazione, flagNoleggio, imgMarcaAuto) " +
-                        "values ('${targa}', '${marca}', '${modello}', '${numeroPosti}', '${prezzo}', '${localizzazione}', '${flagNoleggio}', '${imgMarcaAuto}');"
-                val queryPossesso =
-                "INSERT INTO Possesso (emailProprietario, targaAutomobile) " +
-                        "values ('${filePre.getString("Email", "")}', '${targa}')"
-                effettuaQuery(queryAutomobile)
-                effettuaQuery(queryPossesso)
+           if(checkCampi() == 1){
+               Toast.makeText(this@InserimentoAutoActivity, "Campi vuoti", Toast.LENGTH_LONG).show()
+           }else if(checkCampi() == 2){
+               Toast.makeText(this@InserimentoAutoActivity, "Errore nell'inserimento del numero di posti", Toast.LENGTH_LONG).show()
+           }else if(checkCampi() == 3){
+               Toast.makeText(this@InserimentoAutoActivity, "Errore nell'inserimento del prezzo", Toast.LENGTH_LONG).show()
+           }else {
+               val targa = binding.targaPlainText.text.trim().toString()
+               val marca = binding.marcaPlainText.text.trim().toString()
+               val modello = binding.modelloPlainText.text.trim().toString()
+               val numeroPosti = binding.numeroPostiPlainText.text.trim().toString()
+               val prezzo = binding.prezzoPlainText.text.trim().toString().toDouble()
+               val localizzazione = binding.posizionePlainText.text.trim().toString()
+               val flagNoleggio = 0
+               val imgMarcaAuto = scegliImmagine(marca)
+               //bisogna inserire anche nella tabella possesso la Targa e l'email (presa dal file di testo "credenziali.txt")
+               val queryAutomobile = "INSERT INTO Automobile (targa, marca, modello, numeroPosti, prezzo, localizzazione, flagNoleggio, imgMarcaAuto) " +
+                       "values ('${targa}', '${marca}', '${modello}', '${numeroPosti}', '${prezzo}', '${localizzazione}', '${flagNoleggio}', '${imgMarcaAuto}');"
+               val queryPossesso = "INSERT INTO Possesso (emailProprietario, targaAutomobile) " +
+                       "values ('${filePre.getString("Email", "")}', '${targa}')"
+               effettuaQuery(queryAutomobile)
+               effettuaQuery(queryPossesso)
             }
         }
     }
@@ -101,6 +95,21 @@ class InserimentoAutoActivity : AppCompatActivity(){
             }
         )
     }
+
+    fun checkCampi() : Int{
+        if (binding.targaPlainText.text.trim().isEmpty() || binding.marcaPlainText.text.trim().isEmpty() ||
+            binding.modelloPlainText.text.trim().isEmpty() || binding.numeroPostiPlainText.text.trim().isEmpty() ||
+            binding.prezzoPlainText.text.trim().isEmpty() || binding.posizionePlainText.text.trim().isEmpty())
+        {
+            return 1
+        }else if (binding.numeroPostiPlainText.text.trim().toString().toInt() <= 1){
+            return 2
+        }else if (binding.prezzoPlainText.text.trim().toString().toDouble() <= 0){
+            return 3
+        }
+        return 0
+    }
+
 
     fun scegliImmagine(marca : String) : String {
         //data una marca, restuisce una stringa contentente il path, e quindi il campo immagine nel db,  relativo alla marca
