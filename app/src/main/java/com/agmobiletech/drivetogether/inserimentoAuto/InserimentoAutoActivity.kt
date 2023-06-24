@@ -92,7 +92,6 @@ class InserimentoAutoActivity : AppCompatActivity(){
                 responseInfo: ResponseInfo
             ) {
                 // Nothing to do
-                searchResultsView.visibility = View.VISIBLE
                 System.out.println("Funziona9254")
             }
 
@@ -133,7 +132,9 @@ class InserimentoAutoActivity : AppCompatActivity(){
                 searchResult: SearchResult,
                 responseInfo: ResponseInfo
             ) {
-                System.out.println("Funziona19")
+                binding.posizionePlainText.setText(searchResult.name.toString())
+                searchResultsView.visibility = View.GONE
+                System.out.println(searchResult.coordinate.latitude())
             }
 
             override fun onSearchResultsShown(
