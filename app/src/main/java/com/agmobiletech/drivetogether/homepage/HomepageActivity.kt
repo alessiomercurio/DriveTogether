@@ -137,7 +137,7 @@ class HomepageActivity : AppCompatActivity() {
     // Create an instance of the Annotation API and get the PointAnnotationManager.
             bitmapFromDrawableRes(
                 this@HomepageActivity,
-                R.drawable.red_marker
+                R.drawable.car_marker_bianco_stroke
             )?.let {
                 val annotationApi = mapView.annotations
                 val pointAnnotationManager = annotationApi.createPointAnnotationManager()
