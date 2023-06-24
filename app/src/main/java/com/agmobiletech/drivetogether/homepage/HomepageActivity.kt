@@ -186,7 +186,7 @@ class HomepageActivity : AppCompatActivity() {
     private fun caricaAutomobili(){
         /**
          * mi seleziono la longitudine e la latitudine di tutte le macchine che non sono possedute dall'utente loggato.
-         * (n altre parole, seleziono la longitudine e la latitudine degli altri utenti)
+         * (n altre parole, seleziono la longitudine e la latitudine delle macchine degli altri utenti)
          * infine aggiungo un marker in base alla loro longitudine e latitudine
          */
 
