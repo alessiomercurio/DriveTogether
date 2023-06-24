@@ -61,5 +61,8 @@ dependencies {
     implementation group: 'com.squareup.retrofit2', name: 'converter-simplexml', version: '2.3.0'
 
     implementation 'com.mapbox.maps:android:10.14.1'
+    implementation "com.mapbox.search:place-autocomplete:1.0.0-rc.6"
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
+    implementation "com.mapbox.search:mapbox-search-android-ui:1.0.0-rc.6"
     //picasso
 }
