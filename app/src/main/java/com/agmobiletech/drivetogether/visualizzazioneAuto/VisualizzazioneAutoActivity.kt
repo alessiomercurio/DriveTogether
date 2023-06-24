@@ -1,10 +1,15 @@
 package com.agmobiletech.drivetogether.visualizzazioneAuto
 
 
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
 
 import android.view.Window
 import android.widget.ImageView
@@ -16,6 +21,7 @@ import com.agmobiletech.drivetogether.ClientNetwork
 import com.agmobiletech.drivetogether.R
 import com.agmobiletech.drivetogether.databinding.ActivityVisualizzazioneAutoBinding
 import com.agmobiletech.drivetogether.databinding.CardViewLayoutBinding
+import com.agmobiletech.drivetogether.databinding.CustomDialogBinding
 import com.google.gson.JsonObject
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -25,6 +31,7 @@ import retrofit2.Response
 class VisualizzazioneAutoActivity : AppCompatActivity(){
     lateinit var binding : ActivityVisualizzazioneAutoBinding
     lateinit var binding2 : CardViewLayoutBinding
+    lateinit var binding3 : CustomDialogBinding
     private lateinit var navigationManager: BottomNavigationManager
     lateinit var filePre: SharedPreferences
     lateinit var adapter: CustomAdapter
@@ -33,6 +40,7 @@ class VisualizzazioneAutoActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         binding = ActivityVisualizzazioneAutoBinding.inflate(layoutInflater)
         binding2 = CardViewLayoutBinding.inflate(layoutInflater)
+        binding3 = CustomDialogBinding.inflate(layoutInflater)
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(binding.root)
 
@@ -82,6 +90,7 @@ class VisualizzazioneAutoActivity : AppCompatActivity(){
 
                                 adapter.setOnClickListener(object : CustomAdapter.OnClickListener{
                                     override fun onClick(position: Int, model: ItemsViewModel) {
+                                        mostraDialogPersonalizzato(this@VisualizzazioneAutoActivity)
                                         Toast.makeText(this@VisualizzazioneAutoActivity,"Prova per vedere se riesce", Toast.LENGTH_LONG).show()
                                     }
 
@@ -125,5 +134,19 @@ class VisualizzazioneAutoActivity : AppCompatActivity(){
             }
         )
     }
+
+
+
+    fun mostraDialogPersonalizzato(context: Context) {
+        val builder = AlertDialog.Builder(context)
+        val inflater = LayoutInflater.from(context)
+        val dialogView: View = inflater.inflate(R.layout.custom_dialog, null)
+
+        builder.setView(dialogView)
+        val dialog = builder.create()
+
+        dialog.show()
+    }
+
 
 }

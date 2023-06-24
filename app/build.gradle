@@ -61,10 +61,5 @@ dependencies {
     implementation group: 'com.squareup.retrofit2', name: 'converter-simplexml', version: '2.3.0'
 
     implementation 'com.mapbox.maps:android:10.14.1'
-    //open street map
-    //implementation 'org.osmdroid:osmdroid-android:6.1.16'
-    //implementation 'org.osmdroid:osmdroid-wms:6.1.16'
-    //implementation 'org.osmdroid:osmdroid-geopackage:6.1.16'
-    //preferenze per osm
-    //implementation 'androidx.preference:preference:1.2.0'
+    //picasso
 }
