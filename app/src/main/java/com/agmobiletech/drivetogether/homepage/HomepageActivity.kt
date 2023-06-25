@@ -10,8 +10,10 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.DrawableRes
@@ -47,7 +49,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 class HomepageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomepageBinding
     private lateinit var navigationManager: BottomNavigationManager
@@ -76,6 +77,7 @@ class HomepageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomepageBinding.inflate(layoutInflater)
+
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(binding.root)
 
@@ -139,7 +141,7 @@ class HomepageActivity : AppCompatActivity() {
     // Create an instance of the Annotation API and get the PointAnnotationManager.
             bitmapFromDrawableRes(
                 this@HomepageActivity,
-                R.drawable.car_marker_bianco_stroke
+                R.drawable.map_car
             )?.let {
                 val annotationApi = mapView.annotations
                 val pointAnnotationManager = annotationApi.createPointAnnotationManager()
@@ -151,10 +153,10 @@ class HomepageActivity : AppCompatActivity() {
     // The bitmap will be added to map style automatically.
                     .withIconImage(it)
     // Add the resulting pointAnnotation to the map.
-                pointAnnotationManager?.create(pointAnnotationOptions)
+                pointAnnotationManager.create(pointAnnotationOptions)
 
-                pointAnnotationManager?.addClickListener(OnPointAnnotationClickListener {
-                    Toast.makeText(this@HomepageActivity, "prova", Toast.LENGTH_LONG).show()
+                pointAnnotationManager.addClickListener(OnPointAnnotationClickListener {
+                    mostraDialogPersonalizzato(this, longitudine, latitudine)
                     true
                 })
         }
@@ -223,5 +225,54 @@ class HomepageActivity : AppCompatActivity() {
             }
         )
     }
+
+    fun mostraDialogPersonalizzato(context: Context, longitudine: Double, latitudine: Double) {
+        /*val builder = android.app.AlertDialog.Builder(context)
+        val inflater = LayoutInflater.from(context)
+        val dialogView: View = inflater.inflate(R.layout.prenotazione_dialog, null)*/
+
+        var dialog = PrenotazioneDialog(this)
+
+        val query = "SELECT A.targa, A.marca, A.modello, A.numeroPosti, A.prezzo, A.localizzazioneNominale, U.nome" +
+                " FROM Automobile A, Utente U, Possesso P" +
+                " WHERE A.targa = P.targaAutomobile" +
+                " AND U.email = P.emailProprietario" +
+                " AND localizzazioneLongitudinale = $longitudine AND localizzazioneLatitudinale = $latitudine"
+
+        ClientNetwork.retrofit.select(query).enqueue(
+            object : Callback<JsonObject> {
+                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                    if(response.isSuccessful){
+                        if(response.body() != null){
+                            val obj = response.body()?.getAsJsonArray("queryset")
+                            if(obj != null) {
+                                dialog.binding.proprietarioTextPrenota.text = obj[0].asJsonObject?.get("nome").toString().trim('"')
+                                dialog.binding.targaTextPrenota.text = obj[0].asJsonObject?.get("targa").toString().trim('"')
+                                dialog.binding.marcaTextPrenota.text = obj[0].asJsonObject?.get("marca").toString().trim('"')
+                                dialog.binding.modelloTextPrenota.text = obj[0].asJsonObject?.get("modello").toString().trim('"')
+                                dialog.binding.numeroPostiTextPrenota.text = obj[0].asJsonObject?.get("numeroPosti").toString().trim('"')
+                                dialog.binding.prezzoTextPrenota.text = obj[0].asJsonObject?.get("prezzo").toString().trim('"')
+                                dialog.binding.posizioneTextPrenota.text = obj[0].asJsonObject?.get("localizzazioneNominale").toString().trim('"')
+                            }
+                        }
+                    }else{
+                        Toast.makeText(this@HomepageActivity, "Nessuna macchina disponibile", Toast.LENGTH_LONG).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    Toast.makeText(this@HomepageActivity, "Errore nel database", Toast.LENGTH_LONG).show()
+                }
+            }
+        )
+
+
+        dialog.show()
+        /*
+        builder.setView(dialogView)
+        val dialog = builder.create()
+        dialog.show()*/
+    }
+
 
 }
