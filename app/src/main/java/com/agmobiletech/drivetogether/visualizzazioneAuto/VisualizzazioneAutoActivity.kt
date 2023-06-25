@@ -2,7 +2,6 @@ package com.agmobiletech.drivetogether.visualizzazioneAuto
 
 
 import android.app.AlertDialog
-import android.app.Dialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Bitmap
@@ -36,11 +35,11 @@ class VisualizzazioneAutoActivity : AppCompatActivity(){
     lateinit var filePre: SharedPreferences
     lateinit var adapter: CustomAdapter
 
+    private var immaginaMarcaSecure : ImageView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityVisualizzazioneAutoBinding.inflate(layoutInflater)
         binding2 = CardViewLayoutBinding.inflate(layoutInflater)
-        binding3 = CustomDialogBinding.inflate(layoutInflater)
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(binding.root)
 
@@ -74,13 +73,13 @@ class VisualizzazioneAutoActivity : AppCompatActivity(){
                             val obj = response.body()?.getAsJsonArray("queryset")
                             if(obj != null) {
                                 for (i in 0 until obj.size()) {
-                                    val marca = obj[i].asJsonObject?.get("marca").toString()
-                                    val modello = obj[i].asJsonObject?.get("modello").toString()
-                                    val targa = obj[i].asJsonObject?.get("targa").toString()
-                                    val immagine = R.drawable.email
-                                    //val imgMarcaAuto  = restituisciImmagineMarca(obj[i].asJsonObject, binding2.immagineMarcaImageView)
-                                    //data.add(ItemsViewModel(marca, modello, targa, imgMarcaAuto))
-                                    data.add(ItemsViewModel(marca, modello, targa, immagine))
+                                    val marca = obj[i].asJsonObject?.get("marca")?.toString()
+                                    val modello = obj[i].asJsonObject?.get("modello")?.toString()
+                                    val targa = obj[i].asJsonObject?.get("targa")?.toString()
+                                    val immagine = R.id.autoMenuItem
+                                    val immagineURL = obj[i].asJsonObject?.get("imgMarcaAuto")?.asString
+                                    System.out.println(immagineURL)
+                                    data.add(ItemsViewModel(marca, modello, targa, immagine, immagineURL))
                                     restituisciImmagineMarca(obj[i].asJsonObject, binding2.immagineMarcaImageView)
                                     //binding2.macchinaCardView.invalidate()
                                 }

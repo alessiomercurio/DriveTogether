@@ -7,10 +7,9 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.Window
-import android.widget.SearchView
-import android.widget.Toast
-import android.widget.Toolbar
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.isVisible
 import androidx.lifecycle.ReportFragment.Companion.reportFragment
 import com.agmobiletech.drivetogether.BottomNavigationManager
@@ -59,6 +58,9 @@ class InserimentoAutoActivity : AppCompatActivity(){
     private var posizioneNominale : String? = null
     private var latidutine : Double? = null
     private var longitudine : Double? = null
+    private var marca : String? = null
+    private var modello : String? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -180,6 +182,70 @@ class InserimentoAutoActivity : AppCompatActivity(){
 
         })
 
+        var indiceMarcaSelezionata = -1
+
+        val marcaSpinner = binding.marcaSpinner
+        val modelloSpinner = binding.modelloSpinner
+
+        val marcheAuto = arrayOf("Audi", "BMW", "FIAT", "Ford", "Hyundai", "Jeep", "Lamborghini", "Mercedes", "Porsche", "Tesla", "Toyota", "Volkswagen")
+        val adapterMarche = ArrayAdapter(this, android.R.layout.simple_spinner_item, marcheAuto)
+        adapterMarche.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        marcaSpinner.adapter = adapterMarche
+
+        val modelliAuto = arrayOf(
+            arrayOf("A1", "A3", "A4", "A6", "Q3", "Q5"),
+            arrayOf("Series 1", "Series 3", "Series 5", "X1", "X3", "X5"),
+            arrayOf("500", "Panda", "Tipo", "Punto", "500X"),
+            arrayOf("Mustang", "Focus", "F-150"),
+            arrayOf("i10", "i20", "i30", "Kona", "Tucson"),
+            arrayOf("Wrangler", "Grand Cherokee", "Compass"),
+            arrayOf("Huracan", "Aventador", "Gallardo", "Urus"),
+            arrayOf("C-Class", "E-Class", "S-Class", "GLC", "GLE", "GLA"),
+            arrayOf("911", "Cayman", "Panamera", "Macan", "Taycan"),
+            arrayOf("Model S", "Model 3", "Model X", "Model Y"),
+            arrayOf("Corolla", "Camry", "RAV4", "Highlander", "C-HR"),
+            arrayOf("Golf", "Passat", "Tiguan", "Polo")
+        )
+        val adapterModelli = ArrayAdapter(this, android.R.layout.simple_spinner_item, arrayOf<String>())
+        adapterModelli.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        modelloSpinner.adapter = adapterModelli
+
+        marcaSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                indiceMarcaSelezionata = position
+                val modelliMarcaSelezionata = modelliAuto[indiceMarcaSelezionata]
+
+                // imposta gli elementi dello spinner dei modelli
+                val adapterModelliMarca = ArrayAdapter(this@InserimentoAutoActivity, android.R.layout.simple_spinner_item, modelliMarcaSelezionata)
+                adapterModelliMarca.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                modelloSpinner.adapter = adapterModelliMarca
+
+                if (indiceMarcaSelezionata != -1) {
+                    marca = marcheAuto[indiceMarcaSelezionata]
+                    if (modelliMarcaSelezionata.isNotEmpty()) {
+                        modello = modelliMarcaSelezionata[0] // Imposta il primo modello come predefinito
+
+                        modelloSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                                modello = modelliMarcaSelezionata[position] // Ottieni il modello selezionato
+                            }
+
+                            override fun onNothingSelected(parent: AdapterView<*>?) {
+                                // Fai nulla
+                            }
+                        }
+                    } else {
+                        modello = null // Non ci sono modelli disponibili
+                    }
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Fai nulla
+            }
+        }
+
+
         //seleziono la navbar prendendo l'id
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationBar)
         //rendo "selezionato" l'elemento che clicco, in questo caso l'item di inserimento di una macchina
@@ -191,7 +257,6 @@ class InserimentoAutoActivity : AppCompatActivity(){
         binding.confermaInserimentoAutoButton.setOnClickListener{
             //se i campi sono vuoti verrò notificato all'utente, tramite un toast, l'errore
            if(checkCampi() == 1){
-               System.out.println("Posizione :" + posizioneNominale + ", longitudine: " + longitudine + ", latitudine: " + latidutine)
                Toast.makeText(this@InserimentoAutoActivity, "Campi vuoti", Toast.LENGTH_LONG).show()
            }else if(checkCampi() == 2){
                Toast.makeText(this@InserimentoAutoActivity, "Errore nell'inserimento del numero di posti", Toast.LENGTH_LONG).show()
@@ -199,20 +264,21 @@ class InserimentoAutoActivity : AppCompatActivity(){
                Toast.makeText(this@InserimentoAutoActivity, "Errore nell'inserimento del prezzo", Toast.LENGTH_LONG).show()
            }else {
                val targa = binding.targaPlainText.text.trim().toString()
-               val marca = binding.marcaPlainText.text.trim().toString()
-               val modello = binding.modelloPlainText.text.trim().toString()
+               //marca e modello presi dallo spinner
                val numeroPosti = binding.numeroPostiPlainText.text.trim().toString()
                val prezzo = binding.prezzoPlainText.text.trim().toString().toDouble()
                val localizzazione = binding.posizionePlainText.text.trim().toString()
                val flagNoleggio = 0
                val imgMarcaAuto = scegliImmagine(marca)
                //bisogna inserire anche nella tabella possesso la Targa e l'email (presa dal file di testo "credenziali.txt")
-               val queryAutomobile = "INSERT INTO Automobile (targa, marca, modello, numeroPosti, prezzo, localizzazioneNominale, localizzazioneLongitudinale, localizzazioneLatitudinale, flagNoleggio, imgMarcaAuto) " +
-                       "values ('${targa}', '${marca}', '${modello}', '${numeroPosti}', '${prezzo}', '${localizzazione}', '${longitudine}', '${latidutine}', '${flagNoleggio}', '${imgMarcaAuto}');"
-               val queryPossesso = "INSERT INTO Possesso (emailProprietario, targaAutomobile) " +
+               val query = "INSERT INTO Automobile (targa, marca, modello, numeroPosti, prezzo, localizzazioneNominale, localizzazioneLongitudinale, localizzazioneLatitudinale, flagNoleggio, imgMarcaAuto) " +
+                       "values ('${targa}', '${marca}', '${modello}', '${numeroPosti}', '${prezzo}', '${localizzazione}', '${longitudine}', '${latidutine}', '${flagNoleggio}', '${imgMarcaAuto}');" +
+                       "INSERT INTO Possesso (emailProprietario, targaAutomobile) " +
                        "values ('${filePre.getString("Email", "")}', '${targa}')"
-               effettuaQuery(queryAutomobile)
-               effettuaQuery(queryPossesso)
+               effettuaQuery(query)
+               /*val queryPossesso = "INSERT INTO Possesso (emailProprietario, targaAutomobile) " +
+                       "values ('${filePre.getString("Email", "")}', '${targa}')"
+               effettuaQuery(queryPossesso)*/
             }
         }
     }
@@ -248,8 +314,7 @@ class InserimentoAutoActivity : AppCompatActivity(){
     }
 
     fun checkCampi() : Int{
-        if (binding.targaPlainText.text.trim().isEmpty() || binding.marcaPlainText.text.trim().isEmpty() ||
-            binding.modelloPlainText.text.trim().isEmpty() || binding.numeroPostiPlainText.text.trim().isEmpty() ||
+        if (binding.targaPlainText.text.trim().isEmpty() || binding.numeroPostiPlainText.text.trim().isEmpty() ||
             binding.prezzoPlainText.text.trim().isEmpty() || binding.posizionePlainText.text.trim().isEmpty())
         {
             return 1
@@ -261,12 +326,11 @@ class InserimentoAutoActivity : AppCompatActivity(){
         return 0
     }
 
-
-    fun scegliImmagine(marca : String) : String {
+    fun scegliImmagine(marca : String?) : String{
         //data una marca, restuisce una stringa contentente il path, e quindi il campo immagine nel db,  relativo alla marca
-        val path = marca.lowercase()
+        val path = marca?.lowercase()
         
-        return "media/images/loghi/${path}.svg"
+        return "media/images/loghi/${path}.png"
     }
 
     private fun closeSearchView() {

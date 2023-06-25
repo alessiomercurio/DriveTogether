@@ -1,11 +1,14 @@
 package com.agmobiletech.drivetogether.homepage
 
+import android.R
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.Window
+import android.widget.LinearLayout
 import android.widget.Toast
-import com.agmobiletech.drivetogether.R
+import androidx.core.content.ContextCompat
+
 import com.agmobiletech.drivetogether.databinding.PrenotazioneDialogBinding
 
 

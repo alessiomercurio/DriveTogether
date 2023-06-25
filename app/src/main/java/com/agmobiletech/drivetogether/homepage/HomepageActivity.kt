@@ -193,6 +193,7 @@ class HomepageActivity : AppCompatActivity() {
          * infine aggiungo un marker in base alla loro longitudine e latitudine
          */
 
+        //vedere le amcchine disponibili
         val query = "SELECT A.localizzazioneLongitudinale, A.localizzazioneLatitudinale " +
                 "FROM Automobile A, Utente U1, Possesso P " +
                 "WHERE A.targa = P.targaAutomobile " +
