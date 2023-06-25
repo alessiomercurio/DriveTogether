@@ -12,34 +12,12 @@
         android:orientation="vertical">
 
         <FrameLayout
-            android:id="@+id/searchFrame"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <SearchView
-                android:id="@+id/searchView"
-                android:layout_width="350dp"
-                android:layout_height="55dp"
-                android:layout_gravity="center"
-                android:background="@drawable/custom_border"
-                android:backgroundTint="#ffffff"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp" />
-        </FrameLayout>
-
-        <FrameLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="20dp"
             app:layout_constraintBottom_toTopOf="@+id/bottomNavigationBar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/searchFrame">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.mapbox.maps.MapView xmlns:mapbox="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/mapView"

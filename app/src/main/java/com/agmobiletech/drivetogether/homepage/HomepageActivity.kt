@@ -1,6 +1,7 @@
 package com.agmobiletech.drivetogether.homepage
 
 import android.R.style
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
@@ -233,7 +234,7 @@ class HomepageActivity : AppCompatActivity() {
 
         var dialog = PrenotazioneDialog(this)
 
-        val query = "SELECT A.targa, A.marca, A.modello, A.numeroPosti, A.prezzo, A.localizzazioneNominale, U.nome" +
+        val query = "SELECT A.targa, A.marca, A.modello, A.numeroPosti, A.prezzo, A.localizzazioneNominale, U.nome, U.cognome" +
                 " FROM Automobile A, Utente U, Possesso P" +
                 " WHERE A.targa = P.targaAutomobile" +
                 " AND U.email = P.emailProprietario" +
@@ -246,7 +247,8 @@ class HomepageActivity : AppCompatActivity() {
                         if(response.body() != null){
                             val obj = response.body()?.getAsJsonArray("queryset")
                             if(obj != null) {
-                                dialog.binding.proprietarioTextPrenota.text = obj[0].asJsonObject?.get("nome").toString().trim('"')
+                                val nomeECognome = obj[0].asJsonObject?.get("nome").toString().trim('"') +" " + obj[0].asJsonObject?.get("cognome").toString().trim('"')
+                                dialog.binding.proprietarioTextPrenota.text = nomeECognome
                                 dialog.binding.targaTextPrenota.text = obj[0].asJsonObject?.get("targa").toString().trim('"')
                                 dialog.binding.marcaTextPrenota.text = obj[0].asJsonObject?.get("marca").toString().trim('"')
                                 dialog.binding.modelloTextPrenota.text = obj[0].asJsonObject?.get("modello").toString().trim('"')
