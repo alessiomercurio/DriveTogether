@@ -92,7 +92,6 @@
                     android:id="@+id/textView14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/roboto_bold"
                     android:text="Email: "
                     android:textColor="#064F51"
@@ -103,7 +102,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/roboto_medium"
                     android:text="email"
                     android:textSize="16sp" />
@@ -119,7 +117,6 @@
                     android:id="@+id/textView15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/roboto_bold"
                     android:text="Data di  nascita:"
                     android:textColor="#064F51"
@@ -130,7 +127,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/roboto_medium"
                     android:text="date"
                     android:textSize="16sp" />
@@ -146,7 +142,6 @@
                     android:id="@+id/textView8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/roboto_bold"
                     android:text="Telefono:"
                     android:textColor="#064F51"
@@ -157,7 +152,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/roboto_medium"
                     android:text="cell"
                     android:textSize="16sp" />
@@ -174,7 +168,6 @@
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/roboto_bold"
                     android:text="Carta di credito:"
                     android:textColor="#064F51"
@@ -185,7 +178,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/roboto_medium"
                     android:text="number"
                     android:textSize="16sp" />
@@ -202,7 +194,6 @@
                     android:id="@+id/textView7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/roboto_bold"
                     android:text="Password:"
                     android:textColor="#064F51"
@@ -213,7 +204,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/roboto_medium"
                     android:text="password"
                     android:textSize="16sp" />
@@ -221,11 +211,20 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/autoUtente"
+                android:layout_width="300dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:backgroundTint="#064F51"
+                android:text="Le mie auto"
+                app:cornerRadius="50dp" />
+
+            <Button
                 android:id="@+id/modificaProfiloButton"
                 android:layout_width="300dp"
                 android:layout_height="70dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="5dp"
                 android:backgroundTint="#064F51"
                 android:text="Modifica profilo"
                 app:cornerRadius="50dp" />

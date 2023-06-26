@@ -44,7 +44,7 @@ class VisualizzazioneAutoActivity : AppCompatActivity(){
         setContentView(binding.root)
 
         val bottomNavigationView = binding.bottomNavigationBar
-        bottomNavigationView.selectedItemId = R.id.autoMenuItem
+        bottomNavigationView.selectedItemId = R.id.profiloMenuItem
         navigationManager = BottomNavigationManager(this, bottomNavigationView)
 
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
