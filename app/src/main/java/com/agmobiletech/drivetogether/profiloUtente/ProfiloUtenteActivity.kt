@@ -13,6 +13,7 @@ import com.agmobiletech.drivetogether.LoginActivity
 import com.agmobiletech.drivetogether.R
 import com.agmobiletech.drivetogether.databinding.ActivityProfiloUtenteBinding
 import com.agmobiletech.drivetogether.homepage.HomepageActivity
+import com.agmobiletech.drivetogether.visualizzazioneAuto.VisualizzazioneAutoActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.JsonObject
 import retrofit2.Call
@@ -67,6 +68,10 @@ class ProfiloUtenteActivity : AppCompatActivity() {
             startActivity(i)
         }
 
+        binding.autoUtente.setOnClickListener{
+            val i = Intent(this, VisualizzazioneAutoActivity::class.java)
+            startActivity(i)
+        }
     }
 
     fun recuperaProfilo(query : String){
