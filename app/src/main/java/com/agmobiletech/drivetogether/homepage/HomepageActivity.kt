@@ -198,6 +198,7 @@ class HomepageActivity : AppCompatActivity() {
                 "FROM Automobile A, Utente U1, Possesso P " +
                 "WHERE A.targa = P.targaAutomobile " +
                 "AND U1.email = P.emailProprietario " +
+                "AND A.flagNoleggio = 0 " +
                 "AND U1.email NOT IN (  SELECT U2.email " +
                                         "FROM Utente U2 " +
                                         "WHERE U2.email = '${filePre.getString("Email", "")}')"
