@@ -63,8 +63,8 @@ class CustomAdapter(private val mList: List<ItemsViewModel>) : RecyclerView.Adap
             object : retrofit2.Callback<ResponseBody> {
                 override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                     if (response.isSuccessful && response.body() != null) {
-                        val immagineProfilo = BitmapFactory.decodeStream(response.body()!!.byteStream())
-                        imageView.setImageBitmap(immagineProfilo)
+                        val immagine = BitmapFactory.decodeStream(response.body()!!.byteStream())
+                        imageView.setImageBitmap(immagine)
                     }
                 }
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {

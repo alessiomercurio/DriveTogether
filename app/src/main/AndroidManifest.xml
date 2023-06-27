@@ -72,6 +72,10 @@
             android:exported="false">
         </activity>
 
+        <activity android:name=".visualizzazioneAutoNoleggiate.VisualizzazioneAutoNoleggiate"
+            android:exported="false">
+        </activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
