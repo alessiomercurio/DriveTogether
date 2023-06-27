@@ -92,6 +92,7 @@ class VisualizzazioneAutoActivity : AppCompatActivity(){
                                     data.add(ItemsViewModel(marca, modello, targa, immagine, immagineURL))
                                     restituisciImmagineMarca(obj[i].asJsonObject, binding2.immagineMarcaImageView)
                                     //binding2.macchinaCardView.invalidate()
+                                    // prova
                                 }
                                 //sistemare l'errore E/RecyclerView: No adapter attached; skipping layout
                                 adapter = CustomAdapter(data)
