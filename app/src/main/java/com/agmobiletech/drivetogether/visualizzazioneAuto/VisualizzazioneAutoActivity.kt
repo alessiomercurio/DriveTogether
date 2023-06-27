@@ -51,7 +51,7 @@ class VisualizzazioneAutoActivity : AppCompatActivity(){
 
         filePre = this.getSharedPreferences("Credenziali", MODE_PRIVATE)
 
-        val query = "SELECT Automobile.marca, Automobile.modello, Automobile.targa, Automobile.imgMarcaAuto " +
+        val query = "SELECT Automobile.marca, Automobile.modello, Automobile.targa, Automobile.numeroPosti, Automobile.prezzo, Automobile.localizzazioneNominale, Automobile.imgMarcaAuto " +
                 "FROM Utente, Automobile, Possesso " +
                 "WHERE Utente.email = '${filePre.getString("Email", "")}'" +
                 "AND Utente.email = Possesso.emailProprietario " +
@@ -72,10 +72,20 @@ class VisualizzazioneAutoActivity : AppCompatActivity(){
                         if(response.body() != null){
                             val obj = response.body()?.getAsJsonArray("queryset")
                             if(obj != null) {
+                                var marca : String? = ""
+                                var modello : String? = ""
+                                var targa : String? = ""
+                                var numeroPosti : String? = ""
+                                var prezzo : String? = ""
+                                var posizione : String? = ""
+
                                 for (i in 0 until obj.size()) {
-                                    val marca = obj[i].asJsonObject?.get("marca")?.toString()
-                                    val modello = obj[i].asJsonObject?.get("modello")?.toString()
-                                    val targa = obj[i].asJsonObject?.get("targa")?.toString()
+                                    marca = obj[i].asJsonObject?.get("marca")?.toString()?.trim('"')
+                                    modello = obj[i].asJsonObject?.get("modello")?.toString()?.trim('"')
+                                    targa = obj[i].asJsonObject?.get("targa")?.toString()?.trim('"')
+                                    numeroPosti = obj[i].asJsonObject?.get("numeroPosti")?.toString()?.trim('"')
+                                    prezzo = obj[i].asJsonObject?.get("prezzo")?.toString()?.trim('"')
+                                    posizione = obj[i].asJsonObject?.get("localizzazioneNominale")?.toString()?.trim('"')
                                     val immagine = R.id.autoMenuItem
                                     val immagineURL = obj[i].asJsonObject?.get("imgMarcaAuto")?.asString
                                     System.out.println(immagineURL)
@@ -89,8 +99,7 @@ class VisualizzazioneAutoActivity : AppCompatActivity(){
 
                                 adapter.setOnClickListener(object : CustomAdapter.OnClickListener{
                                     override fun onClick(position: Int, model: ItemsViewModel) {
-                                        mostraDialogPersonalizzato(this@VisualizzazioneAutoActivity)
-                                        Toast.makeText(this@VisualizzazioneAutoActivity,"Prova per vedere se riesce", Toast.LENGTH_LONG).show()
+                                        mostraDialogPersonalizzato(this@VisualizzazioneAutoActivity, targa, marca, modello, numeroPosti, prezzo, posizione)
                                     }
 
                                 })
@@ -136,15 +145,16 @@ class VisualizzazioneAutoActivity : AppCompatActivity(){
 
 
 
-    fun mostraDialogPersonalizzato(context: Context) {
-        val builder = AlertDialog.Builder(context)
-        val inflater = LayoutInflater.from(context)
-        val dialogView: View = inflater.inflate(R.layout.custom_dialog, null)
-
-        builder.setView(dialogView)
-        val dialog = builder.create()
-
+    fun mostraDialogPersonalizzato(context: Context, targa : String?, marca : String?, modello : String?, numeroPosti : String?, prezzo : String?, posizione : String?) {
+        val dialog = CustomDialog(this@VisualizzazioneAutoActivity)
         dialog.show()
+
+        dialog.binding.targaLeMieAuto.setText(targa)
+        dialog.binding.marcaLeMieAuto.setText(marca)
+        dialog.binding.modelloLeMieAuto.setText(modello)
+        dialog.binding.postiLeMieAuto.setText(numeroPosti)
+        dialog.binding.prezzoLeMieAuto.setText(prezzo)
+        dialog.binding.posizioneLeMieAuto.setText(posizione)
     }
 
 

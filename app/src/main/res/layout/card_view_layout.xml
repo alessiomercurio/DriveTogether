@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        app:cardBackgroundColor="#00987D"
         app:cardCornerRadius="5dp"
         app:cardUseCompatPadding="true">
 
@@ -69,9 +68,11 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:fontFamily="@font/roboto_bold"
                                 android:gravity="center"
                                 android:text="Marca"
-                                android:textColor="#ffffff"
+                                android:textAllCaps="true"
+                                android:textColor="#064F51"
                                 android:textStyle="bold" />
                         </TableRow>
 
@@ -85,9 +86,11 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:fontFamily="@font/roboto_bold"
                                 android:gravity="center"
                                 android:text="Modello:"
-                                android:textColor="#ffffff" />
+                                android:textAllCaps="true"
+                                android:textColor="#064F51" />
                         </TableRow>
 
                         <TableRow
@@ -100,9 +103,11 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:fontFamily="@font/roboto_bold"
                                 android:gravity="center"
                                 android:text="Targa:"
-                                android:textColor="#ffffff" />
+                                android:textAllCaps="true"
+                                android:textColor="#064F51" />
                         </TableRow>
 
                     </TableLayout>
@@ -131,7 +136,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="left"
                                 android:text="marca"
-                                android:textColor="#ffffff" />
+                                android:textColor="#606060" />
                         </TableRow>
 
                         <TableRow
@@ -145,7 +150,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="left"
                                 android:text="modello"
-                                android:textColor="#ffffff" />
+                                android:textColor="#606060" />
                         </TableRow>
 
                         <TableRow
@@ -159,7 +164,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="left"
                                 android:text="targa"
-                                android:textColor="#ffffff" />
+                                android:textColor="#606060" />
                         </TableRow>
 
                     </TableLayout>

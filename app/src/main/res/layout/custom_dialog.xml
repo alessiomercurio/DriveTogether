@@ -6,174 +6,209 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
+    android:background="#022020"
+    android:backgroundTint="#022020"
     android:gravity="center"
     android:orientation="vertical">
-
-    <ImageView
-        android:id="@+id/imageMarca"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:srcCompat="@tools:sample/avatars" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/custom_border"
+        android:backgroundTint="#FFFFFF"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/custom_border"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/targaTextView"
-                android:layout_width="25dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:gravity="center_horizontal|left"
-                android:text="Targa:" />
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center"
+                android:text="Targa:"
+                android:textAllCaps="true"
+                android:textColor="#064F51" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName"
+                android:id="@+id/targaLeMieAuto"
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
                 android:layout_weight="1"
-                android:background="@null"
+                android:background="@drawable/custom_border"
                 android:ems="10"
                 android:gravity="center"
+                android:hint="Targa"
                 android:inputType="textPersonName" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/custom_border"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center"
+                android:text="Marca:"
+                android:textAllCaps="true"
+                android:textColor="#064F51" />
+
+            <EditText
+                android:id="@+id/marcaLeMieAuto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/custom_border"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="Marca"
+                android:inputType="textPersonName" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/cognomeTextView"
-                android:layout_width="25dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:gravity="center_horizontal|left"
-                android:text="Modello:" />
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center"
+                android:text="Modello:"
+                android:textAllCaps="true"
+                android:textColor="#064F51" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName2"
+                android:id="@+id/modelloLeMieAuto"
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
                 android:layout_weight="1"
-                android:background="@null"
+                android:background="@drawable/custom_border"
                 android:ems="10"
                 android:gravity="center"
+                android:hint="Modello"
                 android:inputType="textPersonName" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/custom_border"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/textView11"
-                android:layout_width="25dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:gravity="center_horizontal|left"
-                android:text="Numero posti" />
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center"
+                android:text="Numero posti:"
+                android:textAllCaps="true"
+                android:textColor="#064F51" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName4"
+                android:id="@+id/postiLeMieAuto"
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
                 android:layout_weight="1"
-                android:background="@null"
+                android:background="@drawable/custom_border"
                 android:ems="10"
                 android:gravity="center"
+                android:hint="Numero di posti"
                 android:inputType="textPersonName" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/custom_border"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/textView12"
-                android:layout_width="25dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:gravity="center_horizontal|left"
-                android:text="Prezzo" />
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center"
+                android:text="Prezzo:"
+                android:textAllCaps="true"
+                android:textColor="#064F51" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName5"
+                android:id="@+id/prezzoLeMieAuto"
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
                 android:layout_weight="1"
-                android:background="@null"
+                android:background="@drawable/custom_border"
                 android:ems="10"
                 android:gravity="center"
+                android:hint="Prezzo"
                 android:inputType="textPersonName" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:layout_marginBottom="5dp"
-            android:background="@drawable/custom_border"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/textView13"
-                android:layout_width="25dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center_horizontal|left"
-                android:text="Posizione"
-                android:layout_marginLeft="10dp" />
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center"
+                android:text="Posizione:"
+                android:textAllCaps="true"
+                android:textColor="#064F51" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName7"
+                android:id="@+id/posizioneLeMieAuto"
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
                 android:layout_weight="1"
-                android:background="@null"
+                android:background="@drawable/custom_border"
                 android:ems="10"
                 android:gravity="center"
+                android:hint="Posizione"
                 android:inputType="textPersonName" />
 
         </LinearLayout>
@@ -186,38 +221,21 @@
 
             <Button
                 android:id="@+id/salvaButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="50dp"
+                android:layout_width="150dp"
+                android:layout_height="55dp"
+                android:layout_marginRight="5dp"
                 android:backgroundTint="#064F51"
                 android:text="Salva"
-                app:cornerRadius="20dp" />
+                app:cornerRadius="50dp" />
 
             <Button
                 android:id="@+id/rimuoviButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:layout_weight="1"
+                android:layout_width="150dp"
+                android:layout_height="55dp"
+                android:layout_marginLeft="5dp"
                 android:backgroundTint="#c11822"
                 android:text="Rimuovi"
-                app:cornerRadius="20dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="Info noleggiatore"
-                app:cornerRadius="20dp" />
+                app:cornerRadius="50dp" />
         </LinearLayout>
 
     </LinearLayout>
