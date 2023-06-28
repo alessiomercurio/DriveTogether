@@ -48,27 +48,31 @@ class PrenotazioneDialog(context : Context) : Dialog(context) {
         creaSpinner()
 
         binding.prenotaButton.setOnClickListener{
-            val dataFineNoleggio = calcolaData(binding.spinnerPrenota.selectedItem.toString()).toString()
-            val dataInizioNoleggio = LocalDate.now().toString()
-            val targa = binding.targaTextPrenota.text.toString().trim()
-            val emailProprietario = filePre.getString("Email", "")
 
-            val creaNoleggio = "INSERT INTO Noleggio(emailNoleggiatore, targaAutomobile, dataInizioNoleggio, dataFineNoleggio) " +
-                    "VALUES ('$emailProprietario', '$targa', '$dataInizioNoleggio', '$dataFineNoleggio')"
-            Toast.makeText(context, creaNoleggio, Toast.LENGTH_LONG).show()
+            val dataOdierna = LocalDate.now().toString()
 
+            val queryAutoNoleggiate = "SELECT count(*) " +
+                    "FROM Noleggio " +
+                    "WHERE dataInizioNoleggio <= '${dataOdierna}' AND '${dataOdierna}' < dataFineNoleggio" +
+                    " AND emailNoleggiatore = '${filePre.getString("Email", "")}'"
 
-            ClientNetwork.retrofit.insert(creaNoleggio).enqueue(
+            ClientNetwork.retrofit.select(queryAutoNoleggiate).enqueue(
                 object : Callback<JsonObject>{
                     override fun onResponse(
                         call: Call<JsonObject>,
                         response: Response<JsonObject>
                     ) {
                         if(response.isSuccessful){
-                            val aggiornaAuto = "UPDATE Automobile SET flagNoleggio = 1 WHERE targa = '$targa'"
-                            aggiornaAuto(aggiornaAuto)
+                            if(response.body() != null){
+                                val obj = response.body()?.getAsJsonArray("queryset")
+                                if(obj?.get(0)?.asJsonObject?.get("count(*)").toString().equals("1")){
+                                    Toast.makeText(context, "Non é possibile fare piú di un noleggio alla volta", Toast.LENGTH_SHORT).show()
+                                }else{
+                                    noleggiaAuto()
+                                }
+                            }
                         }else{
-                            Toast.makeText(context, "Errore ", Toast.LENGTH_LONG).show()
+                            Toast.makeText(context, "Errore del server", Toast.LENGTH_SHORT).show()
                         }
                     }
 
@@ -79,6 +83,40 @@ class PrenotazioneDialog(context : Context) : Dialog(context) {
                 }
             )
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun noleggiaAuto(){
+        val dataFineNoleggio = calcolaData(binding.spinnerPrenota.selectedItem.toString()).toString()
+        val dataInizioNoleggio = LocalDate.now().toString()
+        val targa = binding.targaTextPrenota.text.toString().trim()
+        val emailProprietario = filePre.getString("Email", "")
+
+        val creaNoleggio = "INSERT INTO Noleggio(emailNoleggiatore, targaAutomobile, dataInizioNoleggio, dataFineNoleggio) " +
+                "VALUES ('$emailProprietario', '$targa', '$dataInizioNoleggio', '$dataFineNoleggio')"
+        Toast.makeText(context, creaNoleggio, Toast.LENGTH_LONG).show()
+
+
+        ClientNetwork.retrofit.insert(creaNoleggio).enqueue(
+            object : Callback<JsonObject>{
+                override fun onResponse(
+                    call: Call<JsonObject>,
+                    response: Response<JsonObject>
+                ) {
+                    if(response.isSuccessful){
+                        val aggiornaAuto = "UPDATE Automobile SET flagNoleggio = 1 WHERE targa = '$targa'"
+                        aggiornaAuto(aggiornaAuto)
+                    }else{
+                        Toast.makeText(context, "Errore ", Toast.LENGTH_LONG).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    Toast.makeText(context, "Errore database", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+        )
     }
 
     private fun creaSpinner(){
