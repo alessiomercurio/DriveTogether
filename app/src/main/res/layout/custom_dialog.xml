@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/customDialogLinearLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
     android:background="#022020"
     android:backgroundTint="#022020"
-    android:gravity="center"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
         android:background="@drawable/custom_border"
         android:backgroundTint="#FFFFFF"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintHorizontal_bias="0"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,7 +43,7 @@
 
             <EditText
                 android:id="@+id/targaLeMieAuto"
-                android:layout_width="140dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
@@ -55,7 +59,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
             android:layout_margin="5dp"
             android:orientation="horizontal">
 
@@ -70,17 +73,11 @@
                 android:textAllCaps="true"
                 android:textColor="#064F51" />
 
-            <EditText
+            <Spinner
                 android:id="@+id/marcaLeMieAuto"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/custom_border"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="Marca"
-                android:inputType="textPersonName" />
+                android:layout_marginLeft="5dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -101,18 +98,11 @@
                 android:textAllCaps="true"
                 android:textColor="#064F51" />
 
-            <EditText
+            <Spinner
                 android:id="@+id/modelloLeMieAuto"
-                android:layout_width="140dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/custom_border"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="Modello"
-                android:inputType="textPersonName" />
+                android:layout_marginLeft="5dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -135,7 +125,7 @@
 
             <EditText
                 android:id="@+id/postiLeMieAuto"
-                android:layout_width="140dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
@@ -167,7 +157,7 @@
 
             <EditText
                 android:id="@+id/prezzoLeMieAuto"
-                android:layout_width="140dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
@@ -200,7 +190,7 @@
 
             <EditText
                 android:id="@+id/posizioneLeMieAuto"
-                android:layout_width="140dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
@@ -214,16 +204,36 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_margin="5dp">
+
+            <com.mapbox.search.ui.view.SearchResultsView
+                android:id="@+id/search_results_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_background"
+                android:clipToPadding="true"
+                android:elevation="4dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="22dp"
+                android:visibility="gone"
+                tools:layout_editor_absoluteY="931dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/salvaButton"
                 android:layout_width="150dp"
                 android:layout_height="55dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
                 android:backgroundTint="#064F51"
                 android:text="Salva"
                 app:cornerRadius="50dp" />
@@ -232,12 +242,14 @@
                 android:id="@+id/rimuoviButton"
                 android:layout_width="150dp"
                 android:layout_height="55dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="2dp"
+                android:layout_weight="1"
                 android:backgroundTint="#c11822"
                 android:text="Rimuovi"
                 app:cornerRadius="50dp" />
+
         </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -151,8 +151,6 @@ class VisualizzazioneAutoActivity : AppCompatActivity(){
         dialog.show()
 
         dialog.binding.targaLeMieAuto.setText(targa)
-        dialog.binding.marcaLeMieAuto.setText(marca)
-        dialog.binding.modelloLeMieAuto.setText(modello)
         dialog.binding.postiLeMieAuto.setText(numeroPosti)
         dialog.binding.prezzoLeMieAuto.setText(prezzo)
         dialog.binding.posizioneLeMieAuto.setText(posizione)
