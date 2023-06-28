@@ -23,7 +23,6 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#ffffff"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationBar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +40,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                app:cardBackgroundColor="#00987D"
                 app:cardCornerRadius="5dp"
                 app:cardUseCompatPadding="true">
 
@@ -98,8 +96,8 @@
                                         android:layout_height="wrap_content"
                                         android:layout_weight="1"
                                         android:gravity="center"
-                                        android:text="Marca"
-                                        android:textColor="#ffffff"
+                                        android:text="MARCA"
+                                        android:textColor="#064F51"
                                         android:textStyle="bold" />
                                 </TableRow>
 
@@ -114,8 +112,8 @@
                                         android:layout_height="wrap_content"
                                         android:layout_weight="1"
                                         android:gravity="center"
-                                        android:text="Modello:"
-                                        android:textColor="#ffffff" />
+                                        android:text="MODELLO:"
+                                        android:textColor="#064F51" />
                                 </TableRow>
 
                                 <TableRow
@@ -129,8 +127,8 @@
                                         android:layout_height="wrap_content"
                                         android:layout_weight="1"
                                         android:gravity="center"
-                                        android:text="Targa:"
-                                        android:textColor="#ffffff" />
+                                        android:text="TARGA:"
+                                        android:textColor="#064F51" />
                                 </TableRow>
 
                             </TableLayout>
@@ -159,7 +157,7 @@
                                         android:layout_height="wrap_content"
                                         android:gravity="left"
                                         android:text="marca"
-                                        android:textColor="#ffffff" />
+                                        android:textColor="#606060" />
                                 </TableRow>
 
                                 <TableRow
@@ -173,7 +171,7 @@
                                         android:layout_height="wrap_content"
                                         android:gravity="left"
                                         android:text="modello"
-                                        android:textColor="#ffffff" />
+                                        android:textColor="#606060" />
                                 </TableRow>
 
                                 <TableRow
@@ -187,7 +185,7 @@
                                         android:layout_height="wrap_content"
                                         android:gravity="left"
                                         android:text="targa"
-                                        android:textColor="#ffffff" />
+                                        android:textColor="#606060" />
                                 </TableRow>
 
                             </TableLayout>
@@ -203,32 +201,41 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/mostraCronologiaButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/CronologiaButton"
+            android:layout_width="250dp"
+            android:layout_height="55dp"
             android:layout_gravity="center"
-            android:backgroundTint="#064F51"
-            android:text="Mostra cronologia"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:backgroundTint="#00987D"
+            android:text="Nascondi cronologia"
             app:cornerRadius="50dp" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/noleggioPassatoTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="Nessuna auto noleggiata in passato!"
+            android:textColor="#ffffff"
+            android:visibility="gone" />
+
+        <FrameLayout
+            android:id="@+id/cronologiaFrameLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:orientation="horizontal">
+            android:visibility="visible">
 
-            <FrameLayout
-                android:id="@+id/cronologiaFrameLayout"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/cronologiaRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_gravity="center" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/cronologiaRecyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+        </FrameLayout>
 
-            </FrameLayout>
-        </LinearLayout>
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -240,6 +247,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/layout_menu"></com.google.android.material.bottomnavigation.BottomNavigationView>
+        app:menu="@menu/layout_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

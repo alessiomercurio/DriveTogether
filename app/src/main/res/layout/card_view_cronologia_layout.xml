@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/macchinaNoleggiataCronologiaCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="#00987D"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         app:cardCornerRadius="5dp"
         app:cardUseCompatPadding="true"
         tools:layout_editor_absoluteX="20dp">
@@ -67,8 +68,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="Marca"
-                                android:textColor="#ffffff"
+                                android:text="MARCA"
+                                android:textColor="#064F51"
                                 android:textStyle="bold" />
                         </TableRow>
 
@@ -83,8 +84,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="Modello:"
-                                android:textColor="#ffffff" />
+                                android:text="MODELLO:"
+                                android:textColor="#064F51" />
                         </TableRow>
 
                         <TableRow
@@ -98,8 +99,38 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="Targa:"
-                                android:textColor="#ffffff" />
+                                android:text="TARGA:"
+                                android:textColor="#064F51" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/textView18"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="INIZIO :"
+                                android:textColor="#064F51" />
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/textView19"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="FINE :"
+                                android:textColor="#064F51" />
                         </TableRow>
 
                     </TableLayout>
@@ -128,7 +159,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="left"
                                 android:text="marca"
-                                android:textColor="#ffffff" />
+                                android:textColor="#606060" />
                         </TableRow>
 
                         <TableRow
@@ -142,7 +173,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="left"
                                 android:text="modello"
-                                android:textColor="#ffffff" />
+                                android:textColor="#606060" />
                         </TableRow>
 
                         <TableRow
@@ -156,7 +187,34 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="left"
                                 android:text="targa"
-                                android:textColor="#ffffff" />
+                                android:textColor="#606060" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/inizioNoleggioDaInserire"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="left"
+                                android:text="inizio"
+                                android:textColor="#606060" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="left">
+
+                            <TextView
+                                android:id="@+id/fineNoleggioDaInserire"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="left"
+                                android:text="fine"
+                                android:textColor="#606060" />
                         </TableRow>
 
                     </TableLayout>
