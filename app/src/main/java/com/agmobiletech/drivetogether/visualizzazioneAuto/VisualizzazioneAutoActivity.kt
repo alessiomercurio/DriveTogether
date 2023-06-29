@@ -145,7 +145,6 @@ class VisualizzazioneAutoActivity : AppCompatActivity(){
     }
 
 
-
     fun mostraDialogPersonalizzato(context: Context, targa : String?, marca : String?, modello : String?, numeroPosti : String?, prezzo : String?, posizione : String?) {
         val dialog = CustomDialog(this@VisualizzazioneAutoActivity)
         dialog.show()

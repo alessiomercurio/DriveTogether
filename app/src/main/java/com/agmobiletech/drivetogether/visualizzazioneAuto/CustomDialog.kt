@@ -274,7 +274,7 @@ class CustomDialog(context: Context) : Dialog(context) {
 
 
                 marca = marcheAuto.get(position)
-                    if (marcaSelezionata.isNotEmpty()) {
+                if (marcaSelezionata.isNotEmpty()) {
                         modello = marcaSelezionata[0] // Imposta il primo modello come predefinito
 
                         spinnerModello.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {

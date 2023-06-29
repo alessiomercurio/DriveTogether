@@ -71,23 +71,43 @@ class ModificaUtenteActivity : AppCompatActivity() {
                         " password = '${binding.passwordProfilo.text.toString().trim()}'" +
                         " WHERE email = '${datiProfilo.getString("Email")}'"
                 aggiornaProfilo(query)
-            }else{
-                Toast.makeText(this, "Alcuni campi sono vuoti", Toast.LENGTH_LONG)
             }
         }
-
-
     }
 
     private fun checkCampi() : Boolean{
-         if(
-             binding.emailProfilo.text.isNotEmpty() && binding.nomeModificaProfilo.text.isNotEmpty()
-             && binding.dataNascitaProfilo.text.isNotEmpty() && binding.telefonoProfilo.text.isNotEmpty() &&
-             binding.cartaCreditoProfilo.text.isNotEmpty() && binding.passwordProfilo.text.isNotEmpty()
-             && binding.cognomeModificaProfilo.text.isNotEmpty()
-         )
-             return true
-        return false
+        val patternTelefono = Regex("^[0-9]{10}")
+        val patternCartaDiCredito = Regex("^[0-9]{16}")
+        val patterNomeCognomeEmail = Regex("^[0-9]+")
+        var check = false
+
+        if(
+            binding.emailProfilo.text.isNotEmpty() && binding.nomeModificaProfilo.text.isNotEmpty()
+            && binding.dataNascitaProfilo.text.isNotEmpty() && binding.telefonoProfilo.text.isNotEmpty() &&
+            binding.cartaCreditoProfilo.text.isNotEmpty() && binding.passwordProfilo.text.isNotEmpty()
+            && binding.cognomeModificaProfilo.text.isNotEmpty()
+        ){
+            check = true
+            if(binding.emailProfilo.text.matches(patterNomeCognomeEmail)){
+                check = false
+                Toast.makeText(this, "Inserire una email valida", Toast.LENGTH_LONG).show()
+            }else if(binding.nomeModificaProfilo.text.matches(patterNomeCognomeEmail)){
+                check = false
+                Toast.makeText(this, "Inserire un nome valido", Toast.LENGTH_LONG).show()
+            }
+            else if(binding.cognomeModificaProfilo.text.matches(patterNomeCognomeEmail)){
+                check = false
+                Toast.makeText(this, "Inserire un cognome valido", Toast.LENGTH_LONG).show()
+            }else if(!binding.telefonoProfilo.text.matches(patternTelefono)){
+                check = false
+                Toast.makeText(this, "Inserire un numero di telefono valido", Toast.LENGTH_LONG).show()
+            }else if(!binding.cartaCreditoProfilo.text.matches(patternCartaDiCredito)){
+                check = false
+                Toast.makeText(this, "Inserire una numero di carta valido", Toast.LENGTH_LONG).show()
+            }
+        }else
+            Toast.makeText(this, "I campi sono vuoti", Toast.LENGTH_LONG).show()
+        return check
     }
 
     private fun updateLable(calendar: Calendar) {

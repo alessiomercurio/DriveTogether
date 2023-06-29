@@ -259,9 +259,11 @@ class InserimentoAutoActivity : AppCompatActivity(){
            if(checkCampi() == 1){
                Toast.makeText(this@InserimentoAutoActivity, "Campi vuoti", Toast.LENGTH_LONG).show()
            }else if(checkCampi() == 2){
-               Toast.makeText(this@InserimentoAutoActivity, "Errore nell'inserimento del numero di posti", Toast.LENGTH_LONG).show()
-           }else if(checkCampi() == 3){
-               Toast.makeText(this@InserimentoAutoActivity, "Errore nell'inserimento del prezzo", Toast.LENGTH_LONG).show()
+               Toast.makeText(this@InserimentoAutoActivity, "Inserire un numero posti da 2 a 5", Toast.LENGTH_LONG).show()
+           }else if(checkCampi() == 3) {
+               Toast.makeText(this@InserimentoAutoActivity, "Inserire un prezzo da 1 a 99 euro", Toast.LENGTH_LONG).show()
+           }else if (checkCampi() == 4){
+               Toast.makeText(this@InserimentoAutoActivity, "Inserire una targa valida", Toast.LENGTH_LONG).show()
            }else {
                val targa = binding.targaPlainText.text.trim().toString()
                //marca e modello presi dallo spinner
@@ -314,14 +316,17 @@ class InserimentoAutoActivity : AppCompatActivity(){
     }
 
     fun checkCampi() : Int{
+        val pattern = Regex("^[A-Z][A-Z]-[0-9][0-9][0-9][A-Z]$")
+
         if (binding.targaPlainText.text.trim().isEmpty() || binding.numeroPostiPlainText.text.trim().isEmpty() ||
-            binding.prezzoPlainText.text.trim().isEmpty() || binding.posizionePlainText.text.trim().isEmpty())
-        {
+            binding.prezzoPlainText.text.trim().isEmpty() || binding.posizionePlainText.text.trim().isEmpty()) {
             return 1
-        }else if (binding.numeroPostiPlainText.text.trim().toString().toInt() <= 1){
+        } else if (binding.numeroPostiPlainText.text.trim().toString().toInt() < 1 || binding.numeroPostiPlainText.text.trim().toString().toInt() > 5){
             return 2
-        }else if (binding.prezzoPlainText.text.trim().toString().toDouble() <= 0){
+        }else if (binding.prezzoPlainText.text.trim().toString().toDouble() <= 0 || binding.prezzoPlainText.text.trim().toString().toDouble() >= 100){
             return 3
+        }else if (!binding.targaPlainText.text.trim().matches(pattern)){
+            return 4
         }
         return 0
     }
