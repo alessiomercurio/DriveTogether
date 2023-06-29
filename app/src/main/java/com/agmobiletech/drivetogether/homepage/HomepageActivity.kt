@@ -103,6 +103,7 @@ class HomepageActivity : AppCompatActivity() {
                     mapView.getMapboxMap().loadStyleUri(
                         com.mapbox.maps.Style.MAPBOX_STREETS,
                         object : com.mapbox.maps.Style.OnStyleLoaded {
+                            @RequiresApi(Build.VERSION_CODES.O)
                             override fun onStyleLoaded(style: com.mapbox.maps.Style) {
                                 mapView.location.updateSettings {
                                     enabled = true
@@ -188,6 +189,7 @@ class HomepageActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun caricaAutomobili(){
         /**
          * mi seleziono la longitudine e la latitudine di tutte le macchine che non sono possedute dall'utente loggato.
