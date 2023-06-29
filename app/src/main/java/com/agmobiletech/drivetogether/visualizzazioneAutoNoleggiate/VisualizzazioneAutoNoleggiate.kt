@@ -1,7 +1,12 @@
 package com.agmobiletech.drivetogether.visualizzazioneAutoNoleggiate
 
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -10,6 +15,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.agmobiletech.drivetogether.BottomNavigationManager
@@ -31,6 +37,8 @@ class VisualizzazioneAutoNoleggiate : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     private var dataAttuale = LocalDate.now().toString()
 
+    private var idNoleggio : Int? = null
+    private var targaNoleggioAttuale : String? = null
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,12 +66,12 @@ class VisualizzazioneAutoNoleggiate : AppCompatActivity() {
         }
         //fare on click sulla card view
         binding.macchinaNoleggiataCardView.setOnClickListener{
-            Toast.makeText(this, "ciao", Toast.LENGTH_LONG).show()
+            mostraDialogConfermaRimozione(this)
         }
     }
 
     private fun restituisciMacchinaAttualmenteNoleggiata(dataAttuale : String){
-        val query = "SELECT A.marca, A.modello, A.targa, A.imgMarcaAuto, N.dataInizioNoleggio " +
+        val query = "SELECT N.idNoleggio, A.marca, A.modello, A.targa, A.imgMarcaAuto, N.dataInizioNoleggio " +
                 "FROM  Noleggio N, Automobile A, Utente U " +
                 "WHERE N.targaAutomobile = A.targa " +
                 "AND N.emailNoleggiatore = U.email " +
@@ -80,13 +88,15 @@ class VisualizzazioneAutoNoleggiate : AppCompatActivity() {
                             val queryset = response.body()?.getAsJsonArray("queryset")
                             if(queryset != null && queryset.size() > 0){
                                 val obj = response.body()?.getAsJsonArray("queryset")?.get(0)
+                                idNoleggio = obj?.asJsonObject?.get("idNoleggio")?.asInt
                                 binding.marcaNoleggioDaInserire.text = obj?.asJsonObject?.get("marca")?.asString
                                 binding.modelloNoleggioDaInserire.text = obj?.asJsonObject?.get("modello")?.asString
                                 binding.targaNoleggioDaInserire.text = obj?.asJsonObject?.get("targa")?.asString
+                                targaNoleggioAttuale = binding.targaNoleggioDaInserire.text.toString()
                                 restituisciImmagineMarca(obj?.asJsonObject?.get("imgMarcaAuto")?.asString, binding.marcaAutoNoleggiataImageView)
                             }else{
                                 binding.macchinaNoleggiataCardView.visibility = View.GONE
-                                Toast.makeText(this@VisualizzazioneAutoNoleggiate, "Nessuna auto noleggiata", Toast.LENGTH_LONG).show()
+                                binding.noleggioAttualeTextView.visibility = View.VISIBLE
                             }
                         }
                     }
@@ -159,6 +169,81 @@ class VisualizzazioneAutoNoleggiate : AppCompatActivity() {
                         }
                     }else{
                         System.out.println(response.body())
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    Toast.makeText(this@VisualizzazioneAutoNoleggiate, "Errore nel database", Toast.LENGTH_LONG).show()
+                }
+
+            }
+        )
+    }
+
+    fun mostraDialogConfermaRimozione(context: Context) {
+        val builder = AlertDialog.Builder(context)
+
+        // Imposta il titolo del dialog
+        builder.setTitle("Termina noleggio")
+
+        // Imposta il messaggio del dialog
+        builder.setMessage("Sei sicuro di voler terminare il noleggio di questo auto?")
+
+        // Aggiunge il pulsante "Rimuovi"
+        builder.setPositiveButton("Termina") { dialog, which ->
+            // Funzione chiamata quando viene premuto il pulsante "Rimuovi"
+            eseguiRimozioneContenuto()
+        }
+
+        // Aggiunge il pulsante "Annulla"
+        builder.setNegativeButton("Annulla") { dialog, which ->
+            // Funzione chiamata quando viene premuto il pulsante "Annulla"
+            dialog.dismiss()
+        }
+
+        // Crea e mostra il dialog
+        val dialog = builder.create()
+        dialog.show()
+
+        // Ottieni i pulsanti positiveButton e negativeButton dal dialog
+        val positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+        val negativeButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+
+        // Imposta il colore del testo dei pulsanti
+        positiveButton.setTextColor(Color.parseColor("#ff4040"))
+        negativeButton.setTextColor(Color.parseColor("#00987D"))
+    }
+
+    fun eseguiRimozioneContenuto() {
+        val query = "DELETE FROM Noleggio " +
+                    "WHERE idNoleggio = ${idNoleggio}"
+        ClientNetwork.retrofit.remove(query).enqueue(
+            object : Callback<JsonObject>{
+                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                    if(response.isSuccessful){
+                        if(response.body() != null){
+                            Toast.makeText(this@VisualizzazioneAutoNoleggiate, "Noleggio terminato con successo", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    Toast.makeText(this@VisualizzazioneAutoNoleggiate, "Errore nel database", Toast.LENGTH_LONG).show()
+                }
+
+            }
+        )
+        val queryUpdate = "UPDATE Automobile " +
+                "SET flagNoleggio = 0 " +
+                "WHERE targa = '${targaNoleggioAttuale}'"
+        ClientNetwork.retrofit.update(queryUpdate).enqueue(
+            object : Callback<JsonObject>{
+                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                    if(response.isSuccessful){
+                        if(response.body() != null){
+                            val intent = Intent(this@VisualizzazioneAutoNoleggiate, VisualizzazioneAutoNoleggiate::class.java)
+                            startActivity(intent)
+                        }
                     }
                 }
 

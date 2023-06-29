@@ -34,6 +34,17 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+            <TextView
+                android:id="@+id/noleggioAttualeTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Non stai noleggiando nessuna macchina"
+                android:textColor="#ffffff"
+                android:visibility="gone" />
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/macchinaNoleggiataCardView"
                 android:layout_width="match_parent"
