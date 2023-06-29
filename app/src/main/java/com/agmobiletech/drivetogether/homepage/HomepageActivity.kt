@@ -9,6 +9,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.icu.util.LocaleData
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -49,6 +50,7 @@ import com.mapbox.maps.plugin.locationcomponent.location
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.time.LocalDate
 
 class HomepageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomepageBinding
@@ -227,6 +229,8 @@ class HomepageActivity : AppCompatActivity() {
                 }
             }
         )
+        restituisciMacchinaAttualmenteNoleggiata(LocalDate.now().toString())
+
     }
 
     fun mostraDialogPersonalizzato(context: Context, longitudine: Double, latitudine: Double) {
@@ -277,6 +281,61 @@ class HomepageActivity : AppCompatActivity() {
         val dialog = builder.create()
         dialog.show()*/
     }
+
+    private fun restituisciMacchinaAttualmenteNoleggiata(dataAttuale : String){
+        val query = "SELECT  A.localizzazioneLongitudinale, A.localizzazioneLatitudinale " +
+                "FROM  Noleggio N, Automobile A, Utente U " +
+                "WHERE N.targaAutomobile = A.targa " +
+                "AND N.emailNoleggiatore = U.email " +
+                "AND U.email = '${filePre.getString("Email", "")}' " +
+                "AND A.flagNoleggio = 1 " +
+                "AND '${dataAttuale}' BETWEEN N.dataInizioNoleggio AND N.dataFineNoleggio " +
+                "ORDER BY N.dataInizioNoleggio DESC " +
+                "LIMIT 1;"
+        ClientNetwork.retrofit.select(query).enqueue(
+            object : Callback<JsonObject>{
+                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                    if(response.isSuccessful){
+                        if(response.body() != null){
+                            val queryset = response.body()?.getAsJsonArray("queryset")
+                            if(queryset != null && queryset.size() > 0){
+                                val obj = response.body()?.getAsJsonArray("queryset")?.get(0)
+                                longitudine = obj?.asJsonObject?.get("localizzazioneLongitudinale").toString().trim('"').toDouble()
+                                latitudine = obj?.asJsonObject?.get("localizzazioneLatitudinale").toString().trim('"').toDouble()
+                                addAnnotationToMapNoleggiata(longitudine!!, latitudine!!)
+                            }else{
+                                Toast.makeText(this@HomepageActivity, "Nessuna auto noleggiata", Toast.LENGTH_LONG).show()
+                            }
+                        }
+                    }
+                }
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    Toast.makeText(this@HomepageActivity, "Errore", Toast.LENGTH_LONG).show()
+                }
+
+            }
+        )
+    }
+    private fun addAnnotationToMapNoleggiata(longitudine : Double, latitudine: Double) {
+        // Create an instance of the Annotation API and get the PointAnnotationManager.
+        bitmapFromDrawableRes(
+            this@HomepageActivity,
+            R.drawable.car_marker_bianco
+        )?.let {
+            val annotationApi = mapView.annotations
+            val pointAnnotationManager = annotationApi.createPointAnnotationManager()
+            // Set options for the resulting symbol layer.
+            val pointAnnotationOptions: PointAnnotationOptions = PointAnnotationOptions()
+                // Define a geographic coordinate.
+                .withPoint(Point.fromLngLat(longitudine, latitudine))
+                // Specify the bitmap you assigned to the point annotation
+                // The bitmap will be added to map style automatically.
+                .withIconImage(it)
+            // Add the resulting pointAnnotation to the map.
+            pointAnnotationManager.create(pointAnnotationOptions)
+        }
+    }
+
 
 
 }
