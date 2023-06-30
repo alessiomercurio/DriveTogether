@@ -2,16 +2,21 @@ package com.agmobiletech.drivetogether.visualizzazioneAuto
 
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings.Global.getString
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.*
+import androidx.core.content.ContextCompat.startActivity
+import androidx.core.content.contentValuesOf
 import com.agmobiletech.drivetogether.ClientNetwork
 import com.agmobiletech.drivetogether.R
 import com.agmobiletech.drivetogether.databinding.CustomDialogBinding
+import com.agmobiletech.drivetogether.visualizzazioneAutoNoleggiate.VisualizzazioneAutoNoleggiate
 import com.google.gson.JsonObject
+import com.mapbox.maps.extension.style.expressions.dsl.generated.indexOf
 import com.mapbox.maps.plugin.Plugin
 import com.mapbox.search.ResponseInfo
 import com.mapbox.search.SearchEngine
@@ -32,7 +37,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CustomDialog(context: Context) : Dialog(context) {
+class CustomDialog(context: Context, marcaParametro : String?, modelloParametro : String?) : Dialog(context) {
 
     lateinit var binding : CustomDialogBinding
     private lateinit var toolbar: Toolbar
@@ -47,6 +52,9 @@ class CustomDialog(context: Context) : Dialog(context) {
     private var longitudine : Double? = null
     private var marca : String? = null
     private var modello : String? = null
+    private var marcaAutoPar = marcaParametro
+    private var modelloAutoPar = modelloParametro
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -180,8 +188,10 @@ class CustomDialog(context: Context) : Dialog(context) {
                     ", localizzazioneNominale = '${posizioneNominale}'" +
                     ", localizzazioneLongitudinale = '${longitudine}'" +
                     ", localizzazioneLatitudinale = '${latidutine}'" +
+                    ", imgMarcaAuto = 'media/images/loghi/${binding.marcaLeMieAuto.selectedItem.toString().lowercase()}.png'" +
                     " WHERE targa = '${binding.targaLeMieAuto.text}'"
 
+            System.out.println(modificaAutoQuery)
             ClientNetwork.retrofit.update(modificaAutoQuery).enqueue(
                 object : Callback<JsonObject>{
                     override fun onResponse(
@@ -190,8 +200,10 @@ class CustomDialog(context: Context) : Dialog(context) {
                     ) {
                         if(response.isSuccessful){
                             Toast.makeText(context, "Auto aggiornata", Toast.LENGTH_LONG).show()
+                            val intent = Intent(context, VisualizzazioneAutoActivity::class.java)
+                            startActivity(context, intent, null)
                         }else{
-                            Toast.makeText(context, "Errore nell'aggiornare l'auto", Toast.LENGTH_LONG).show()
+                            Toast.makeText(context, "Errore nell'aggiornare l'auto" + response, Toast.LENGTH_LONG).show()
                         }
                     }
 
@@ -217,6 +229,8 @@ class CustomDialog(context: Context) : Dialog(context) {
                     ) {
                         if(response.isSuccessful){
                             Toast.makeText(context, "Macchina eliminata", Toast.LENGTH_LONG).show()
+                            val intent = Intent(context, VisualizzazioneAutoActivity::class.java)
+                            startActivity(context, intent, null)
                         }else{
                             Toast.makeText(context, "Errore nell'eliminare l'auto", Toast.LENGTH_LONG).show()
                         }
@@ -233,6 +247,8 @@ class CustomDialog(context: Context) : Dialog(context) {
     }
 
     private fun creaSpinner(){
+
+
         val spinnerMarca = binding.marcaLeMieAuto
         val spinnerModello = binding.modelloLeMieAuto
 
@@ -257,37 +273,31 @@ class CustomDialog(context: Context) : Dialog(context) {
         adapterMarche.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerMarca.adapter = adapterMarche
 
-        val adapterModelli = ArrayAdapter(context, android.R.layout.simple_spinner_item, arrayOf<String>())
-        adapterModelli.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerModello.adapter = adapterModelli
+        val posizione : Int = adapterMarche.getPosition(marcaAutoPar)
+        spinnerMarca.setSelection(posizione)
 
+        val adapterModelloParametro = ArrayAdapter(this@CustomDialog.context, android.R.layout.simple_spinner_item, modelliAuto[posizione])
+        spinnerModello.adapter = adapterModelloParametro
+        val posizioneModello : Int = adapterModelloParametro.getPosition(modelloAutoPar)
+        System.out.println("posizioneModello " + posizioneModello)
+        spinnerModello.setSelection(posizioneModello)
 
         spinnerMarca.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 var marcaSelezionata = modelliAuto[position] // Imposta il primo modello come predefinito
+
 
                 // imposta gli elementi dello spinner dei modelli
                 val adapterModelliMarca = ArrayAdapter(this@CustomDialog.context, android.R.layout.simple_spinner_item, marcaSelezionata)
                 adapterModelliMarca.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 spinnerModello.adapter = adapterModelliMarca
 
-
-
-                marca = marcheAuto.get(position)
-                if (marcaSelezionata.isNotEmpty()) {
+                marca = marcheAuto[position]
+                if (marca != marcaAutoPar) {
                         modello = marcaSelezionata[0] // Imposta il primo modello come predefinito
-
-                        spinnerModello.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                                modello = marcaSelezionata[position] // Ottieni il modello selezionato
-                            }
-
-                            override fun onNothingSelected(parent: AdapterView<*>?) {
-                                // Fai nulla
-                            }
-                        }
-
                 }
+                val posizioneModello : Int = adapterModelloParametro.getPosition(modelloAutoPar)
+                spinnerModello.setSelection(posizioneModello)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {

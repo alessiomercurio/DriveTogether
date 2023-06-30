@@ -316,7 +316,7 @@ class InserimentoAutoActivity : AppCompatActivity(){
     }
 
     fun checkCampi() : Int{
-        val pattern = Regex("^[A-Z][A-Z]-[0-9][0-9][0-9][A-Z]$")
+        val pattern = Regex("^[A-Z][A-Z]-[0-9][0-9][0-9][A-Z][A-Z]$")
 
         if (binding.targaPlainText.text.trim().isEmpty() || binding.numeroPostiPlainText.text.trim().isEmpty() ||
             binding.prezzoPlainText.text.trim().isEmpty() || binding.posizionePlainText.text.trim().isEmpty()) {

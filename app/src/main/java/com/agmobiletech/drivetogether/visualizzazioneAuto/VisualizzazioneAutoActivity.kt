@@ -14,6 +14,7 @@ import android.view.Window
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.agmobiletech.drivetogether.BottomNavigationManager
 import com.agmobiletech.drivetogether.ClientNetwork
@@ -88,9 +89,8 @@ class VisualizzazioneAutoActivity : AppCompatActivity(){
                                     posizione = obj[i].asJsonObject?.get("localizzazioneNominale")?.toString()?.trim('"')
                                     val immagine = R.id.autoMenuItem
                                     val immagineURL = obj[i].asJsonObject?.get("imgMarcaAuto")?.asString
-                                    System.out.println(immagineURL)
-                                    data.add(ItemsViewModel(marca, modello, targa, immagine, immagineURL))
-                                    restituisciImmagineMarca(obj[i].asJsonObject, binding2.immagineMarcaImageView)
+                                    data.add(ItemsViewModel(marca, modello, targa,numeroPosti, prezzo, posizione, immagine, immagineURL))
+                                    //restituisciImmagineMarca(obj[i].asJsonObject, binding2.immagineMarcaImageView)
                                     //binding2.macchinaCardView.invalidate()
                                     // prova
                                 }
@@ -100,7 +100,7 @@ class VisualizzazioneAutoActivity : AppCompatActivity(){
 
                                 adapter.setOnClickListener(object : CustomAdapter.OnClickListener{
                                     override fun onClick(position: Int, model: ItemsViewModel) {
-                                        mostraDialogPersonalizzato(this@VisualizzazioneAutoActivity, targa, marca, modello, numeroPosti, prezzo, posizione)
+                                        mostraDialogPersonalizzato(this@VisualizzazioneAutoActivity, model.targa, model.marca, model.modello, model.numeroPosti, model.prezzo, model.posizione)
                                     }
 
                                 })
@@ -146,7 +146,7 @@ class VisualizzazioneAutoActivity : AppCompatActivity(){
 
 
     fun mostraDialogPersonalizzato(context: Context, targa : String?, marca : String?, modello : String?, numeroPosti : String?, prezzo : String?, posizione : String?) {
-        val dialog = CustomDialog(this@VisualizzazioneAutoActivity)
+        val dialog = CustomDialog(this@VisualizzazioneAutoActivity, marca, modello)
         dialog.show()
 
         dialog.binding.targaLeMieAuto.setText(targa)
