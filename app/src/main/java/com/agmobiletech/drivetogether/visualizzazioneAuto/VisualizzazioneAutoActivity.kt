@@ -1,20 +1,15 @@
 package com.agmobiletech.drivetogether.visualizzazioneAuto
 
 
-import android.app.AlertDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-
 import android.view.Window
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.agmobiletech.drivetogether.BottomNavigationManager
 import com.agmobiletech.drivetogether.ClientNetwork
@@ -31,12 +26,10 @@ import retrofit2.Response
 class VisualizzazioneAutoActivity : AppCompatActivity(){
     lateinit var binding : ActivityVisualizzazioneAutoBinding
     lateinit var binding2 : CardViewLayoutBinding
-    lateinit var binding3 : CustomDialogBinding
     private lateinit var navigationManager: BottomNavigationManager
     lateinit var filePre: SharedPreferences
     lateinit var adapter: CustomAdapter
 
-    private var immaginaMarcaSecure : ImageView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityVisualizzazioneAutoBinding.inflate(layoutInflater)
@@ -58,10 +51,6 @@ class VisualizzazioneAutoActivity : AppCompatActivity(){
                 "AND Utente.email = Possesso.emailProprietario " +
                 "AND Automobile.targa = Possesso.targaAutomobile"
         resituisciMacchine(query)
-        //adapter = CustomAdapter(data)
-        //binding.recyclerView.adapter = adapter
-        //implementare onClick per la recyclerview
-
     }
 
     private fun resituisciMacchine(query : String){
@@ -90,11 +79,7 @@ class VisualizzazioneAutoActivity : AppCompatActivity(){
                                     val immagine = R.id.autoMenuItem
                                     val immagineURL = obj[i].asJsonObject?.get("imgMarcaAuto")?.asString
                                     data.add(ItemsViewModel(marca, modello, targa,numeroPosti, prezzo, posizione, immagine, immagineURL))
-                                    //restituisciImmagineMarca(obj[i].asJsonObject, binding2.immagineMarcaImageView)
-                                    //binding2.macchinaCardView.invalidate()
-                                    // prova
                                 }
-                                //sistemare l'errore E/RecyclerView: No adapter attached; skipping layout
                                 adapter = CustomAdapter(data)
                                 binding.recyclerView.adapter = adapter
 
@@ -119,7 +104,6 @@ class VisualizzazioneAutoActivity : AppCompatActivity(){
         )
     }
 
-    //passare come parametro url
     private fun restituisciImmagineMarca(jsonObject: JsonObject, imageView : ImageView){
 
         val url: String = jsonObject.get("imgMarcaAuto").asString

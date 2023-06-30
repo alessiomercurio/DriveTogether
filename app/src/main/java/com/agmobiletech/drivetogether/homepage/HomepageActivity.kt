@@ -28,7 +28,6 @@ import com.mapbox.geojson.Point
 import com.mapbox.maps.CameraOptions
 import com.mapbox.maps.MapView
 import com.mapbox.maps.MapboxMap
-import com.mapbox.maps.extension.style.expressions.dsl.generated.zoom
 import com.mapbox.maps.plugin.annotation.annotations
 import com.mapbox.maps.plugin.annotation.generated.OnPointAnnotationClickListener
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions
@@ -64,7 +63,7 @@ class HomepageActivity : AppCompatActivity() {
 
     private val requestPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()){ isGranted : Boolean ->
         if(isGranted){
-            Toast.makeText(this, "Permesso accordato", Toast.LENGTH_LONG).show()
+            // niente
         }
     }
 
@@ -134,27 +133,22 @@ class HomepageActivity : AppCompatActivity() {
         }
     }
     private fun addAnnotationToMap(longitudine : Double, latitudine: Double) {
-    // Create an instance of the Annotation API and get the PointAnnotationManager.
-            bitmapFromDrawableRes(
-                this@HomepageActivity,
-                R.drawable.map_car
-            )?.let {
-                val annotationApi = mapView.annotations
-                val pointAnnotationManager = annotationApi.createPointAnnotationManager()
-    // Set options for the resulting symbol layer.
-                val pointAnnotationOptions: PointAnnotationOptions = PointAnnotationOptions()
-    // Define a geographic coordinate.
-                    .withPoint(Point.fromLngLat(longitudine, latitudine))
-    // Specify the bitmap you assigned to the point annotation
-    // The bitmap will be added to map style automatically.
-                    .withIconImage(it)
-    // Add the resulting pointAnnotation to the map.
-                pointAnnotationManager.create(pointAnnotationOptions)
+        bitmapFromDrawableRes(
+            this@HomepageActivity,
+            R.drawable.map_car
+        )?.let {
+            val annotationApi = mapView.annotations
+            val pointAnnotationManager = annotationApi.createPointAnnotationManager()
+            val pointAnnotationOptions: PointAnnotationOptions = PointAnnotationOptions()
+                .withPoint(Point.fromLngLat(longitudine, latitudine))
+                .withIconImage(it)
 
-                pointAnnotationManager.addClickListener(OnPointAnnotationClickListener {
-                    mostraDialogPersonalizzato(this, longitudine, latitudine)
-                    true
-                })
+            pointAnnotationManager.create(pointAnnotationOptions)
+
+            pointAnnotationManager.addClickListener(OnPointAnnotationClickListener {
+                mostraDialogPersonalizzato(this, longitudine, latitudine)
+                true
+            })
         }
     }
     private fun bitmapFromDrawableRes(context: Context, @DrawableRes resourceId: Int) =
@@ -167,7 +161,6 @@ class HomepageActivity : AppCompatActivity() {
         return if (sourceDrawable is BitmapDrawable) {
             sourceDrawable.bitmap
         } else {
-// copying drawable object to not manipulate on the same reference
             val constantState = sourceDrawable.constantState ?: return null
             val drawable = constantState.newDrawable().mutate()
             val bitmap: Bitmap = Bitmap.createBitmap(
@@ -189,7 +182,7 @@ class HomepageActivity : AppCompatActivity() {
          * infine aggiungo un marker in base alla loro longitudine e latitudine
          */
 
-        //vedere le amcchine disponibili
+        //vedere le auto disponibili
         val query = "SELECT A.localizzazioneLongitudinale, A.localizzazioneLatitudinale " +
                 "FROM Automobile A, Utente U1, Possesso P " +
                 "WHERE A.targa = P.targaAutomobile " +
@@ -228,10 +221,6 @@ class HomepageActivity : AppCompatActivity() {
     }
 
     fun mostraDialogPersonalizzato(context: Context, longitudine: Double, latitudine: Double) {
-        /*val builder = android.app.AlertDialog.Builder(context)
-        val inflater = LayoutInflater.from(context)
-        val dialogView: View = inflater.inflate(R.layout.prenotazione_dialog, null)*/
-
         val dialog = PrenotazioneDialog(context)
 
         val query = "SELECT A.targa, A.marca, A.modello, A.numeroPosti, A.prezzo, A.localizzazioneNominale, U.nome, U.cognome" +
@@ -261,19 +250,12 @@ class HomepageActivity : AppCompatActivity() {
                         Toast.makeText(this@HomepageActivity, "Nessuna macchina disponibile", Toast.LENGTH_LONG).show()
                     }
                 }
-
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                     Toast.makeText(this@HomepageActivity, "Errore nel database", Toast.LENGTH_LONG).show()
                 }
             }
         )
-
-
         dialog.show()
-        /*
-        builder.setView(dialogView)
-        val dialog = builder.create()
-        dialog.show()*/
     }
 
     private fun restituisciMacchinaAttualmenteNoleggiata(dataAttuale : String){
@@ -286,6 +268,7 @@ class HomepageActivity : AppCompatActivity() {
                 "AND '${dataAttuale}' BETWEEN N.dataInizioNoleggio AND N.dataFineNoleggio " +
                 "ORDER BY N.dataInizioNoleggio DESC " +
                 "LIMIT 1;"
+
         ClientNetwork.retrofit.select(query).enqueue(
             object : Callback<JsonObject>{
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
@@ -297,8 +280,6 @@ class HomepageActivity : AppCompatActivity() {
                                 longitudine = obj?.asJsonObject?.get("localizzazioneLongitudinale").toString().trim('"').toDouble()
                                 latitudine = obj?.asJsonObject?.get("localizzazioneLatitudinale").toString().trim('"').toDouble()
                                 addAnnotationToMapNoleggiata(longitudine!!, latitudine!!)
-                            }else{
-                                Toast.makeText(this@HomepageActivity, "Nessuna auto noleggiata", Toast.LENGTH_LONG).show()
                             }
                         }
                     }
@@ -306,26 +287,19 @@ class HomepageActivity : AppCompatActivity() {
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                     Toast.makeText(this@HomepageActivity, "Errore", Toast.LENGTH_LONG).show()
                 }
-
             }
         )
     }
     private fun addAnnotationToMapNoleggiata(longitudine : Double, latitudine: Double) {
-        // Create an instance of the Annotation API and get the PointAnnotationManager.
         bitmapFromDrawableRes(
             this@HomepageActivity,
             R.drawable.car_marker_bianco
         )?.let {
             val annotationApi = mapView.annotations
             val pointAnnotationManager = annotationApi.createPointAnnotationManager()
-            // Set options for the resulting symbol layer.
             val pointAnnotationOptions: PointAnnotationOptions = PointAnnotationOptions()
-                // Define a geographic coordinate.
                 .withPoint(Point.fromLngLat(longitudine, latitudine))
-                // Specify the bitmap you assigned to the point annotation
-                // The bitmap will be added to map style automatically.
                 .withIconImage(it)
-            // Add the resulting pointAnnotation to the map.
             pointAnnotationManager.create(pointAnnotationOptions)
         }
     }

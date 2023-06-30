@@ -14,7 +14,6 @@ import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.File
 
 class LoginActivity : AppCompatActivity() {
 
@@ -28,7 +27,7 @@ class LoginActivity : AppCompatActivity() {
         filePre = this.getSharedPreferences("Credenziali", MODE_PRIVATE)
 
         if (!filePre.getString("Email", "").equals("")) {
-         //alla fase di logout, verranno eliminati email e password
+            //alla fase di logout, verranno eliminati email e password
             val intent = Intent(this, HomepageActivity::class.java)
             startActivity(intent)
         }else {
@@ -43,7 +42,6 @@ class LoginActivity : AppCompatActivity() {
                         Toast.LENGTH_LONG
                     ).show()
                 } else {
-                    // query
                     val query =
                         "SELECT email from webmobile.Utente WHERE email = '${binding.mailTextLogin.text}' AND password = '${binding.passwLoginText.text}'"
                     effettuaQuery(query)
@@ -52,7 +50,6 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.nuovoUtenteLoginText.setOnClickListener(){
-            //nella homepage richiedere autorizzazione per la posizione
             val intent = Intent(this, RegistrazioneActivity::class.java)
             startActivity(intent)
         }
@@ -62,7 +59,6 @@ class LoginActivity : AppCompatActivity() {
 
         ClientNetwork.retrofit.select(query).enqueue(
             object : Callback<JsonObject> {
-//
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                     if (response.isSuccessful) {
                         if (response.body() != null) {

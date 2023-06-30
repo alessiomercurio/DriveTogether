@@ -4,20 +4,15 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.provider.Settings.Global.getString
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.*
 import androidx.core.content.ContextCompat.startActivity
-import androidx.core.content.contentValuesOf
 import com.agmobiletech.drivetogether.ClientNetwork
 import com.agmobiletech.drivetogether.R
 import com.agmobiletech.drivetogether.databinding.CustomDialogBinding
-import com.agmobiletech.drivetogether.visualizzazioneAutoNoleggiate.VisualizzazioneAutoNoleggiate
 import com.google.gson.JsonObject
-import com.mapbox.maps.extension.style.expressions.dsl.generated.indexOf
-import com.mapbox.maps.plugin.Plugin
 import com.mapbox.search.ResponseInfo
 import com.mapbox.search.SearchEngine
 import com.mapbox.search.SearchEngineSettings
@@ -51,7 +46,6 @@ class CustomDialog(context: Context, marcaParametro : String?, modelloParametro 
     private var latidutine : Double? = null
     private var longitudine : Double? = null
     private var marca : String? = null
-    private var modello : String? = null
     private var marcaAutoPar = marcaParametro
     private var modelloAutoPar = modelloParametro
     private var targaAuto = targa
@@ -64,7 +58,6 @@ class CustomDialog(context: Context, marcaParametro : String?, modelloParametro 
 
         creaSpinner()
 
-        // prova
         searchResultsView = findViewById<SearchResultsView>(R.id.search_results_view)
         // searchResultsView initialization
 
@@ -96,40 +89,39 @@ class CustomDialog(context: Context, marcaParametro : String?, modelloParametro 
                 responseInfo: ResponseInfo
             ) {
                 // Nothing to do
-                System.out.println("Funziona9254")
             }
 
             override fun onError(e: Exception) {
-                System.out.println("Funziona9054")
+                // Nothing to do
             }
 
             override fun onFeedbackItemClick(responseInfo: ResponseInfo) {
-                System.out.println("Funziona102")
+                // Nothing to do
             }
 
             override fun onHistoryItemClick(historyRecord: HistoryRecord) {
-                System.out.println("Funziona00")
+                // Nothing to do
             }
 
             override fun onOfflineSearchResultSelected(
                 searchResult: OfflineSearchResult,
                 responseInfo: OfflineResponseInfo
             ) {
-                System.out.println("Funziona1312")
+                // Nothing to do
             }
 
             override fun onOfflineSearchResultsShown(
                 results: List<OfflineSearchResult>,
                 responseInfo: OfflineResponseInfo
             ) {
-                System.out.println("Funziona1")
+                // Nothing to do
             }
 
             override fun onPopulateQueryClick(
                 suggestion: SearchSuggestion,
                 responseInfo: ResponseInfo
             ) {
-                System.out.println("Funziona4")
+                // Nothing to do
             }
 
             //metodo che viene richiamato quando si clicca un risultato
@@ -151,7 +143,7 @@ class CustomDialog(context: Context, marcaParametro : String?, modelloParametro 
                 results: List<SearchResult>,
                 responseInfo: ResponseInfo
             ) {
-                System.out.println("Funziona23")
+                // Nothing to do
                 searchResultsView.visibility = View.VISIBLE
             }
 
@@ -162,6 +154,7 @@ class CustomDialog(context: Context, marcaParametro : String?, modelloParametro 
 
         binding.posizioneLeMieAuto.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                // Nothing to do
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -173,9 +166,8 @@ class CustomDialog(context: Context, marcaParametro : String?, modelloParametro 
             }
 
             override fun afterTextChanged(p0: Editable?) {
-
+                // Nothing to do
             }
-
         })
 
 
@@ -215,7 +207,6 @@ class CustomDialog(context: Context, marcaParametro : String?, modelloParametro 
                         }.png'" +
                         " WHERE targa = '${targaAuto?.trim()}'"
 
-                System.out.println(modificaAutoQuery)
                 ClientNetwork.retrofit.update(modificaAutoQuery).enqueue(
                     object : Callback<JsonObject> {
                         override fun onResponse(

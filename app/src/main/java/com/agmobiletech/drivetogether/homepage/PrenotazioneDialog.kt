@@ -1,8 +1,8 @@
 package com.agmobiletech.drivetogether.homepage
 
-import android.R
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
@@ -10,21 +10,17 @@ import android.view.View
 import android.view.Window
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import com.agmobiletech.drivetogether.ClientNetwork
-
 import com.agmobiletech.drivetogether.databinding.PrenotazioneDialogBinding
 import com.google.gson.JsonObject
-import com.squareup.moshi.Json
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.time.LocalDate
-import java.util.Date
 
 
 class PrenotazioneDialog(context : Context) : Dialog(context) {
@@ -44,11 +40,9 @@ class PrenotazioneDialog(context : Context) : Dialog(context) {
 
         filePre = context.getSharedPreferences("Credenziali", AppCompatActivity.MODE_PRIVATE)
 
-
         creaSpinner()
 
         binding.prenotaButton.setOnClickListener{
-
             val dataOdierna = LocalDate.now().toString()
 
             val queryAutoNoleggiate = "SELECT count(*) " +
@@ -94,8 +88,6 @@ class PrenotazioneDialog(context : Context) : Dialog(context) {
 
         val creaNoleggio = "INSERT INTO Noleggio(emailNoleggiatore, targaAutomobile, dataInizioNoleggio, dataFineNoleggio) " +
                 "VALUES ('$emailProprietario', '$targa', '$dataInizioNoleggio', '$dataFineNoleggio')"
-        Toast.makeText(context, creaNoleggio, Toast.LENGTH_LONG).show()
-
 
         ClientNetwork.retrofit.insert(creaNoleggio).enqueue(
             object : Callback<JsonObject>{
@@ -106,6 +98,8 @@ class PrenotazioneDialog(context : Context) : Dialog(context) {
                     if(response.isSuccessful){
                         val aggiornaAuto = "UPDATE Automobile SET flagNoleggio = 1 WHERE targa = '$targa'"
                         aggiornaAuto(aggiornaAuto)
+                        val i = Intent(context, HomepageActivity::class.java)
+                        startActivity(context, i, null)
                     }else{
                         Toast.makeText(context, "Errore ", Toast.LENGTH_LONG).show()
                     }
@@ -127,16 +121,6 @@ class PrenotazioneDialog(context : Context) : Dialog(context) {
         adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         spinner.adapter = adapterSpinner
-
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                var giorno = giorni[position] // Imposta il primo modello come predefinito
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                // Fai nulla
-            }
-        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

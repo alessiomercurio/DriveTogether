@@ -6,8 +6,6 @@ import android.view.MenuItem
 import com.agmobiletech.drivetogether.homepage.HomepageActivity
 import com.agmobiletech.drivetogether.inserimentoAuto.InserimentoAutoActivity
 import com.agmobiletech.drivetogether.profiloUtente.ProfiloUtenteActivity
-import com.agmobiletech.drivetogether.registrazione.RegistrazioneCompletataActivity
-import com.agmobiletech.drivetogether.visualizzazioneAuto.VisualizzazioneAutoActivity
 import com.agmobiletech.drivetogether.visualizzazioneAutoNoleggiate.VisualizzazioneAutoNoleggiate
 import com.google.android.material.bottomnavigation.BottomNavigationView
 

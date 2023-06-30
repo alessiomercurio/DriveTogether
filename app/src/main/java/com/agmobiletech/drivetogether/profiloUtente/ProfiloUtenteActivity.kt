@@ -1,6 +1,5 @@
 package com.agmobiletech.drivetogether.profiloUtente
 
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -12,14 +11,12 @@ import com.agmobiletech.drivetogether.ClientNetwork
 import com.agmobiletech.drivetogether.LoginActivity
 import com.agmobiletech.drivetogether.R
 import com.agmobiletech.drivetogether.databinding.ActivityProfiloUtenteBinding
-import com.agmobiletech.drivetogether.homepage.HomepageActivity
 import com.agmobiletech.drivetogether.visualizzazioneAuto.VisualizzazioneAutoActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.File
 
 
 class ProfiloUtenteActivity : AppCompatActivity() {
@@ -108,7 +105,6 @@ class ProfiloUtenteActivity : AppCompatActivity() {
                                 binding.telefonoProfilo.text = telefono
                                 binding.cartaCreditoProfilo.text = cartaCredito
                                 binding.passwordProfilo.text = password
-
                             }else{
                                 Toast.makeText(this@ProfiloUtenteActivity, "Credenziali errate", Toast.LENGTH_LONG).show()
                             }

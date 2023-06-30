@@ -1,7 +1,6 @@
 package com.agmobiletech.drivetogether.visualizzazioneAutoNoleggiate
 
 import android.app.AlertDialog
-import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -15,7 +14,6 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.agmobiletech.drivetogether.BottomNavigationManager
@@ -34,6 +32,7 @@ class VisualizzazioneAutoNoleggiate : AppCompatActivity() {
     lateinit var filePre : SharedPreferences
     private lateinit var navigationManager: BottomNavigationManager
     lateinit var adapter: CustomAdapterNoleggio
+
     @RequiresApi(Build.VERSION_CODES.O)
     private var dataAttuale = LocalDate.now().toString()
 
@@ -64,7 +63,7 @@ class VisualizzazioneAutoNoleggiate : AppCompatActivity() {
                 binding.cronologiaFrameLayout.visibility = View.VISIBLE
             }
         }
-        //fare on click sulla card view
+
         binding.macchinaNoleggiataCardView.setOnClickListener{
             mostraDialogConfermaRimozione(this)
         }
@@ -80,6 +79,7 @@ class VisualizzazioneAutoNoleggiate : AppCompatActivity() {
                 "AND '${dataAttuale}' BETWEEN N.dataInizioNoleggio AND N.dataFineNoleggio " +
                 "ORDER BY N.dataInizioNoleggio DESC " +
                 "LIMIT 1;"
+
         ClientNetwork.retrofit.select(query).enqueue(
             object : Callback<JsonObject>{
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
@@ -136,6 +136,7 @@ class VisualizzazioneAutoNoleggiate : AppCompatActivity() {
                 "AND U.email = '${filePre.getString("Email", "")}' " +
                 "AND '${dataAttuale}' >  N.dataFineNoleggio " +
                 "ORDER BY N.dataInizioNoleggio DESC"
+
         ClientNetwork.retrofit.select(query).enqueue(
             object : Callback<JsonObject>{
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
@@ -167,8 +168,6 @@ class VisualizzazioneAutoNoleggiate : AppCompatActivity() {
                                 binding.CronologiaButton.visibility = View.GONE
                             }
                         }
-                    }else{
-                        System.out.println(response.body())
                     }
                 }
 
@@ -217,6 +216,7 @@ class VisualizzazioneAutoNoleggiate : AppCompatActivity() {
     fun eseguiRimozioneContenuto() {
         val query = "DELETE FROM Noleggio " +
                     "WHERE idNoleggio = ${idNoleggio}"
+
         ClientNetwork.retrofit.remove(query).enqueue(
             object : Callback<JsonObject>{
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
@@ -236,6 +236,7 @@ class VisualizzazioneAutoNoleggiate : AppCompatActivity() {
         val queryUpdate = "UPDATE Automobile " +
                 "SET flagNoleggio = 0 " +
                 "WHERE targa = '${targaNoleggioAttuale}'"
+
         ClientNetwork.retrofit.update(queryUpdate).enqueue(
             object : Callback<JsonObject>{
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {

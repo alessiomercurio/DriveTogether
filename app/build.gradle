@@ -48,21 +48,18 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation 'com.google.android.material:material:1.9.0'
+
     //maps
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    
     //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation group: 'com.abubusoft', name: 'kripton-retrofit-converter', version: '3.1.0'
     implementation group: 'com.squareup.retrofit2', name: 'converter-gson', version: '2.3.0'
-    implementation group: 'com.squareup.retrofit2', name: 'converter-jackson', version: '2.3.0'
-    implementation group: 'com.squareup.retrofit2', name: 'converter-moshi', version: '2.3.0'
-    implementation group: 'com.squareup.retrofit2', name: 'converter-protobuf', version: '2.3.0'
-    implementation group: 'com.squareup.retrofit2', name: 'converter-wire', version: '2.3.0'
-    implementation group: 'com.squareup.retrofit2', name: 'converter-simplexml', version: '2.3.0'
 
+    //mapbox
     implementation 'com.mapbox.maps:android:10.14.1'
     implementation "com.mapbox.search:place-autocomplete:1.0.0-rc.6"
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
     implementation "com.mapbox.search:mapbox-search-android-ui:1.0.0-rc.6"
-    //picasso
 }

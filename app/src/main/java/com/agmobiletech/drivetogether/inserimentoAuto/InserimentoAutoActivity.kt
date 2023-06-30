@@ -2,16 +2,12 @@ package com.agmobiletech.drivetogether.inserimentoAuto
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.Window
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.view.isVisible
-import androidx.lifecycle.ReportFragment.Companion.reportFragment
 import com.agmobiletech.drivetogether.BottomNavigationManager
 import com.agmobiletech.drivetogether.ClientNetwork
 import com.agmobiletech.drivetogether.R
@@ -21,12 +17,9 @@ import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import androidx.lifecycle.lifecycleScope
-import com.mapbox.search.ApiType
 import com.mapbox.search.ResponseInfo
 import com.mapbox.search.SearchEngine
 import com.mapbox.search.SearchEngineSettings
-import com.mapbox.search.autocomplete.PlaceAutocomplete
 import com.mapbox.search.autofill.Query
 import com.mapbox.search.offline.OfflineResponseInfo
 import com.mapbox.search.offline.OfflineSearchEngine
@@ -38,9 +31,7 @@ import com.mapbox.search.result.SearchSuggestion
 import com.mapbox.search.ui.adapter.engines.SearchEngineUiAdapter
 import com.mapbox.search.ui.view.CommonSearchViewConfiguration
 import com.mapbox.search.ui.view.DistanceUnitType
-import com.mapbox.search.ui.view.SearchMode
 import com.mapbox.search.ui.view.SearchResultsView
-import kotlinx.coroutines.launch
 
 class InserimentoAutoActivity : AppCompatActivity(){
     //inserimento spinner
@@ -61,16 +52,14 @@ class InserimentoAutoActivity : AppCompatActivity(){
     private var marca : String? = null
     private var modello : String? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityInserimentoAutoBinding.inflate(layoutInflater)
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(binding.root)
 
-        // prova
-        searchResultsView = findViewById<SearchResultsView>(R.id.search_results_view)
         // searchResultsView initialization
+        searchResultsView = findViewById<SearchResultsView>(R.id.search_results_view)
 
         searchResultsView.initialize(
             SearchResultsView.Configuration(
@@ -92,7 +81,6 @@ class InserimentoAutoActivity : AppCompatActivity(){
             offlineSearchEngine = offlineSearchEngine,
         )
 
-
         searchEngineUiAdapter.addSearchListener(object : SearchEngineUiAdapter.SearchListener {
 
             override fun onSuggestionsShown(
@@ -100,40 +88,39 @@ class InserimentoAutoActivity : AppCompatActivity(){
                 responseInfo: ResponseInfo
             ) {
                 // Nothing to do
-                System.out.println("Funziona9254")
             }
 
             override fun onError(e: Exception) {
-                System.out.println("Funziona9054")
+                // Nothing to do
             }
 
             override fun onFeedbackItemClick(responseInfo: ResponseInfo) {
-                System.out.println("Funziona102")
+                // Nothing to do
             }
 
             override fun onHistoryItemClick(historyRecord: HistoryRecord) {
-                System.out.println("Funziona00")
+                // Nothing to do
             }
 
             override fun onOfflineSearchResultSelected(
                 searchResult: OfflineSearchResult,
                 responseInfo: OfflineResponseInfo
             ) {
-                System.out.println("Funziona1312")
+                // Nothing to do
             }
 
             override fun onOfflineSearchResultsShown(
                 results: List<OfflineSearchResult>,
                 responseInfo: OfflineResponseInfo
             ) {
-                System.out.println("Funziona1")
+                // Nothing to do
             }
 
             override fun onPopulateQueryClick(
                 suggestion: SearchSuggestion,
                 responseInfo: ResponseInfo
             ) {
-                System.out.println("Funziona4")
+                // Nothing to do
             }
 
             //metodo che viene richiamato quando si clicca un risultato
@@ -155,7 +142,6 @@ class InserimentoAutoActivity : AppCompatActivity(){
                 results: List<SearchResult>,
                 responseInfo: ResponseInfo
             ) {
-                System.out.println("Funziona23")
                 searchResultsView.visibility = View.VISIBLE
             }
 
@@ -177,7 +163,7 @@ class InserimentoAutoActivity : AppCompatActivity(){
             }
 
             override fun afterTextChanged(p0: Editable?) {
-
+                // Nothing to do
             }
 
         })
@@ -272,15 +258,11 @@ class InserimentoAutoActivity : AppCompatActivity(){
                val localizzazione = binding.posizionePlainText.text.trim().toString()
                val flagNoleggio = 0
                val imgMarcaAuto = scegliImmagine(marca)
-               //bisogna inserire anche nella tabella possesso la Targa e l'email (presa dal file di testo "credenziali.txt")
                val query = "INSERT INTO Automobile (targa, marca, modello, numeroPosti, prezzo, localizzazioneNominale, localizzazioneLongitudinale, localizzazioneLatitudinale, flagNoleggio, imgMarcaAuto) " +
                        "values ('${targa}', '${marca}', '${modello}', '${numeroPosti}', '${prezzo}', '${localizzazione}', '${longitudine}', '${latidutine}', '${flagNoleggio}', '${imgMarcaAuto}');" +
                        "INSERT INTO Possesso (emailProprietario, targaAutomobile) " +
                        "values ('${filePre.getString("Email", "")}', '${targa}')"
                effettuaQuery(query)
-               /*val queryPossesso = "INSERT INTO Possesso (emailProprietario, targaAutomobile) " +
-                       "values ('${filePre.getString("Email", "")}', '${targa}')"
-               effettuaQuery(queryPossesso)*/
             }
         }
     }
@@ -336,10 +318,5 @@ class InserimentoAutoActivity : AppCompatActivity(){
         val path = marca?.lowercase()
         
         return "media/images/loghi/${path}.png"
-    }
-
-    private fun closeSearchView() {
-        toolbar.collapseActionView()
-        searchView.setQuery("", false)
     }
 }

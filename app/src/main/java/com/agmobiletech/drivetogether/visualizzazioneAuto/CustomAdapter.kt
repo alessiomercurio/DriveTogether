@@ -1,20 +1,16 @@
 package com.agmobiletech.drivetogether.visualizzazioneAuto
 
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.agmobiletech.drivetogether.ClientNetwork
 import com.agmobiletech.drivetogether.R
 import com.agmobiletech.drivetogether.databinding.CardViewLayoutBinding
-import com.google.gson.JsonObject
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
-import javax.security.auth.callback.Callback
 
 class CustomAdapter(private val mList: List<ItemsViewModel>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>(){
     private var onClickListener: OnClickListener? = null

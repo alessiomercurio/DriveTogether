@@ -10,7 +10,6 @@ import com.agmobiletech.drivetogether.BottomNavigationManager
 import com.agmobiletech.drivetogether.ClientNetwork
 import com.agmobiletech.drivetogether.R
 import com.agmobiletech.drivetogether.databinding.ActivityModificaProfiloBinding
-import com.agmobiletech.drivetogether.registrazione.RegistrazioneCompletataActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.JsonObject
 import retrofit2.Call

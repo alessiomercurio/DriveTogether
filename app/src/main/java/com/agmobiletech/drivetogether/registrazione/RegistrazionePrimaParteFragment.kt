@@ -2,13 +2,10 @@ package com.agmobiletech.drivetogether.registrazione
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.DatePicker
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.agmobiletech.drivetogether.R
@@ -48,7 +45,7 @@ class RegistrazionePrimaParteFragment : Fragment(R.layout.registrazione_prima_pa
         binding.registrazioneButton.setOnClickListener{
             // controlliamo che tutti i campi non siano vuoti
             if(checkCampi()){
-                /* nel caso in cui il fragmnet della seconda parte della registrazione non esiste,
+                /* nel caso in cui il fragment della seconda parte della registrazione non esiste,
                 * aggiungiamo il seconod fragment effettuanod un replace, prima però aggiungiamo
                 * gli argomenti da passare al secondo fragment
                 * */

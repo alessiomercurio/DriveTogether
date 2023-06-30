@@ -1,6 +1,5 @@
 package com.agmobiletech.drivetogether.registrazione
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,9 +10,7 @@ import androidx.fragment.app.Fragment
 import com.agmobiletech.drivetogether.ClientNetwork
 import com.agmobiletech.drivetogether.R
 import com.agmobiletech.drivetogether.databinding.RegistrazioneSecondaParteFragmentBinding
-import com.agmobiletech.drivetogether.homepage.HomepageActivity
 import com.google.gson.JsonObject
-import com.squareup.moshi.Json
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

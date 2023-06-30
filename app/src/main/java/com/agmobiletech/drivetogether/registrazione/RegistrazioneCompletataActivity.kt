@@ -1,6 +1,5 @@
 package com.agmobiletech.drivetogether.registrazione
 
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -26,7 +25,6 @@ class RegistrazioneCompletataActivity : AppCompatActivity() {
         * creiamo il file in modo da simulare la sessione dell'utente,
         * cosí anche se l'applicazione viene chiusa comuqnue non c'é bisogno di passare
         * di nuovo dalla pagina di login
-        *
         * */
         val editor = filePre.edit()
         editor.putString("Email", intent.extras?.getString("email"))
