@@ -247,12 +247,10 @@ class CustomDialog(context: Context, marcaParametro : String?, modelloParametro 
     }
 
     private fun creaSpinner(){
-
-
         val spinnerMarca = binding.marcaLeMieAuto
         val spinnerModello = binding.modelloLeMieAuto
 
-        val marcheAuto = arrayOf("Audi", "BMW", "FIAT", "Ford", "Hyundai", "Jeep", "Lamborghini", "Mercedes", "Porsche", "Tesla", "Toyota", "Volkswagen")
+        val marcheAuto = arrayOf("Audi", "BMW", "Fiat", "Ford", "Hyundai", "Jeep", "Lamborghini", "Mercedes", "Porsche", "Tesla", "Toyota", "Volkswagen")
 
         val modelliAuto = arrayOf(
             arrayOf("A1", "A3", "A4", "A6", "Q3", "Q5"),
@@ -276,10 +274,11 @@ class CustomDialog(context: Context, marcaParametro : String?, modelloParametro 
         val posizione : Int = adapterMarche.getPosition(marcaAutoPar)
         spinnerMarca.setSelection(posizione)
 
+        System.out.println(adapterMarche.getPosition(marcaAutoPar))
+
         val adapterModelloParametro = ArrayAdapter(this@CustomDialog.context, android.R.layout.simple_spinner_item, modelliAuto[posizione])
         spinnerModello.adapter = adapterModelloParametro
         val posizioneModello : Int = adapterModelloParametro.getPosition(modelloAutoPar)
-        System.out.println("posizioneModello " + posizioneModello)
         spinnerModello.setSelection(posizioneModello)
 
         spinnerMarca.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{

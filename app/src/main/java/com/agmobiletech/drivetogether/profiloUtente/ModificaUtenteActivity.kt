@@ -82,10 +82,10 @@ class ModificaUtenteActivity : AppCompatActivity() {
         var check = false
 
         if(
-            binding.emailProfilo.text.isNotEmpty() && binding.nomeModificaProfilo.text.isNotEmpty()
-            && binding.dataNascitaProfilo.text.isNotEmpty() && binding.telefonoProfilo.text.isNotEmpty() &&
-            binding.cartaCreditoProfilo.text.isNotEmpty() && binding.passwordProfilo.text.isNotEmpty()
-            && binding.cognomeModificaProfilo.text.isNotEmpty()
+            binding.emailProfilo.text.trim().isNotEmpty() && binding.nomeModificaProfilo.text.trim().isNotEmpty()
+            && binding.dataNascitaProfilo.text.trim().isNotEmpty() && binding.telefonoProfilo.text.trim().isNotEmpty() &&
+            binding.cartaCreditoProfilo.text.trim().isNotEmpty() && binding.passwordProfilo.text.trim().isNotEmpty()
+            && binding.cognomeModificaProfilo.text.trim().isNotEmpty()
         ){
             check = true
             if(binding.emailProfilo.text.matches(patterNomeCognomeEmail)){
