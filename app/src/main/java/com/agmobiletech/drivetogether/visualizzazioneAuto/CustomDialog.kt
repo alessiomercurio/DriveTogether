@@ -178,41 +178,70 @@ class CustomDialog(context: Context, marcaParametro : String?, modelloParametro 
         })
 
 
-        binding.salvaButton.setOnClickListener{
-            val modificaAutoQuery = "UPDATE Automobile" +
-                    " SET targa = '${binding.targaLeMieAuto.text}'" +
-                    ", marca = '${binding.marcaLeMieAuto.selectedItem}'" +
-                    ", modello = '${binding.modelloLeMieAuto.selectedItem}'" +
-                    ", numeroPosti = '${binding.postiLeMieAuto.text}'" +
-                    ", prezzo = '${binding.prezzoLeMieAuto.text}'" +
-                    ", localizzazioneNominale = '${posizioneNominale}'" +
-                    ", localizzazioneLongitudinale = '${longitudine}'" +
-                    ", localizzazioneLatitudinale = '${latidutine}'" +
-                    ", imgMarcaAuto = 'media/images/loghi/${binding.marcaLeMieAuto.selectedItem.toString().lowercase()}.png'" +
-                    " WHERE targa = '${binding.targaLeMieAuto.text}'"
+        binding.salvaButton.setOnClickListener {
+            if (checkCampi() == 1) {
+                Toast.makeText(this@CustomDialog.context, "Campi vuoti", Toast.LENGTH_LONG).show()
+            } else if (checkCampi() == 2) {
+                Toast.makeText(
+                    this@CustomDialog.context,
+                    "Inserire un numero posti da 2 a 5",
+                    Toast.LENGTH_LONG
+                ).show()
+            } else if (checkCampi() == 3) {
+                Toast.makeText(
+                    this@CustomDialog.context,
+                    "Inserire un prezzo da 1 a 99 euro",
+                    Toast.LENGTH_LONG
+                ).show()
+            } else if (checkCampi() == 4) {
+                Toast.makeText(
+                    this@CustomDialog.context,
+                    "Inserire una targa valida",
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
+                val modificaAutoQuery = "UPDATE Automobile" +
+                        " SET targa = '${binding.targaLeMieAuto.text}'" +
+                        ", marca = '${binding.marcaLeMieAuto.selectedItem}'" +
+                        ", modello = '${binding.modelloLeMieAuto.selectedItem}'" +
+                        ", numeroPosti = '${binding.postiLeMieAuto.text}'" +
+                        ", prezzo = '${binding.prezzoLeMieAuto.text}'" +
+                        ", localizzazioneNominale = '${posizioneNominale}'" +
+                        ", localizzazioneLongitudinale = '${longitudine}'" +
+                        ", localizzazioneLatitudinale = '${latidutine}'" +
+                        ", imgMarcaAuto = 'media/images/loghi/${
+                            binding.marcaLeMieAuto.selectedItem.toString().lowercase()
+                        }.png'" +
+                        " WHERE targa = '${binding.targaLeMieAuto.text}'"
 
-            System.out.println(modificaAutoQuery)
-            ClientNetwork.retrofit.update(modificaAutoQuery).enqueue(
-                object : Callback<JsonObject>{
-                    override fun onResponse(
-                        call: Call<JsonObject>,
-                        response: Response<JsonObject>
-                    ) {
-                        if(response.isSuccessful){
-                            Toast.makeText(context, "Auto aggiornata", Toast.LENGTH_LONG).show()
-                            val intent = Intent(context, VisualizzazioneAutoActivity::class.java)
-                            startActivity(context, intent, null)
-                        }else{
-                            Toast.makeText(context, "Errore nell'aggiornare l'auto" + response, Toast.LENGTH_LONG).show()
+                System.out.println(modificaAutoQuery)
+                ClientNetwork.retrofit.update(modificaAutoQuery).enqueue(
+                    object : Callback<JsonObject> {
+                        override fun onResponse(
+                            call: Call<JsonObject>,
+                            response: Response<JsonObject>
+                        ) {
+                            if (response.isSuccessful) {
+                                Toast.makeText(context, "Auto aggiornata", Toast.LENGTH_LONG).show()
+                                val intent =
+                                    Intent(context, VisualizzazioneAutoActivity::class.java)
+                                startActivity(context, intent, null)
+                            } else {
+                                Toast.makeText(
+                                    context,
+                                    "Errore nell'aggiornare l'auto" + response,
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
                         }
-                    }
 
-                    override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                        Toast.makeText(context, "Errore del server", Toast.LENGTH_LONG).show()
-                    }
+                        override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                            Toast.makeText(context, "Errore del server", Toast.LENGTH_LONG).show()
+                        }
 
-                }
-            )
+                    }
+                )
+            }
         }
 
 
@@ -303,5 +332,20 @@ class CustomDialog(context: Context, marcaParametro : String?, modelloParametro 
                 // Fai nulla
             }
         }
+    }
+        fun checkCampi() : Int{
+        val pattern = Regex("^[A-Z][A-Z]-[0-9][0-9][0-9][A-Z][A-Z]$")
+
+        if (binding.targaLeMieAuto.text.trim().isEmpty() || binding.postiLeMieAuto.text.trim().isEmpty() ||
+            binding.prezzoLeMieAuto.text.trim().isEmpty() || binding.postiLeMieAuto.text.trim().isEmpty()) {
+            return 1
+        } else if (binding.postiLeMieAuto.text.trim().toString().toInt() < 1 || binding.postiLeMieAuto.text.trim().toString().toInt() > 5){
+            return 2
+        }else if (binding.prezzoLeMieAuto.text.trim().toString().toDouble() <= 0 || binding.prezzoLeMieAuto.text.trim().toString().toDouble() >= 100){
+            return 3
+        }else if (!binding.targaLeMieAuto.text.trim().matches(pattern)){
+            return 4
+        }
+        return 0
     }
 }
