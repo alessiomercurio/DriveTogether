@@ -1,7 +1,5 @@
 package com.agmobiletech.drivetogether.homepage
 
-import android.R.style
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
@@ -9,13 +7,10 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
-import android.icu.util.LocaleData
 import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.DrawableRes
@@ -28,19 +23,13 @@ import com.agmobiletech.drivetogether.BottomNavigationManager
 import com.agmobiletech.drivetogether.ClientNetwork
 import com.agmobiletech.drivetogether.R
 import com.agmobiletech.drivetogether.databinding.ActivityHomepageBinding
-import com.agmobiletech.drivetogether.visualizzazioneAuto.CustomAdapter
-import com.agmobiletech.drivetogether.visualizzazioneAuto.ItemsViewModel
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.google.gson.JsonObject
 import com.mapbox.geojson.Point
 import com.mapbox.maps.CameraOptions
 import com.mapbox.maps.MapView
 import com.mapbox.maps.MapboxMap
-import com.mapbox.maps.Style
 import com.mapbox.maps.plugin.annotation.annotations
 import com.mapbox.maps.plugin.annotation.generated.OnPointAnnotationClickListener
-import com.mapbox.maps.plugin.annotation.generated.PointAnnotation
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions
 import com.mapbox.maps.plugin.annotation.generated.createPointAnnotationManager
 import com.mapbox.maps.plugin.gestures.gestures
@@ -55,11 +44,13 @@ import java.time.LocalDate
 class HomepageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomepageBinding
     private lateinit var navigationManager: BottomNavigationManager
-    lateinit var mapView: MapView
-    lateinit var filePre: SharedPreferences
+    private lateinit var mapView: MapView
+    private lateinit var filePre: SharedPreferences
 
     private var longitudine : Double? = null
     private var latitudine : Double? = null
+
+    private lateinit var mapboxMap : MapboxMap
 
     private val onIndicatorBearingChangedListener = OnIndicatorBearingChangedListener {
         mapView.getMapboxMap().setCamera(CameraOptions.Builder().bearing(it).build())
@@ -76,7 +67,7 @@ class HomepageActivity : AppCompatActivity() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomepageBinding.inflate(layoutInflater)
@@ -98,25 +89,25 @@ class HomepageActivity : AppCompatActivity() {
         if(permissionPos == PackageManager.PERMISSION_GRANTED) {
             val permissionFine = ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
             if(permissionFine == PackageManager.PERMISSION_GRANTED) {
-                    mapView = binding.mapView
-                    mapView.visibility = View.VISIBLE
-                    mapView.getMapboxMap().loadStyleUri(
-                        com.mapbox.maps.Style.MAPBOX_STREETS,
-                        object : com.mapbox.maps.Style.OnStyleLoaded {
-                            @RequiresApi(Build.VERSION_CODES.O)
-                            override fun onStyleLoaded(style: com.mapbox.maps.Style) {
-                                mapView.location.updateSettings {
-                                    enabled = true
-                                    pulsingEnabled = false
-                                    caricaAutomobili()
-                                }
-                            }
-                        }
-                    )
+                mapView = binding.mapView
+                mapView.visibility = View.VISIBLE
+                mapView.getMapboxMap().also { mapboxMap ->
+                    this.mapboxMap = mapboxMap
+                }
 
-                    val locationComponentPlugin = mapView.location
-                    locationComponentPlugin.addOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
-                    locationComponentPlugin.addOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener)
+                mapView.getMapboxMap().loadStyleUri(
+                    com.mapbox.maps.Style.MAPBOX_STREETS
+                ) {
+                    mapView.location.updateSettings {
+                        enabled = true
+                        pulsingEnabled = false
+                        caricaAutomobili()
+                    }
+                }
+
+                val locationComponentPlugin = mapView.location
+                locationComponentPlugin.addOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
+                locationComponentPlugin.addOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener)
             }else{
                 binding.mapView.visibility = View.GONE
             }
@@ -240,7 +231,7 @@ class HomepageActivity : AppCompatActivity() {
         val inflater = LayoutInflater.from(context)
         val dialogView: View = inflater.inflate(R.layout.prenotazione_dialog, null)*/
 
-        var dialog = PrenotazioneDialog(this)
+        val dialog = PrenotazioneDialog(context)
 
         val query = "SELECT A.targa, A.marca, A.modello, A.numeroPosti, A.prezzo, A.localizzazioneNominale, U.nome, U.cognome" +
                 " FROM Automobile A, Utente U, Possesso P" +
