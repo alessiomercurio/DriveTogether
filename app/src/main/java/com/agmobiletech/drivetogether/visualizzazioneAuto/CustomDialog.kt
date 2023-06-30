@@ -37,7 +37,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CustomDialog(context: Context, marcaParametro : String?, modelloParametro : String?) : Dialog(context) {
+class CustomDialog(context: Context, marcaParametro : String?, modelloParametro : String?, targa : String?) : Dialog(context) {
 
     lateinit var binding : CustomDialogBinding
     private lateinit var toolbar: Toolbar
@@ -54,6 +54,7 @@ class CustomDialog(context: Context, marcaParametro : String?, modelloParametro 
     private var modello : String? = null
     private var marcaAutoPar = marcaParametro
     private var modelloAutoPar = modelloParametro
+    private var targaAuto = targa
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -212,7 +213,7 @@ class CustomDialog(context: Context, marcaParametro : String?, modelloParametro 
                         ", imgMarcaAuto = 'media/images/loghi/${
                             binding.marcaLeMieAuto.selectedItem.toString().lowercase()
                         }.png'" +
-                        " WHERE targa = '${binding.targaLeMieAuto.text}'"
+                        " WHERE targa = '${targaAuto?.trim()}'"
 
                 System.out.println(modificaAutoQuery)
                 ClientNetwork.retrofit.update(modificaAutoQuery).enqueue(
@@ -320,11 +321,12 @@ class CustomDialog(context: Context, marcaParametro : String?, modelloParametro 
                 adapterModelliMarca.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 spinnerModello.adapter = adapterModelliMarca
 
+
+                var posizioneModello : Int = 0
                 marca = marcheAuto[position]
-                if (marca != marcaAutoPar) {
-                        modello = marcaSelezionata[0] // Imposta il primo modello come predefinito
+                if (marca == marcaAutoPar) {
+                    posizioneModello = adapterModelloParametro.getPosition(modelloAutoPar) // Imposta il primo modello come predefinito
                 }
-                val posizioneModello : Int = adapterModelloParametro.getPosition(modelloAutoPar)
                 spinnerModello.setSelection(posizioneModello)
             }
 
