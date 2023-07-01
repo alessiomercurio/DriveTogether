@@ -27,7 +27,7 @@ class RegistrazioneSecondaParteFragment : Fragment(R.layout.registrazione_second
         savedInstanceState: Bundle?
     ): View {
         binding = RegistrazioneSecondaParteFragmentBinding.inflate(inflater)
-
+        val parentManager = parentFragmentManager
         // recuperiamo i campi da inserire nella query
         email = arguments?.getString("email")
         val nome = arguments?.getString("nome")
@@ -50,21 +50,50 @@ class RegistrazioneSecondaParteFragment : Fragment(R.layout.registrazione_second
                             "''" +
                             ")"
                     effettuaQuery(query)
-                }else{
-                    Toast.makeText(this.requireContext(), "Campi vuoi", Toast.LENGTH_LONG).show()
                 }
             }
         }else{
             Toast.makeText(this.requireContext(), "Problemi con i fragment", Toast.LENGTH_LONG).show()
         }
+
+        binding.tornaIndietroButton.setOnClickListener{
+            val transaction = parentManager.beginTransaction()
+            val newFrag = RegistrazionePrimaParteFragment()
+            newFrag.arguments = arguments
+            transaction.setCustomAnimations(R.anim.exit_to_left, R.anim.enter_from_left)
+            transaction.replace(R.id.fragmentContainerView, newFrag, "Fragment 2").commit()
+        }
         return binding.root
     }
 
     private fun checkCampi() : Boolean{
-        if(binding.telefonoRegistrazioneText.text.isNotEmpty() && binding.creditoRegistrazioneText.text.isNotEmpty()
-            && binding.passwordRegistrazioneText.text.isNotEmpty())
-            return true
-        return false
+        val patternTelefono = Regex("^[0-9]{10}")
+        val patternCartaDiCredito = Regex("^[0-9]{16}")
+        var check = false
+
+        if(
+            binding.telefonoRegistrazioneText.text.trim().isNotEmpty() && binding.creditoRegistrazioneText.text.trim().isNotEmpty()
+            && binding.passwordRegistrazioneText.text.trim().isNotEmpty()
+        ) {
+            check = true
+            if (!binding.telefonoRegistrazioneText.text.matches(patternTelefono)) {
+                check = false
+                Toast.makeText(
+                    this.requireContext(),
+                    "Inserire un numero di telefono valido",
+                    Toast.LENGTH_LONG
+                ).show()
+            } else if (!binding.creditoRegistrazioneText.text.matches(patternCartaDiCredito)) {
+                check = false
+                Toast.makeText(
+                    this.requireContext(),
+                    "Inserire una numero di carta valido",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }else
+            Toast.makeText(this.requireContext(), "I campi sono vuoti", Toast.LENGTH_LONG).show()
+        return check
     }
 
     /*

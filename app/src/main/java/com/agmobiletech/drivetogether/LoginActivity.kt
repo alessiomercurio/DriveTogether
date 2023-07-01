@@ -65,7 +65,6 @@ class LoginActivity : AppCompatActivity() {
                             val obj = response.body()?.getAsJsonArray("queryset")
                             if(obj?.size() != 0 && obj?.get(0)?.asJsonObject?.get("email")?.equals("null") == false){
                                 // cambiamo activity e salviamo le credenziali
-                                Toast.makeText(this@LoginActivity, "Credenziali giuste", Toast.LENGTH_LONG).show()
                                 val email = binding.mailTextLogin.text.toString().trim()
                                 val password = binding.passwLoginText.text.toString().trim()
 

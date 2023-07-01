@@ -95,7 +95,7 @@
                 android:background="@null"
                 android:ems="10"
                 android:hint="Password"
-                android:inputType="text" />
+                android:inputType="textPassword" />
         </LinearLayout>
 
         <Button
@@ -107,6 +107,17 @@
             android:layout_marginTop="15dp"
             android:backgroundTint="#064F51"
             android:text="conferma" />
+
+        <Button
+            android:id="@+id/tornaIndietroButton"
+            android:layout_width="270dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="2dp"
+            android:layout_weight="1"
+            android:backgroundTint="#064F51"
+            android:text="Torna indietro"
+            app:cornerRadius="50dp" />
 
     </LinearLayout>
 </FrameLayout>

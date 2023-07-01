@@ -25,7 +25,12 @@ class RegistrazionePrimaParteFragment : Fragment(R.layout.registrazione_prima_pa
     ): View {
         binding = RegistrazionePrimaParteFragmentBinding.inflate(inflater)
         val parentManager = parentFragmentManager
-
+        if(arguments != null){
+            binding.emailRegistrazionePlainText.setText(arguments?.getString("email"))
+            binding.nomeRegistrazionePlainText.setText(arguments?.getString("nome"))
+            binding.cognomeRegistrazionePlainText.setText(arguments?.getString("cognome"))
+            binding.dataEditText.setText(arguments?.getString("data"))
+        }
         // inizializziamo un oggetto di tipo calendar da utilizzare per il date picker
         val calendar = Calendar.getInstance()
 
@@ -65,8 +70,6 @@ class RegistrazionePrimaParteFragment : Fragment(R.layout.registrazione_prima_pa
                         transaction.replace(R.id.fragmentContainerView, newFrag, "Fragment 2").commit()
                     }
                 }
-            }else{
-                Toast.makeText(this.requireContext(),  "Campi vuoi", Toast.LENGTH_LONG).show()
             }
         }
         return binding.root
@@ -90,10 +93,28 @@ class RegistrazionePrimaParteFragment : Fragment(R.layout.registrazione_prima_pa
     }
 
     private fun checkCampi() : Boolean{
-        if(binding.emailRegistrazionePlainText.text.isNotEmpty() && binding.nomeRegistrazionePlainText.text.isNotEmpty()
-            && binding.dataEditText.text.isNotEmpty() && binding.cognomeRegistrazionePlainText.text.isNotEmpty())
-            return true
-        return false
+        val patterNomeCognomeEmail = Regex("^[0-9]+")
+        var check = false
+
+        if(
+            binding.emailRegistrazionePlainText.text.trim().isNotEmpty() && binding.nomeRegistrazionePlainText.text.trim().isNotEmpty()
+            && binding.cognomeRegistrazionePlainText.text.trim().isNotEmpty() && binding.emailRegistrazionePlainText.text.trim().isNotEmpty()
+        ){
+            check = true
+            if(binding.emailRegistrazionePlainText.text.matches(patterNomeCognomeEmail)){
+                check = false
+                Toast.makeText(this.requireContext(), "Inserire una email valida", Toast.LENGTH_LONG).show()
+            }else if(binding.nomeRegistrazionePlainText.text.matches(patterNomeCognomeEmail)){
+                check = false
+                Toast.makeText(this.requireContext(), "Inserire un nome valido", Toast.LENGTH_LONG).show()
+            }
+            else if(binding.cognomeRegistrazionePlainText.text.matches(patterNomeCognomeEmail)){
+                check = false
+                Toast.makeText(this.requireContext(), "Inserire un cognome valido", Toast.LENGTH_LONG).show()
+            }
+        }else
+            Toast.makeText(this.requireContext(), "I campi sono vuoti", Toast.LENGTH_LONG).show()
+        return check
     }
 
     private fun fragmentExists(parentManager: FragmentManager, tag: String): Boolean {
