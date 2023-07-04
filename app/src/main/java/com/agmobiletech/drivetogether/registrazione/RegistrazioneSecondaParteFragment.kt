@@ -39,15 +39,14 @@ class RegistrazioneSecondaParteFragment : Fragment(R.layout.registrazione_second
             binding.confermaRegistrazioneButton.setOnClickListener{
                 if(checkCampi()){
                     // creiamo la query e la eseguiamo
-                    val query = "INSERT INTO Utente(email, nome, cognome, dataNascita, telefono, cartaCredito, password, immagineProfilo) VALUES(" +
+                    val query = "INSERT INTO Utente(email, nome, cognome, dataNascita, telefono, cartaCredito, password) VALUES(" +
                             "'${email}'," +
                             "'${nome}'," +
                             "'${cognome}'," +
                             "'${data}'," +
                             "${binding.telefonoRegistrazioneText.text.toString().trim()}," +
                             "${binding.creditoRegistrazioneText.text.toString().trim()}," +
-                            "'${binding.passwordRegistrazioneText.text.toString().trim()}'," +
-                            "''" +
+                            "'${binding.passwordRegistrazioneText.text.toString().trim()}'" +
                             ")"
                     effettuaQuery(query)
                 }

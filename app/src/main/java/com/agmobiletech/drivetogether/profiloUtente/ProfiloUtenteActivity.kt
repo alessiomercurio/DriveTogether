@@ -38,7 +38,7 @@ class ProfiloUtenteActivity : AppCompatActivity() {
         filePre = this.getSharedPreferences("Credenziali", MODE_PRIVATE)
 
         val query =
-            "SELECT email, nome, cognome, dataNascita, telefono, cartaCredito, password, immagineProfilo from webmobile.Utente WHERE email = '${filePre.getString("Email", "")}' AND password = '${filePre.getString("Passw", "")}'"
+            "SELECT email, nome, cognome, dataNascita, telefono, cartaCredito, password from webmobile.Utente WHERE email = '${filePre.getString("Email", "")}' AND password = '${filePre.getString("Passw", "")}'"
         recuperaProfilo(query)
 
         // Listener sul button per effettuare il logout, eliminiamo il file che veniva utilizzato per
@@ -79,7 +79,6 @@ class ProfiloUtenteActivity : AppCompatActivity() {
         var telefono = ""
         var cartaCredito = ""
         var password = ""
-        var immagineProfilo = ""
         ClientNetwork.retrofit.select(query).enqueue(
             object : Callback<JsonObject> {
                 //
@@ -96,7 +95,6 @@ class ProfiloUtenteActivity : AppCompatActivity() {
                                 telefono = obj.get(0).asJsonObject.get("telefono").toString().replace("\"", "")
                                 cartaCredito = obj.get(0).asJsonObject.get("cartaCredito").toString().replace("\"", "")
                                 password = obj.get(0).asJsonObject.get("password").toString().replace("\"", "")
-                                immagineProfilo = obj.get(0).asJsonObject.get("immagineProfilo").toString().replace("\"", "")
 
                                 binding.emailProfilo.text = email
                                 binding.nomeProfilo.text = nome
