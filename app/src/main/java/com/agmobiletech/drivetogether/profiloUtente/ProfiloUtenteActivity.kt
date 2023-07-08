@@ -81,10 +81,8 @@ class ProfiloUtenteActivity : AppCompatActivity() {
         var password = ""
         ClientNetwork.retrofit.select(query).enqueue(
             object : Callback<JsonObject> {
-                //
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                     if (response.isSuccessful) {
-                        System.out.println(response.body())
                         if (response.body() != null) {
                             val obj = response.body()?.getAsJsonArray("queryset")
                             if(obj?.size() != 0 && obj?.get(0)?.asJsonObject?.get("email")?.equals("null") == false){
@@ -113,7 +111,7 @@ class ProfiloUtenteActivity : AppCompatActivity() {
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                     Toast.makeText(
                         this@ProfiloUtenteActivity,
-                        "Errore del Database",
+                        "Errore nella connessione, prova ad effettuare nuovamente il login",
                         Toast.LENGTH_LONG
                     ).show()
                 }

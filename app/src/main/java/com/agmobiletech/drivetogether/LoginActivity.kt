@@ -86,7 +86,7 @@ class LoginActivity : AppCompatActivity() {
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                     Toast.makeText(
                         this@LoginActivity,
-                        "Errore del Database",
+                        "Errore del Database o assenza di connessione",
                         Toast.LENGTH_LONG
                     ).show()
                 }

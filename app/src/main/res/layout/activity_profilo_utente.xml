@@ -50,7 +50,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_bold"
                     android:gravity="center"
-                    android:text="Name"
+                    android:text="Assenza di"
                     android:textAllCaps="true"
                     android:textSize="20sp" />
 
@@ -61,7 +61,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_bold"
                     android:gravity="center"
-                    android:text="surname"
+                    android:text="connessione"
                     android:textAllCaps="true"
                     android:textSize="20sp" />
             </LinearLayout>

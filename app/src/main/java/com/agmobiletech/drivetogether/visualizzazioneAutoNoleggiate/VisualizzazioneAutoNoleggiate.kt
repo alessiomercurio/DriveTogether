@@ -102,6 +102,7 @@ class VisualizzazioneAutoNoleggiate : AppCompatActivity() {
                     }
                 }
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    Toast.makeText(this@VisualizzazioneAutoNoleggiate, "Errore nel database o di connessione, riprova ad effettuare il login", Toast.LENGTH_LONG).show()
                     binding.marcaAutoNoleggiataImageView.setImageResource(R.drawable.carmarker)
                 }
 

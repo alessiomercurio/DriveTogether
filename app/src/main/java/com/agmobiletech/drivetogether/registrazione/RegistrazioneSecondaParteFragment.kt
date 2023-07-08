@@ -123,7 +123,7 @@ class RegistrazioneSecondaParteFragment : Fragment(R.layout.registrazione_second
                     System.out.println(query + "2")
                     Toast.makeText(
                         this@RegistrazioneSecondaParteFragment.requireContext(),
-                        "Errore del Database",
+                        "Errore del Database o di connessione, riprova ad effettuare la registrazione",
                         Toast.LENGTH_LONG
                     ).show()
                 }

@@ -16,7 +16,6 @@ import com.agmobiletech.drivetogether.ClientNetwork
 import com.agmobiletech.drivetogether.R
 import com.agmobiletech.drivetogether.databinding.ActivityVisualizzazioneAutoBinding
 import com.agmobiletech.drivetogether.databinding.CardViewLayoutBinding
-import com.agmobiletech.drivetogether.databinding.CustomDialogBinding
 import com.google.gson.JsonObject
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -25,9 +24,9 @@ import retrofit2.Response
 
 class VisualizzazioneAutoActivity : AppCompatActivity(){
     lateinit var binding : ActivityVisualizzazioneAutoBinding
-    lateinit var binding2 : CardViewLayoutBinding
+    private lateinit var binding2 : CardViewLayoutBinding
     private lateinit var navigationManager: BottomNavigationManager
-    lateinit var filePre: SharedPreferences
+    private lateinit var filePre: SharedPreferences
     lateinit var adapter: CustomAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,7 +96,7 @@ class VisualizzazioneAutoActivity : AppCompatActivity(){
                 }
 
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                    Toast.makeText(this@VisualizzazioneAutoActivity, "Errore nel database", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@VisualizzazioneAutoActivity, "Errore nel database o di connessione, riprova ad effettuare il login", Toast.LENGTH_LONG).show()
                 }
 
             }
