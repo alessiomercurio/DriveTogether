@@ -3,11 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
-    <!-- Always include this permission -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
-    <!-- Include only if your app benefits from precise location access. -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -24,7 +20,6 @@
         <service
             android:name=".homepage.HomepageActivity"
             android:foregroundServiceType="location">
-        <!-- Any inner elements would go here. -->
         </service>
 
 
