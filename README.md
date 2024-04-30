@@ -19,4 +19,4 @@ your car's location.
 ### See the list of past rents and current ones  
 Finally you can see which cars you have rented and the current one, so that you may decide to end the rent prematurely  
 
-For more information: https://www.linkedin.com/in/alessio-mercurio/?profileId=ACoAACzw3zgBzke-gsy2nMmwfMmMhpPuc8I5e9E
+For more information: https://www.linkedin.com/in/alessio-mercurio/
